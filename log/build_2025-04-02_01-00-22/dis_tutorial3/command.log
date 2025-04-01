@@ -1,0 +1,6 @@
+Invoking command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3 -DCMAKE_INSTALL_PREFIX=/home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3
+Invoked command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3 -DCMAKE_INSTALL_PREFIX=/home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3
+Invoking command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3 -- -j12 -l12
+Invoked command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3 -- -j12 -l12
+Invoking command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3
+Invoked command in '/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3
