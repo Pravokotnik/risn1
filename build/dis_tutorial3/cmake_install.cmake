@@ -55,6 +55,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dis_tutorial3" TYPE PROGRAM FILES
     "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/detect_people.py"
     "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/robot_commander.py"
+    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dp2.py"
     )
 endif()
 

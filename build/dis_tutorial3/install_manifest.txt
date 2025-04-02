@@ -124,6 +124,7 @@
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/share/dis_tutorial3//maps/map.pgm
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/lib/dis_tutorial3/detect_people.py
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/lib/dis_tutorial3/robot_commander.py
+/home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/lib/dis_tutorial3/dp2.py
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/share/ament_index/resource_index/package_run_dependencies/dis_tutorial3
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/share/ament_index/resource_index/parent_prefix_path/dis_tutorial3
 /home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3/share/dis_tutorial3/environment/ament_prefix_path.sh
