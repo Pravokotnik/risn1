@@ -61,10 +61,10 @@ class detect_faces(Node):
 		self.known_face_ids = []
 		self.face_id_counter = 0
 
-		# Detection filter
+		# Detection filtering
 		self.face_detection_counts = {}
 		self.detection_threshold = 10
-		self.distance_threshold = 0.5  # meters
+		self.distance_threshold = 0.2  # meters
 
 		self.get_logger().info(f"Node has been initialized! Will publish face markers to {marker_topic}.")
 
@@ -111,7 +111,7 @@ class detect_faces(Node):
 			cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
 			self.get_logger().info(f"Running inference on image...")
 
-			res = self.model.track(cv_image, imgsz=(256, 320), show=False, verbose=False, classes=[0], device=self.device, persist=True)
+			res = self.model.track(cv_image, imgsz=(640, 640), show=False, verbose=False, classes=[0], device=self.device, persist=True)
 
 			for x in res:
 				bbox = x.boxes.xyxy
@@ -210,10 +210,12 @@ class detect_faces(Node):
 				if dist_to_prev < self.distance_threshold:
 					self.face_detection_counts[face_id] = self.face_detection_counts.get(face_id, 0) + 1
 					self.get_logger().info(f"Face {face_id} seen nearby {self.face_detection_counts[face_id]} times")
+
 					if self.face_detection_counts[face_id] >= self.detection_threshold:
 						should_save = True
 				else:
-					self.face_detection_counts[face_id] = 1
+					self.get_logger().info(f"Face ID {face_id} detected far from previous location (distance = {dist_to_prev:.2f}m). Ignoring.")
+					continue  # don't update or reset count
 			else:
 				self.face_detection_counts[face_id] = 1
 				should_save = True  # allow saving first time

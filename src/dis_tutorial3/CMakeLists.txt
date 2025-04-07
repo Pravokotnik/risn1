@@ -30,6 +30,9 @@ install(PROGRAMS
   scripts/detect_people.py
   scripts/robot_commander.py
   scripts/dp2.py
+  scripts/clicked_point_listener.py
+  scripts/start_round.py
+  scripts/get_coords.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

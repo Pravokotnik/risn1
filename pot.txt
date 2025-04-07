@@ -1,0 +1,4 @@
+[INFO] [1744024933.594453055] [pose_listener]: Position -> x: -0.92, y: 0.05 | Orientation (yaw): 178.35°
+[INFO] [1744024982.130493406] [pose_listener]: Position -> x: -1.67, y: -0.71 | Orientation (yaw): 89.70°
+[INFO] [1744024996.008866305] [pose_listener]: Position -> x: -1.66, y: -0.72 | Orientation (yaw): -179.32°
+[INFO] [1744025014.608857296] [pose_listener]: Position -> x: -1.66, y: -0.70 | Orientation (yaw): -90.73°a

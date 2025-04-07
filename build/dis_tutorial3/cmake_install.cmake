@@ -56,6 +56,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/detect_people.py"
     "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/robot_commander.py"
     "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dp2.py"
+    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/clicked_point_listener.py"
+    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/start_round.py"
+    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/get_coords.py"
     )
 endif()
 
