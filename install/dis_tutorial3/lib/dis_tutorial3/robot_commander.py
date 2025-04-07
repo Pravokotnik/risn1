@@ -35,6 +35,8 @@ from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 from rclpy.qos import qos_profile_sensor_data
 
+import subprocess
+
 
 class TaskResult(Enum):
     UNKNOWN = 0
@@ -361,6 +363,10 @@ def main(args=None):
         while not rc.isTaskComplete():
             rc.info("Waiting for the task to complete...")
             time.sleep(1)
+
+        text = "Hello, you have a beautiful face!"
+        subprocess.run(["espeak", text])
+
         
         time.sleep(1)
 
