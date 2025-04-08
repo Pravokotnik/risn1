@@ -48,7 +48,7 @@
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 39,
+				"line" : 42,
 				"parent" : 0
 			},
 			{
@@ -254,7 +254,10 @@
 				"scripts/clicked_point_listener.py",
 				"scripts/start_round.py",
 				"scripts/get_coords.py",
-				"scripts/detect_rings.py"
+				"scripts/detect_rings.py",
+				"scripts/dr2.py",
+				"scripts/dr3.py",
+				"scripts/dr4.py"
 			],
 			"type" : "file"
 		},
