@@ -33,6 +33,7 @@ install(PROGRAMS
   scripts/clicked_point_listener.py
   scripts/start_round.py
   scripts/get_coords.py
+  scripts/detect_rings.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
