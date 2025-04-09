@@ -37,6 +37,7 @@ install(PROGRAMS
   scripts/dr2.py
   scripts/dr3.py
   scripts/dr4.py
+  scripts/detect_people_custom.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
