@@ -80,7 +80,7 @@ class DepthRingDetector(Node):
         
         for contour in invalid_contours:
             # Skip very small contours (likely noise)
-            if cv2.contourArea(contour) < 20:  # Reduced minimum area for small rings
+            if cv2.contourArea(contour) < 30:
                 continue
                 
             # Fit an ellipse to the contour if it has enough points
@@ -89,12 +89,12 @@ class DepthRingDetector(Node):
                     ellipse = cv2.fitEllipse(contour)
                     
                     # Skip very small ellipses
-                    if min(ellipse[1]) < 3:  # Reduced minimum size for small rings
+                    if min(ellipse[1]) < 5:
                         continue
                         
                     # Skip very elongated ellipses (not likely to be rings)
                     aspect_ratio = max(ellipse[1]) / (min(ellipse[1]) + 1e-6)
-                    if aspect_ratio > 2.5:  # More lenient aspect ratio
+                    if aspect_ratio > 3.0:
                         continue
                         
                     # Create masks for analysis
@@ -102,9 +102,8 @@ class DepthRingDetector(Node):
                     cv2.ellipse(center_mask, ellipse, 255, -1)
                     
                     # Create a slightly larger ellipse to capture the ring
-                    # Using smaller expansion factor for small rings
                     outer_center = ellipse[0]
-                    outer_axes = (ellipse[1][0] * 1.15, ellipse[1][1] * 1.15)  # Only 15% larger
+                    outer_axes = (ellipse[1][0] * 1.3, ellipse[1][1] * 1.3)  # 30% larger
                     outer_angle = ellipse[2]
                     outer_ellipse = (outer_center, outer_axes, outer_angle)
                     
@@ -124,7 +123,7 @@ class DepthRingDetector(Node):
                     # This is a potential ring if:
                     # 1. The center is mostly empty (invalid depth values)
                     # 2. The surrounding ring area has valid depth values
-                    if center_invalid_ratio > 0.6 and ring_valid_ratio > 0.4:  # Stricter ratios for better detection
+                    if center_invalid_ratio > 0.5 and ring_valid_ratio > 0.3:
                         # Calculate average depth of the ring
                         ring_depths = depth_image[valid_mask & (ring_mask > 0)]
                         avg_depth = np.mean(ring_depths) if len(ring_depths) > 0 else 0
@@ -132,8 +131,8 @@ class DepthRingDetector(Node):
                         ring_candidates.append((ellipse, outer_ellipse, avg_depth))
                         
                         # Draw the ring on the processed depth image
-                        cv2.ellipse(depth_color, ellipse, (255, 0, 0), 1)  # Inner ellipse in blue
-                        cv2.ellipse(depth_color, outer_ellipse, (0, 0, 255), 1)  # Outer ellipse in red
+                        cv2.ellipse(depth_color, ellipse, (255, 0, 0), 2)  # Inner ellipse in blue
+                        cv2.ellipse(depth_color, outer_ellipse, (0, 0, 255), 2)  # Outer ellipse in red
                     
                 except Exception as e:
                     # Skip if ellipse fitting fails
