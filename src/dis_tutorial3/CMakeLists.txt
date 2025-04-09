@@ -34,7 +34,9 @@ install(PROGRAMS
   scripts/start_round.py
   scripts/get_coords.py
   scripts/detect_rings.py
-  scripts/detect_rings_mod.py
+  scripts/dr2.py
+  scripts/dr3.py
+  scripts/dr4.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
