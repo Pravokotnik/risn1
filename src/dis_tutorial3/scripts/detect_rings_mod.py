@@ -10,7 +10,7 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import PointStamped, Vector3, Pose
 from cv_bridge import CvBridge, CvBridgeError
 from visualization_msgs.msg import Marker, MarkerArray
-from std_msgs.msg import ColorRGBA
+from std_msgs.msg import ColorRGBA, String
 from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 
@@ -35,18 +35,31 @@ class RingDetector(Node):
         self.marker_array = MarkerArray()
         self.marker_num = 1
 
+        self.latest_rgb_image = None
+
         # Subscribe to the image and/or depth topic
         self.depth_sub = self.create_subscription(Image, "/oakd/rgb/preview/depth", self.image_callback, 1)
+        self.image_sub = self.create_subscription(Image, "/oakd/rgb/preview/image_raw", self.rgb_callback, 1)
 
         # Publiser for the visualization markers
         # self.marker_pub = self.create_publisher(Marker, "/ring", QoSReliabilityPolicy.BEST_EFFORT)
 
         # Object we use for transforming between coordinate frames
         # self.tf_buf = tf2_ros.Buffer()
-        # self.tf_listener = tf2_ros.TransformListener(self.tf_buf)     
+        # self.tf_listener = tf2_ros.TransformListener(self.tf_buf)   
+
+        # publisher za barvo
+        self.color_publisher = self.create_publisher(String, "/ring/color", 10)
+
+    def rgb_callback(self, data):
+        try:
+            self.latest_rgb_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        except CvBridgeError as e:
+            print(e)
+    
 
     def image_callback(self, data):
-        self.get_logger().info(f"I got a new image! Will try to find rings...")
+        #self.get_logger().info(f"I got a new image! Will try to find rings...")
 
         try:
             depth_image = self.bridge.imgmsg_to_cv2(data, "32FC1")
@@ -163,10 +176,107 @@ class RingDetector(Node):
             y_max = y2 if y2 < imv.shape[1] else imv.shape[1]
 
         if len(candidates)>0:
-                cv2.imshow("Detected rings",imv)
-                cv2.waitKey(1)
+            
+            rgb_img = self.latest_rgb_image.copy()
+            cv2.imshow("RGB Image", rgb_img)
+            rings_rgb = rgb_img.copy()
 
+            for c in candidates:
+                # centri elips
+                e1 = c[0]
+                e2 = c[1]
+
+                # risemo elipse
+                cv2.ellipse(rings_rgb, e1, (0, 255, 0), 2)
+                cv2.ellipse(rings_rgb, e2, (0, 255, 0), 2)
+
+                center_x = int(e1[0][0])
+                center_y = int(e1[0][1])
+
+                ring_color = self.detect_ring_color(rgb_img, center_x, center_y, e1, e2)
+
+                cv2.putText(imv, ring_color, (center_x, center_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                cv2.putText(rings_rgb, ring_color, (center_x, center_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+                self.publish_color(ring_color)
+
+
+            cv2.imshow("Detected rings",imv)
+            cv2.waitKey(1)
+
+            cv2.imshow("RGB Rings", rings_rgb)
+            cv2.waitKey(1)
+
+    def detect_ring_color(self, rgb_image, center_x, center_y, e1, e2):
+
+        inner_ellipse = e2 if e1[1][0] * e1[1][1] > e2[1][0] * e2[1][1] else e1
+        outer_ellipse = e1 if inner_ellipse == e2 else e2
+
+        inner_radius = min(inner_ellipse[1]) / 2
+        outer_radius = max(outer_ellipse[1]) / 2
+
+        ring_radius = (inner_radius + outer_radius) / 2
+
+        num_samples = 8
+        samples = []
+
+        for i in range(num_samples):
+            angle = 2 * np.pi * i / num_samples
+            sample_x = int(center_x + ring_radius * np.cos(angle))
+            sample_y = int(center_y + ring_radius * np.sin(angle))
+            
+            # Make sure coordinates are within image bounds
+            if 0 <= sample_x < rgb_image.shape[1] and 0 <= sample_y < rgb_image.shape[0]:
+                samples.append(rgb_image[sample_y, sample_x])
         
+        if not samples:
+            return "unknown"
+        
+        avg_color = np.mean(samples, axis=0)
+        b, g, r = avg_color
+
+        self.get_logger().info(f"Average color: B={b}, G={g}, R={r}")
+
+        if r > 100 and g < 80 and b < 80:
+            return "red"
+        elif r < 80 and g > 100 and b < 80:
+            return "green"
+        elif r < 80 and g < 80 and b > 100:
+            return "blue"
+        elif r > 100 and g > 100 and b < 80:
+            return "yellow"
+        elif r > 100 and g < 80 and b > 100:
+            return "purple"
+        elif r > 100 and g > 80 and b > 80:
+            return "pink"
+        elif r > 180 and g > 180 and b > 180:
+            return "white"
+        elif r < 80 and g < 80 and b < 80:
+            return "black"
+        else:
+            return "unknown"
+        
+        
+    def publish_color(self, color):
+        """Publish the detected color to a ROS topic"""
+        # Optional: Add a cooldown mechanism
+        if hasattr(self, 'last_published_color') and color == self.last_published_color:
+            if hasattr(self, 'publish_cooldown'):
+                self.publish_cooldown -= 1
+                if self.publish_cooldown > 0:
+                    return
+        
+        # Reset cooldown and store the new color
+        self.last_published_color = color
+        self.publish_cooldown = 5  # Wait 5 frames before publishing the same color again
+        
+        # Create and publish the message
+        msg = String()
+        msg.data = color
+        self.color_publisher.publish(msg)
+        self.get_logger().info(f"Published ring color: {color}")
+    
+
         
 
 def main():
