@@ -205,7 +205,7 @@ class RingDetector(Node):
                 cv2.ellipse(rings_rgb, e2, (0, 255, 0), 2)
 
                 # BOUDNING BOX ######
-                angles = [0]  # in degrees
+                angles = [0,10,20]  # in degrees
                 ring_points = []
                 outer_ellipse = e1 if (e1[1][0] * e1[1][1]) > (e2[1][0] * e2[1][1]) else e2
 
@@ -221,6 +221,10 @@ class RingDetector(Node):
                     # Parametric equations for ellipse
                     x = outer_ellipse[0][0] + a * np.cos(angle_rad) * np.cos(rot) - b * np.sin(angle_rad) * np.sin(rot)
                     y = outer_ellipse[0][1] + a * np.cos(angle_rad) * np.sin(rot) + b * np.sin(angle_rad) * np.cos(rot)
+
+                    # check if nan
+                    if np.isnan(x) or np.isnan(y):
+                        continue
                     
                     ring_points.append((int(x), int(y)))
                     

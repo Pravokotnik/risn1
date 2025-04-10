@@ -40,6 +40,7 @@ install(PROGRAMS
   scripts/detect_rings_mod.py
   scripts/main.py
   scripts/get_rings.py
+  scripts/rings_filter.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
