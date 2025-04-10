@@ -39,6 +39,7 @@ install(PROGRAMS
   scripts/dr4.py
   scripts/detect_people_custom.py
   scripts/face_filter.py
+  scripts/detect_rings_mod.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
