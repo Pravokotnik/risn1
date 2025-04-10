@@ -29,17 +29,16 @@ install(DIRECTORY
 install(PROGRAMS
   scripts/detect_people.py
   scripts/robot_commander.py
+  scripts/robot_commander_custom.py
   scripts/dp2.py
   scripts/clicked_point_listener.py
   scripts/start_round.py
   scripts/get_coords.py
   scripts/detect_rings.py
-  scripts/dr2.py
-  scripts/dr3.py
-  scripts/dr4.py
   scripts/detect_people_custom.py
   scripts/face_filter.py
   scripts/detect_rings_mod.py
+  scripts/main.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

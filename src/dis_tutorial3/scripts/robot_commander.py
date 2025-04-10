@@ -35,8 +35,6 @@ from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 from rclpy.qos import qos_profile_sensor_data
 
-import subprocess
-
 
 class TaskResult(Enum):
     UNKNOWN = 0
@@ -298,18 +296,7 @@ class RobotCommander(Node):
     def debug(self, msg):
         self.get_logger().debug(msg)
         return
-
-def parse_positions_file(filename):
-    coordinates = []
-    with open(filename, 'r') as f:
-        for line in f:
-            if 'Robot Coordinates:' in line:
-                # Extract the tuple part after 'Robot Coordinates:'
-                coord_str = line.split('Robot Coordinates:')[1].split(')')[0].strip(' (')
-                x, y, yaw = map(float, coord_str.split(', '))
-                coordinates.append((x, y, yaw))
-    return coordinates
-
+    
 def main(args=None):
     
     rclpy.init(args=args)
@@ -327,50 +314,22 @@ def main(args=None):
         rc.undock()
     
     # Finally send it a goal to reach
-    #goal_pose = PoseStamped()
-    #goal_pose.header.frame_id = 'map'
-    #goal_pose.header.stamp = rc.get_clock().now().to_msg()
+    goal_pose = PoseStamped()
+    goal_pose.header.frame_id = 'map'
+    goal_pose.header.stamp = rc.get_clock().now().to_msg()
 
-    #goal_pose.pose.position.x = 2.6
-    #goal_pose.pose.position.y = -1.3
-    #goal_pose.pose.orientation = rc.YawToQuaternion(0.57)
+    goal_pose.pose.position.x = 2.6
+    goal_pose.pose.position.y = -1.3
+    goal_pose.pose.orientation = rc.YawToQuaternion(0.57)
 
-    #rc.goToPose(goal_pose)
+    rc.goToPose(goal_pose)
 
-    #while not rc.isTaskComplete():
-        #rc.info("Waiting for the task to complete...")
-        #time.sleep(1)
-
-    #rc.spin(-0.57)
-
-    coordinates = parse_positions_file('positions.txt')
-
-    for idx, (x, y, yaw) in enumerate(coordinates):
-        rc.info(f"Navigating to position {idx+1}/{len(coordinates)}: x={x}, y={y}, yaw={yaw}")
-
-        goal_pose = PoseStamped()
-        goal_pose.header.frame_id = 'map'
-        goal_pose.header.stamp = rc.get_clock().now().to_msg()
-
-        goal_pose.pose.position.x = x
-        goal_pose.pose.position.y = y
-        goal_pose.pose.orientation = rc.YawToQuaternion(yaw)
-
-        if not rc.goToPose(goal_pose):
-            rc.error('Failed to reach the goal position')
-            break
-
-        while not rc.isTaskComplete():
-            rc.info("Waiting for the task to complete...")
-            time.sleep(1)
-
-        text = "Hello, you have a beautiful face!"
-        subprocess.run(["espeak", text])
-
-        
+    while not rc.isTaskComplete():
+        rc.info("Waiting for the task to complete...")
         time.sleep(1)
 
-    rc.info("All positions visited!")
+    rc.spin(-0.57)
+
     rc.destroyNode()
 
     # And a simple example

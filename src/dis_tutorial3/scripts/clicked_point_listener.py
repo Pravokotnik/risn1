@@ -18,8 +18,9 @@ class ClickedPointListener(Node):
     def clicked_point_callback(self, msg):
         point = msg.point
         frame = msg.header.frame_id
+        
         self.get_logger().info(
-            f"Clicked point received: x={point.x:.2f}, y={point.y:.2f}, z={point.z:.2f} (frame: {frame})"
+            f"{point.x:.2f}, {point.y:.2f}, {point.z:.2f}"
         )
 
 def main(args=None):
