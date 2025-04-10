@@ -196,7 +196,14 @@ class RingDetector(Node):
 
                 ring_color = self.detect_ring_color(rgb_img, center_x, center_y, e1, e2)
                 self.visualize_ring_color_detection(rgb_img, center_x, center_y, e1, e2, ring_color)
-                self.publish_color(ring_color)
+
+                # dobim circularity
+                score1 = self.compute_circularity_score(e1)
+                score2 = self.compute_circularity_score(e2)
+                avg_score = (score1 + score2) / 2.0
+
+
+                self.publish_ring(ring_color, avg_score)
 
 
             cv2.imshow("Detected rings",imv)
@@ -312,9 +319,16 @@ class RingDetector(Node):
         # Display the visualization
         cv2.imshow("Ring Color Detection", viz_image)
         cv2.waitKey(1)
+
+    def compute_circularity_score(self, ellipse):
+        minor = min(ellipse[1])
+        major = max(ellipse[1])
+        if major == 0:
+            return 0.0
+        return minor / major
         
         
-    def publish_color(self, color):
+    def publish_ring(self, color, circularity):
         """Publish the detected color to a ROS topic"""
         # Optional: Add a cooldown mechanism
         if hasattr(self, 'last_published_color') and color == self.last_published_color:
@@ -324,12 +338,12 @@ class RingDetector(Node):
                     return
         
         # Reset cooldown and store the new color
-        self.last_published_color = color
+        self.last_published_color = (color, circularity)
         self.publish_cooldown = 5  # Wait 5 frames before publishing the same color again
         
         # Create and publish the message
         msg = String()
-        msg.data = color
+        msg.data = f"color={color}, circularity={circularity:.3f}"
         self.color_publisher.publish(msg)
         self.get_logger().info(f"Published ring color: {color}")
     
