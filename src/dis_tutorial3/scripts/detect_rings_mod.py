@@ -205,7 +205,7 @@ class RingDetector(Node):
                 cv2.ellipse(rings_rgb, e2, (0, 255, 0), 2)
 
                 # BOUDNING BOX ######
-                angles = [0, 120, 240]  # in degrees
+                angles = [0]  # in degrees
                 ring_points = []
                 outer_ellipse = e1 if (e1[1][0] * e1[1][1]) > (e2[1][0] * e2[1][1]) else e2
 

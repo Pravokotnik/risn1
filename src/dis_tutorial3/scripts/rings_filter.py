@@ -80,6 +80,11 @@ class RingsFilterNode(Node):
                 "map",
                 timeout=rclpy.duration.Duration(seconds=0.1))
             
+            # check if nan
+            if point_map.point.x == float('nan') or point_map.point.y == float('nan') or point_map.point.z == float('nan'):
+                self.get_logger().warn("Received NaN point, skipping...")
+                return
+            
             # Log
             self.get_logger().info(f"Transformed point: {point_map.point.x}, {point_map.point.y}, {point_map.point.z}")
             
@@ -99,8 +104,6 @@ class RingsFilterNode(Node):
                 
                 self.filtered_pub.publish(filtered_marker)
                 self.face_history.append((point_map.point, time.time()))
-
-                self.get_logger().info(f"Tocka: {point_map.point}")
                 
         except TransformException as ex:
             self.get_logger().error(f'Transform failed: {ex}', throttle_duration_sec=1.0)
