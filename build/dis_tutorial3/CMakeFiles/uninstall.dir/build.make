@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3
+CMAKE_SOURCE_DIR = /home/nik/Documents/32/RIS/risn1/src/dis_tutorial3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3
+CMAKE_BINARY_DIR = /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3 /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3 /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3 /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3 /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nik/Documents/32/RIS/risn1/src/dis_tutorial3 /home/nik/Documents/32/RIS/risn1/src/dis_tutorial3 /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3 /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3 /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

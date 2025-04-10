@@ -38,6 +38,7 @@ install(PROGRAMS
   scripts/dr3.py
   scripts/dr4.py
   scripts/detect_people_custom.py
+  scripts/face_filter.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

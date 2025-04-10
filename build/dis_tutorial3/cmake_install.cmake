@@ -1,8 +1,8 @@
-# Install script for directory: /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3
+# Install script for directory: /home/nik/Documents/32/RIS/risn1/src/dis_tutorial3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/masa/Desktop/sola/ris/naloga/install/dis_tutorial3")
+  set(CMAKE_INSTALL_PREFIX "/home/nik/Documents/32/RIS/risn1/install/dis_tutorial3")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,85 +44,87 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/" TYPE DIRECTORY FILES
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/launch"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/config"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/worlds"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/maps"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/launch"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/config"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/worlds"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/maps"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dis_tutorial3" TYPE PROGRAM FILES
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/detect_people.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/robot_commander.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dp2.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/clicked_point_listener.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/start_round.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/get_coords.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/detect_rings.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dr2.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dr3.py"
-    "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/scripts/dr4.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/detect_people.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/robot_commander.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/dp2.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/clicked_point_listener.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/start_round.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/get_coords.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/detect_rings.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/dr2.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/dr3.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/dr4.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/detect_people_custom.py"
+    "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/scripts/face_filter.py"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dis_tutorial3")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dis_tutorial3")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/dis_tutorial3")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/dis_tutorial3")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/nik/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/nik/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/environment" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/packages/dis_tutorial3")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_index/share/ament_index/resource_index/packages/dis_tutorial3")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/cmake" TYPE FILE FILES
-    "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_core/dis_tutorial3Config.cmake"
-    "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/ament_cmake_core/dis_tutorial3Config-version.cmake"
+    "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_core/dis_tutorial3Config.cmake"
+    "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/ament_cmake_core/dis_tutorial3Config-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3" TYPE FILE FILES "/home/nik/Documents/32/RIS/risn1/src/dis_tutorial3/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -133,5 +135,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

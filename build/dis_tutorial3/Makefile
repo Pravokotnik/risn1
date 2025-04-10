@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/masa/Desktop/sola/ris/naloga/src/dis_tutorial3
+CMAKE_SOURCE_DIR = /home/nik/Documents/32/RIS/risn1/src/dis_tutorial3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3
+CMAKE_BINARY_DIR = /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,9 +142,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/CMakeFiles /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/CMakeFiles /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/masa/Desktop/sola/ris/naloga/build/dis_tutorial3/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nik/Documents/32/RIS/risn1/build/dis_tutorial3/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
