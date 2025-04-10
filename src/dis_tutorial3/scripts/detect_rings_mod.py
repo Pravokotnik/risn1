@@ -220,50 +220,49 @@ class RingDetector(Node):
         else:
             outer_ellipse = e2
             inner_ellipse = e1
-        
+
         # maske
         height, width = rgb_image.shape[:2]
         outer_mask = np.zeros((height, width), dtype=np.uint8)
         inner_mask = np.zeros((height, width), dtype=np.uint8)
-        
+
         cv2.ellipse(outer_mask, outer_ellipse, 255, -1)
         cv2.ellipse(inner_mask, inner_ellipse, 255, -1)
-        
+
         ring_mask = cv2.bitwise_and(outer_mask, cv2.bitwise_not(inner_mask))
-        
+
         # operacije
         kernel = np.ones((3, 3), np.uint8)
         ring_mask = cv2.morphologyEx(ring_mask, cv2.MORPH_OPEN, kernel)
-        
-        # applyamo masko
-        masked_image = cv2.bitwise_and(rgb_image, rgb_image, mask=ring_mask)
+
+        # Visualization with gray background instead of black
+        gray_background = np.full_like(rgb_image, 127)
+        masked_image = gray_background.copy()
+        masked_image[ring_mask > 0] = rgb_image[ring_mask > 0]
         cv2.imshow("Masked Ring", masked_image)
         cv2.waitKey(1)
-        
+
         # pixli ringov
         ring_pixels = []
         y_coords, x_coords = np.where(ring_mask > 0)
         for y, x in zip(y_coords, x_coords):
             ring_pixels.append(rgb_image[y, x])
-        
+
         ring_pixels = np.array(ring_pixels)
-        
+
         if len(ring_pixels) < 20:
             return "not enough pixels"
-        
+
         # HSV
         hsv_pixels = cv2.cvtColor(np.array([ring_pixels]), cv2.COLOR_BGR2HSV)[0]
-        
+
         h_avg = np.median(hsv_pixels[:, 0])
         s_avg = np.median(hsv_pixels[:, 1])
         v_avg = np.median(hsv_pixels[:, 2])
-        
-        #self.get_logger().info(f"HSV: H={h_avg:.1f}, S={s_avg:.1f}, V={v_avg:.1f}")
-        
+
         if v_avg < 60:
             return "black"
-        # For colored rings, use hue
-        if s_avg > 40:  # Only consider well-saturated colors
+        if s_avg > 40:
             if h_avg < 10 or h_avg > 170:
                 return "red"
             elif 35 <= h_avg < 80:
@@ -271,9 +270,10 @@ class RingDetector(Node):
             elif 80 <= h_avg < 130:
                 return "blue"
             else:
-                return "unknown"  # For any other colors
+                return "unknown"
         else:
-            return "unknown"  # For desaturated colors
+            return "unknown"
+
 
     def visualize_ring_color_detection(self, rgb_image, center_x, center_y, e1, e2, detected_color):
         # slika za vizualizacijo
