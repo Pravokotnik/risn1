@@ -13,6 +13,7 @@ from visualization_msgs.msg import Marker, MarkerArray
 from std_msgs.msg import ColorRGBA, String
 from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
+from collections import Counter
 
 qos_profile = QoSProfile(
           durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
@@ -148,7 +149,7 @@ class RingDetector(Node):
                     
                 candidates.append((e1,e2))
 
-        print("Processing is done! found", len(candidates), "candidates for rings")
+        #print("Processing is done! found", len(candidates), "candidates for rings")
 
         # Plot the rings on the image
         for c in candidates:
@@ -194,6 +195,7 @@ class RingDetector(Node):
                 center_y = int(e1[0][1])
 
                 ring_color = self.detect_ring_color(rgb_img, center_x, center_y, e1, e2)
+                self.visualize_ring_color_detection(rgb_img, center_x, center_y, e1, e2, ring_color)
 
                 cv2.putText(imv, ring_color, (center_x, center_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
                 cv2.putText(rings_rgb, ring_color, (center_x, center_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
@@ -208,53 +210,190 @@ class RingDetector(Node):
             cv2.waitKey(1)
 
     def detect_ring_color(self, rgb_image, center_x, center_y, e1, e2):
-
-        inner_ellipse = e2 if e1[1][0] * e1[1][1] > e2[1][0] * e2[1][1] else e1
-        outer_ellipse = e1 if inner_ellipse == e2 else e2
-
-        inner_radius = min(inner_ellipse[1]) / 2
-        outer_radius = max(outer_ellipse[1]) / 2
-
-        ring_radius = (inner_radius + outer_radius) / 2
-
-        num_samples = 8
-        samples = []
-
-        for i in range(num_samples):
-            angle = 2 * np.pi * i / num_samples
-            sample_x = int(center_x + ring_radius * np.cos(angle))
-            sample_y = int(center_y + ring_radius * np.sin(angle))
-            
-            # Make sure coordinates are within image bounds
-            if 0 <= sample_x < rgb_image.shape[1] and 0 <= sample_y < rgb_image.shape[0]:
-                samples.append(rgb_image[sample_y, sample_x])
-        
-        if not samples:
-            return "unknown"
-        
-        avg_color = np.mean(samples, axis=0)
-        b, g, r = avg_color
-
-        self.get_logger().info(f"Average color: B={b}, G={g}, R={r}")
-
-        if r > 100 and g < 80 and b < 80:
-            return "red"
-        elif r < 80 and g > 100 and b < 80:
-            return "green"
-        elif r < 80 and g < 80 and b > 100:
-            return "blue"
-        elif r > 100 and g > 100 and b < 80:
-            return "yellow"
-        elif r > 100 and g < 80 and b > 100:
-            return "purple"
-        elif r > 100 and g > 80 and b > 80:
-            return "pink"
-        elif r > 180 and g > 180 and b > 180:
-            return "white"
-        elif r < 80 and g < 80 and b < 80:
-            return "black"
+        """Improved ring color detection with better mask generation and color analysis"""
+        # Determine which ellipse is inner and which is outer
+        if e1[1][0] * e1[1][1] > e2[1][0] * e2[1][1]:
+            outer_ellipse = e1
+            inner_ellipse = e2
         else:
+            outer_ellipse = e2
+            inner_ellipse = e1
+        
+        # Create clean masks for both ellipses
+        height, width = rgb_image.shape[:2]
+        outer_mask = np.zeros((height, width), dtype=np.uint8)
+        inner_mask = np.zeros((height, width), dtype=np.uint8)
+        
+        # Draw the ellipses on the masks
+        cv2.ellipse(outer_mask, outer_ellipse, 255, -1)
+        cv2.ellipse(inner_mask, inner_ellipse, 255, -1)
+        
+        # Create ring mask by subtracting inner from outer
+        ring_mask = cv2.bitwise_and(outer_mask, cv2.bitwise_not(inner_mask))
+        
+        # Apply morphological operations to clean up the mask
+        kernel = np.ones((3, 3), np.uint8)
+        ring_mask = cv2.morphologyEx(ring_mask, cv2.MORPH_OPEN, kernel)
+        
+        # Show the mask for debugging
+        cv2.imshow("Ring Mask", ring_mask)
+        cv2.waitKey(1)
+        
+        # Apply the mask to get only the ring pixels
+        masked_image = cv2.bitwise_and(rgb_image, rgb_image, mask=ring_mask)
+        cv2.imshow("Masked Ring", masked_image)
+        cv2.waitKey(1)
+        
+        # Get valid ring pixels (non-zero)
+        ring_pixels = []
+        y_coords, x_coords = np.where(ring_mask > 0)
+        for y, x in zip(y_coords, x_coords):
+            ring_pixels.append(rgb_image[y, x])
+        
+        ring_pixels = np.array(ring_pixels)
+        
+        if len(ring_pixels) < 20:  # Not enough pixels for reliable detection
             return "unknown"
+        
+        # Convert to HSV for better color analysis
+        hsv_pixels = cv2.cvtColor(np.array([ring_pixels]), cv2.COLOR_BGR2HSV)[0]
+        
+        # Calculate average HSV values
+        h_avg = np.median(hsv_pixels[:, 0])
+        s_avg = np.median(hsv_pixels[:, 1])
+        v_avg = np.median(hsv_pixels[:, 2])
+        
+        self.get_logger().info(f"HSV: H={h_avg:.1f}, S={s_avg:.1f}, V={v_avg:.1f}")
+        
+        # More reliable color classification using HSV
+        # Low saturation with high value = white
+        if s_avg < 50 and v_avg > 150:
+            return "white"
+        
+        # Low value = black
+        if v_avg < 60:
+            return "black"
+        
+        # For colored rings, use hue
+        if s_avg > 40:  # Only consider well-saturated colors
+            if h_avg < 10 or h_avg > 170:
+                return "red"
+            elif 10 <= h_avg < 25:
+                return "orange"
+            elif 25 <= h_avg < 35:
+                return "yellow"
+            elif 35 <= h_avg < 80:
+                return "green"
+            elif 80 <= h_avg < 130:
+                return "blue"
+            elif 130 <= h_avg < 170:
+                return "purple"
+        
+        # Create a color visualization for debugging
+        color_viz = np.zeros((100, 100, 3), dtype=np.uint8)
+        # Convert HSV back to BGR for visualization
+        hsv_color = np.array([[[h_avg, s_avg, v_avg]]], dtype=np.uint8)
+        bgr_color = cv2.cvtColor(hsv_color, cv2.COLOR_HSV2BGR)[0][0]
+        color_viz[:, :] = bgr_color
+        cv2.imshow("Detected Color", color_viz)
+        cv2.waitKey(1)
+        
+        # Fallback using RGB analysis for ambiguous cases
+        b, g, r = np.median(ring_pixels, axis=0)
+        
+        max_val = max(r, g, b)
+        if r >= max_val and r > g + 20 and r > b + 20:
+            if g > 120 and b < 100:
+                return "yellow"
+            else:
+                return "red"
+        elif g >= max_val and g > r + 20 and g > b + 20:
+            return "green"
+        elif b >= max_val and b > r + 20 and b > g + 20:
+            return "blue"
+        elif r > 120 and b > 120 and g < 100:
+            return "purple"
+        elif r > 120 and g > 120 and b < 100:
+            return "yellow"
+        
+        return "unknown"
+
+    def visualize_ring_color_detection(self, rgb_image, center_x, center_y, e1, e2, detected_color):
+        """Better visualization of the color detection process"""
+        # Create a copy of the image for visualization
+        viz_image = rgb_image.copy()
+        
+        # Determine inner and outer ellipses
+        if e1[1][0] * e1[1][1] > e2[1][0] * e2[1][1]:
+            outer_ellipse = e1
+            inner_ellipse = e2
+        else:
+            outer_ellipse = e2
+            inner_ellipse = e1
+        
+        # Draw ellipses
+        cv2.ellipse(viz_image, outer_ellipse, (0, 255, 255), 2)  # Outer: yellow
+        cv2.ellipse(viz_image, inner_ellipse, (255, 0, 255), 2)  # Inner: magenta
+        
+        # Draw center
+        cv2.circle(viz_image, (center_x, center_y), 3, (0, 0, 255), -1)
+        
+        # Create ring mask
+        height, width = rgb_image.shape[:2]
+        outer_mask = np.zeros((height, width), dtype=np.uint8)
+        inner_mask = np.zeros((height, width), dtype=np.uint8)
+        
+        cv2.ellipse(outer_mask, outer_ellipse, 255, -1)
+        cv2.ellipse(inner_mask, inner_ellipse, 255, -1)
+        
+        ring_mask = cv2.bitwise_and(outer_mask, cv2.bitwise_not(inner_mask))
+        
+        # Apply the mask to highlight the ring area
+        ring_area = cv2.bitwise_and(rgb_image, rgb_image, mask=ring_mask)
+        
+        # Create a semi-transparent overlay
+        overlay = viz_image.copy()
+        overlay[ring_mask > 0] = (0, 255, 0)  # Green overlay
+        
+        # Combine with original image (semi-transparent)
+        viz_image = cv2.addWeighted(overlay, 0.3, viz_image, 0.7, 0)
+        
+        # Overlay the actual ring color in a box
+        color_box_size = 40
+        color_box_pos = (width - color_box_size - 10, 10)
+        
+        # Create a color box based on detected color
+        color_map = {
+            "red": (0, 0, 255),
+            "green": (0, 255, 0),
+            "blue": (255, 0, 0),
+            "yellow": (0, 255, 255),
+            "purple": (255, 0, 255),
+            "black": (0, 0, 0),
+            "white": (255, 255, 255),
+            "orange": (0, 165, 255),
+            "unknown": (128, 128, 128)
+        }
+        
+        color_bgr = color_map.get(detected_color, (128, 128, 128))
+        cv2.rectangle(viz_image, 
+                    color_box_pos, 
+                    (color_box_pos[0] + color_box_size, color_box_pos[1] + color_box_size), 
+                    color_bgr, -1)
+        
+        # Add text label
+        color_text = f"{detected_color.upper()}"
+        text_pos = (center_x - 40, center_y - 20)
+        
+        # Draw text with outline for better visibility
+        cv2.putText(viz_image, color_text, text_pos, 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 3)
+        cv2.putText(viz_image, color_text, text_pos, 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 1)
+        
+        # Show the visualization
+        cv2.imshow("Ring Color Detection", viz_image)
+        cv2.waitKey(1)
         
         
     def publish_color(self, color):
