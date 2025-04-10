@@ -38,8 +38,8 @@ install(PROGRAMS
   scripts/detect_people_custom.py
   scripts/face_filter.py
   scripts/detect_rings_mod.py
-  scripts/get_rings.py
   scripts/main.py
+  scripts/get_rings.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

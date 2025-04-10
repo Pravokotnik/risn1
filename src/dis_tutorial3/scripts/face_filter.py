@@ -36,7 +36,7 @@ class FaceFilterNode(Node):
         self.face_history = deque(maxlen=20)
         self.distance_threshold = 0.3
         self.time_window = 2.0
-        self.safe_distance = 0.5  # meters to stay back from face
+        self.safe_distance = 1  # meters to stay back from face
         
         # Transform readiness
         self.transform_ready = False
@@ -90,6 +90,7 @@ class FaceFilterNode(Node):
                 filtered_marker.header.stamp = self.get_clock().now().to_msg()
                 filtered_marker.id = len(self.face_history)
                 filtered_marker.pose.position = safe_point
+                filtered_marker.pose.orientation # TODO
                 
                 marker_array = self.create_visualization_markers(
                     robot_pose.pose.position,
@@ -228,6 +229,11 @@ class FaceFilterNode(Node):
         """Check if this is a new face detection"""
         current_pos = np.array([point.x, point.y, point.z])
         current_time = time.time()
+        
+        # Check if any coordinate is nan
+        if np.isnan(current_pos).any():
+            self.get_logger().warning("Received NaN coordinates, skipping...")
+            return False
         
         for (stored_pos, timestamp) in self.face_history:
             stored_array = np.array([stored_pos.x, stored_pos.y, stored_pos.z])
