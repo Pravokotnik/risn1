@@ -15,6 +15,10 @@ from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 from collections import Counter
 
+from rclpy.qos import qos_profile_sensor_data, QoSReliabilityPolicy
+from sensor_msgs.msg import Image, PointCloud2
+from sensor_msgs_py import point_cloud2 as pc2
+
 qos_profile = QoSProfile(
           durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
           reliability=QoSReliabilityPolicy.RELIABLE,
@@ -43,7 +47,8 @@ class RingDetector(Node):
         self.image_sub = self.create_subscription(Image, "/oakd/rgb/preview/image_raw", self.rgb_callback, 1)
 
         # Publiser for the visualization markers
-        # self.marker_pub = self.create_publisher(Marker, "/ring", QoSReliabilityPolicy.BEST_EFFORT)
+        self.marker_pub = self.create_publisher(Marker, "/ring_marker", QoSReliabilityPolicy.BEST_EFFORT)
+        self.pointcloud_sub = self.create_subscription(PointCloud2, "/oakd/rgb/preview/depth/points", self.pointcloud_callback, qos_profile_sensor_data)
 
         # Object we use for transforming between coordinate frames
         # self.tf_buf = tf2_ros.Buffer()
@@ -51,6 +56,9 @@ class RingDetector(Node):
 
         # publisher za barvo
         self.color_publisher = self.create_publisher(String, "/ring/color", 10)
+
+        # za bouding box
+        self.ring_centers = [] 
 
     def rgb_callback(self, data):
         try:
@@ -61,6 +69,8 @@ class RingDetector(Node):
 
     def image_callback(self, data):
         #self.get_logger().info(f"I got a new image! Will try to find rings...")
+
+        self.ring_centers = []
 
         try:
             depth_image = self.bridge.imgmsg_to_cv2(data, "32FC1")
@@ -182,6 +192,9 @@ class RingDetector(Node):
             cv2.imshow("RGB Image", rgb_img)
             rings_rgb = rgb_img.copy()
 
+            rings_depth = image_viz.copy()
+            rings_depth = cv2.cvtColor(rings_depth, cv2.COLOR_GRAY2BGR) 
+
             for c in candidates:
                 # centri elips
                 e1 = c[0]
@@ -190,6 +203,33 @@ class RingDetector(Node):
                 # risemo elipse
                 cv2.ellipse(rings_rgb, e1, (0, 255, 0), 2)
                 cv2.ellipse(rings_rgb, e2, (0, 255, 0), 2)
+
+                # BOUDNING BOX ######
+                angles = [0, 120, 240]  # in degrees
+                ring_points = []
+                outer_ellipse = e1 if (e1[1][0] * e1[1][1]) > (e2[1][0] * e2[1][1]) else e2
+
+                for angle in angles:
+                    # Convert angle to radians
+                    angle_rad = np.radians(angle)
+                    
+                    # Calculate point on ellipse
+                    a = outer_ellipse[1][0] / 2  # semi-major axis
+                    b = outer_ellipse[1][1] / 2  # semi-minor axis
+                    rot = np.radians(outer_ellipse[2])
+                    
+                    # Parametric equations for ellipse
+                    x = outer_ellipse[0][0] + a * np.cos(angle_rad) * np.cos(rot) - b * np.sin(angle_rad) * np.sin(rot)
+                    y = outer_ellipse[0][1] + a * np.cos(angle_rad) * np.sin(rot) + b * np.sin(angle_rad) * np.cos(rot)
+                    
+                    ring_points.append((int(x), int(y)))
+                    
+                    # Draw the points (for visualization)
+                    cv2.circle(rings_rgb, (int(x), int(y)), 3, (0, 0, 255), -1)
+                    cv2.circle(rings_depth, (int(x), int(y)), 3, (0, 0, 255), -1)
+
+                self.ring_points = ring_points  # This replaces self.ring_centers
+                #################
 
                 center_x = int(e1[0][0])
                 center_y = int(e1[0][1])
@@ -347,7 +387,54 @@ class RingDetector(Node):
         self.color_publisher.publish(msg)
         self.get_logger().info(f"Published ring color: {color}")
     
+    def pointcloud_callback(self, data):
+        if not hasattr(self, 'ring_points') or len(self.ring_points) == 0:
+            return
 
+        height = data.height
+        width = data.width
+        
+        # Get 3D points for all ring points
+        a = pc2.read_points_numpy(data, field_names= ("x", "y", "z"))
+        a = a.reshape((height, width, 3))
+        
+        markers = []
+        
+        for i, (x, y) in enumerate(self.ring_points):
+            # Make sure coordinates are within bounds
+            if 0 <= y < height and 0 <= x < width:
+                d = a[y, x, :]
+                
+                marker = Marker()
+                marker.header.frame_id = "/base_link"
+                marker.header.stamp = data.header.stamp
+                marker.type = 2  # Sphere
+                marker.id = i  # Unique ID for each point
+                
+                # Set the scale of the marker
+                scale = 0.05  # Smaller than before since we have multiple points
+                marker.scale.x = scale
+                marker.scale.y = scale
+                marker.scale.z = scale
+                
+                # Different colors for different points
+                marker.color.r = float(i == 0)  # Red for first point
+                marker.color.g = float(i == 1)  # Green for second point
+                marker.color.b = float(i == 2)  # Blue for third point
+                marker.color.a = 1.0
+                
+                # Set the pose of the marker
+                marker.pose.position.x = float(d[0])
+                marker.pose.position.y = float(d[1])
+                marker.pose.position.z = float(d[2])
+                
+                markers.append(marker)
+                
+        
+        # Publish all markers
+        for marker in markers:
+            self.get_logger().info(f"Publishing marker ID: {marker.id} at position: ({marker.pose.position.x}, {marker.pose.position.y}, {marker.pose.position.z})")
+            self.marker_pub.publish(marker)
         
 
 def main():
