@@ -86,6 +86,7 @@ class HybridController(RobotCommander):
         ring_pose = PoseStamped()
         ring_pose.header = msg.header
         ring_pose.pose = msg.pose
+        ring_pose.color = msg.color
         self.ring_queue.append(ring_pose)
         self.get_logger().info(f"New ring detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
 
@@ -186,7 +187,19 @@ class HybridController(RobotCommander):
         """Custom ring interaction logic"""
         self.get_logger().info(f"Executing ring behavior at X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f}")
         try:
-            self.yapper.yap(f"Ring detected at coordinates X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f}")
+            color = ring_pose.color
+            color_name = ""
+            if color.r > 0.5 and color.g < 0.5 and color.b < 0.5:
+                color_name = "red"
+            elif color.r < 0.5 and color.g > 0.5 and color.b < 0.5:
+                color_name = "green"
+            elif color.r < 0.5 and color.g < 0.5 and color.b > 0.5:
+                color_name = "blue"
+            elif color.r < 0.5 and color.g < 0.5 and color.b < 0.5:
+                color_name = "black"
+            else:
+                color_name = "unknown"
+            self.yapper.yap(f"{color_name}")
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
 
