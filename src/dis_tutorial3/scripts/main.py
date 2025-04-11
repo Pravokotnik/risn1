@@ -3,11 +3,14 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
-from visualization_msgs.msg import Marker
+from visualization_msgs.msg import Marker, MarkerArray
 from collections import deque
 import time
 from yapper import Yapper
 from enum import Enum, auto
+import numpy as np
+
+from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 
 from robot_commander import RobotCommander
 
@@ -24,6 +27,10 @@ class HybridController(RobotCommander):
         self.waypoints = self.get_default_waypoints()
         self.face_queue = deque()
         self.ring_queue = deque()
+        
+        # Ring tracking dictionary
+        # Structure: {ring_id: {'pose': pose, 'colors': {color_name: count}}}
+        self.rings_dict = {}
         
         # Current navigation state
         self.current_mode = NavigationMode.WAYPOINTS
@@ -47,6 +54,13 @@ class HybridController(RobotCommander):
             self.ring_callback,
             10
         )
+
+        # za markerje
+        qos = QoSProfile(
+            depth=5,
+            history=QoSHistoryPolicy.KEEP_LAST
+        )
+        self.marker_publisher = self.create_publisher(MarkerArray, '/waypoints', qos)
         
         self.get_logger().info("Hybrid controller initialized")
 
@@ -63,13 +77,24 @@ class HybridController(RobotCommander):
             pose.pose.orientation = self.YawToQuaternion(yaw)
             return pose
         
-        waypoints.append(create_pose(-1.07, 0.97, -0.00))
-        waypoints.append(create_pose(-1.63, 4.38, 0.00))
-        waypoints.append(create_pose(2.32, 2.31, -0.00))
-        waypoints.append(create_pose(0.00, 1.91, -0.00))
-        waypoints.append(create_pose(0.98, -0.07, -0.00))
-        waypoints.append(create_pose(-0.23, -1.84, -0.00))
-        waypoints.append(create_pose(-1.70, -0.52, -0.00))
+        #waypoints.append(create_pose(-1.07, 0.97, -0.00))
+        #waypoints.append(create_pose(-1.63, 4.38, 0.00))
+        #waypoints.append(create_pose(2.32, 2.31, -0.00))
+        #waypoints.append(create_pose(0.00, 1.91, -0.00))
+        #waypoints.append(create_pose(0.98, -0.07, -0.00))
+        #waypoints.append(create_pose(-0.23, -1.84, -0.00))
+        #waypoints.append(create_pose(-1.70, -0.52, -0.00))
+
+        waypoints.append(create_pose(-0.15, -1.91, -0.00))
+        waypoints.append(create_pose(3.04, -1.13, -0.00))
+        waypoints.append(create_pose(2.34, 0.00, 0.01))
+        waypoints.append(create_pose(2.06, 2.80, 0.01))
+        waypoints.append(create_pose(-1.42, 3.26, -0.00))
+        waypoints.append(create_pose(-1.48, 4.82, 0.00))
+        waypoints.append(create_pose(-1.67, 1.18, 0.01))
+        waypoints.append(create_pose(0.14, 1.93, 0.01))
+        waypoints.append(create_pose(1.06, -0.09, 0.01))
+        waypoints.append(create_pose(2.39, 0.06, 0.01))
         
         return waypoints
 
@@ -82,19 +107,119 @@ class HybridController(RobotCommander):
         self.get_logger().info(f"New face detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
 
     def ring_callback(self, msg):
-        """Handle incoming ring detections"""
+        """Handle incoming ring detections with their ID"""
         ring_pose = PoseStamped()
         ring_pose.header = msg.header
         ring_pose.pose = msg.pose
+        # Get the ring ID from the marker
+        ring_id = msg.id
+        # Determine color from the marker's color field
+        color = self.determine_color_name(msg.color)
         
-        # Create a custom message structure to store both pose and color
-        ring_data = {
-            'pose': ring_pose,
-            'color': msg.color  # Assuming the Marker message has a color field
-        }
+        marker_array = MarkerArray()
+        marker = Marker()
+        marker.header.frame_id = "map"
+        marker.header.stamp = self.get_clock().now().to_msg()
+        marker.type = Marker.SPHERE
+        marker.id = ring_id
+        marker.scale.x = 0.3
+        marker.scale.y = 0.3
+        marker.scale.z = 0.3
+        marker.color.a = 1.0
         
-        self.ring_queue.append(ring_data)
-        self.get_logger().info(f"New {msg.color} ring detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
+        # Set position for the marker (same for both new and updated)
+        marker.pose = msg.pose
+        
+        # Store or update the ring in our dictionary
+        if ring_id not in self.rings_dict:
+            self.rings_dict[ring_id] = {
+                'pose': ring_pose,
+                'colors': {color: 1}
+            }
+            self.get_logger().info(f"New ring {ring_id} detected: {color} at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
+            
+            if color == "red":
+                marker.color.r = 1.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+            elif color == "green":
+                marker.color.r = 0.0
+                marker.color.g = 1.0
+                marker.color.b = 0.0
+            elif color == "blue":
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 1.0
+            elif color == "black":  # Assuming black is a valid color
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+            
+            # Add to navigation queue (only add new rings)
+            self.ring_queue.append(ring_id)
+        else:
+            # Update existing ring
+            self.rings_dict[ring_id]['pose'] = ring_pose  # Update position
+            
+            # Update color count
+            if color in self.rings_dict[ring_id]['colors']:
+                self.rings_dict[ring_id]['colors'][color] += 1
+            else:
+                self.rings_dict[ring_id]['colors'][color] = 1
+                
+            # Determine most frequent color for display
+            most_common_color = max(self.rings_dict[ring_id]['colors'], 
+                                key=self.rings_dict[ring_id]['colors'].get)
+            
+            # Set color based on most common detection
+            if most_common_color == "red":
+                marker.color.r = 1.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+            elif most_common_color == "green":
+                marker.color.r = 0.0
+                marker.color.g = 1.0
+                marker.color.b = 0.0
+            elif most_common_color == "blue":
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 1.0
+            elif most_common_color == "black":
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+                
+            self.get_logger().info(f"Updated ring {ring_id}: most common color is {most_common_color} at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
+        
+        # Add marker to array and publish (for both new and updated markers)
+        marker_array.markers.append(marker)
+        self.marker_publisher.publish(marker_array)
+
+    def determine_color_name(self, color_msg):
+        """Convert ROS color message to color name"""
+        if color_msg.r > 0.5 and color_msg.g < 0.5 and color_msg.b < 0.5:
+            return "red"
+        elif color_msg.r < 0.5 and color_msg.g > 0.5 and color_msg.b < 0.5:
+            return "green"
+        elif color_msg.r < 0.5 and color_msg.g < 0.5 and color_msg.b > 0.5:
+            return "blue"
+        elif color_msg.r < 0.2 and color_msg.g < 0.2 and color_msg.b < 0.2:
+            return "black"
+        else:
+            return "unknown"
+
+    def get_most_common_color(self, ring_id):
+        """Get the most commonly detected color for a ring"""
+        if ring_id not in self.rings_dict:
+            return "unknown"
+            
+        colors = self.rings_dict[ring_id]['colors']
+        if not colors:
+            return "unknown"
+            
+        # Find color with highest count
+        most_common_color = max(colors.items(), key=lambda x: x[1])
+        return most_common_color[0]
 
     def initialize_robot(self):
         """Initialize and undock the robot"""
@@ -160,15 +285,110 @@ class HybridController(RobotCommander):
             self.current_mode = NavigationMode.RINGS
 
     def process_rings(self):
-        """Process all detected rings"""
+        """Process all detected rings with improved color accuracy"""
+        # First, filter the rings if we have more than 4 detections
+        if len(self.rings_dict) > 4:
+            self.clean_up_rings()
+        
         if self.ring_queue:
-            ring_data = self.ring_queue.popleft()
-            if self.goToPose(ring_data['pose']):
+            ring_id = self.ring_queue.popleft()
+            
+            # Skip if the ring has been removed from the dictionary
+            if ring_id not in self.rings_dict:
+                return
+                
+            ring_pose = self.rings_dict[ring_id]['pose']
+            
+            if self.goToPose(ring_pose):
                 self.wait_for_task_completion("Approaching ring")
-                self.execute_ring_behavior(ring_data)
+                
+                # Get the most common color for this ring
+                color = self.get_most_common_color(ring_id)
+                
+                self.execute_ring_behavior(ring_id, ring_pose, color)
         else:
             self.get_logger().info("All rings visited, waiting for new detections")
             time.sleep(1.0)
+
+    def clean_up_rings(self):
+        """Filter the rings to keep only the 4 most distinct and confident detections"""
+        # Skip if we don't have enough rings
+        if len(self.rings_dict) <= 4:
+            return
+        
+        self.get_logger().info(f"Cleaning up rings: {len(self.rings_dict)} rings detected, keeping best 4")
+        
+        # Step 1: Calculate confidence scores for each ring
+        # Score = total number of color detections
+        ring_scores = {}
+        for ring_id, ring_data in self.rings_dict.items():
+            total_detections = sum(ring_data['colors'].values())
+            ring_scores[ring_id] = total_detections
+        
+        # Step 2: Identify clusters of rings that are close to each other
+        clusters = []
+        processed_rings = set()
+        
+        distance_threshold = 1.0  # Adjust as needed based on your environment
+        
+        for ring_id in self.rings_dict:
+            if ring_id in processed_rings:
+                continue
+            
+            # Start a new cluster
+            cluster = [ring_id]
+            processed_rings.add(ring_id)
+            
+            # Get ring position
+            pos1 = self.rings_dict[ring_id]['pose'].pose.position
+            pos1_array = np.array([pos1.x, pos1.y, pos1.z])
+            
+            # Find other rings close to this one
+            for other_id in self.rings_dict:
+                if other_id in processed_rings:
+                    continue
+                    
+                pos2 = self.rings_dict[other_id]['pose'].pose.position
+                pos2_array = np.array([pos2.x, pos2.y, pos2.z])
+                
+                # Check distance
+                if np.linalg.norm(pos1_array - pos2_array) < distance_threshold:
+                    cluster.append(other_id)
+                    processed_rings.add(other_id)
+            
+            clusters.append(cluster)
+        
+        # Step 3: For each cluster, keep only the ring with highest score
+        rings_to_keep = []
+        for cluster in clusters:
+            if len(cluster) == 1:
+                rings_to_keep.append(cluster[0])
+            else:
+                # Find ring with highest score in this cluster
+                best_ring = max(cluster, key=lambda ring_id: ring_scores[ring_id])
+                rings_to_keep.append(best_ring)
+                
+                # Log the merge action
+                self.get_logger().info(f"Merged rings {cluster} into {best_ring} (score: {ring_scores[best_ring]})")
+        
+        # Step 4: If we still have more than 4 rings, keep the 4 with highest scores
+        if len(rings_to_keep) > 4:
+            rings_to_keep.sort(key=lambda ring_id: ring_scores[ring_id], reverse=True)
+            rings_to_keep = rings_to_keep[:4]
+        
+        # Step 5: Remove rings that weren't selected
+        rings_to_remove = set(self.rings_dict.keys()) - set(rings_to_keep)
+        for ring_id in rings_to_remove:
+            self.get_logger().info(f"Removing ring {ring_id} (score: {ring_scores[ring_id]})")
+            
+            # Remove from dictionary
+            del self.rings_dict[ring_id]
+            
+            # Remove from queue if present
+            if ring_id in self.ring_queue:
+                self.ring_queue.remove(ring_id)
+        
+        self.get_logger().info(f"Cleanup complete. Keeping rings: {rings_to_keep}")
 
     def wait_for_task_completion(self, task_name=""):
         """Helper for waiting on navigation tasks"""
@@ -189,31 +409,26 @@ class HybridController(RobotCommander):
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
 
-    def execute_ring_behavior(self, ring_data):
-        """Custom ring interaction logic with color"""
-        pose = ring_data['pose']
-        color = ring_data['color']
-        
+    def execute_ring_behavior(self, ring_id, ring_pose, color):
+        """Custom ring interaction logic with most likely color"""
         self.get_logger().info(
-            f"Executing ring behavior at X:{pose.pose.position.x:.2f}, "
-            f"Y:{pose.pose.position.y:.2f} with color {color}"
+            f"Executing ring behavior for ring {ring_id} at "
+            f"X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f} "
+            f"with most likely color: {color}"
         )
         
         try:
-            # Determine color name
-            if hasattr(color, 'r'):  # If using ColorRGBA
-                if color.r > 0.5 and color.g < 0.5 and color.b < 0.5:
-                    color_name = "red"
-                elif color.r < 0.5 and color.g > 0.5 and color.b < 0.5:
-                    color_name = "green"
-                elif color.r < 0.5 and color.g < 0.5 and color.b > 0.5:
-                    color_name = "blue"
-                else:
-                    color_name = "unknown"
-            else:  # If using string color representation
-                color_name = str(color)
+            # Get color occurrence statistics
+            color_counts = self.rings_dict[ring_id]['colors']
+            total_detections = sum(color_counts.values())
+            confidence = color_counts.get(color, 0) / total_detections if total_detections > 0 else 0
             
-            self.yapper.yap(f"{color_name} ring detected!")
+            # Speak the color with confidence information
+            if color != "unknown":
+                message = f"I found a {color} ring! I'm {confidence*100:.0f}% confident about this color."
+                self.yapper.yap(message)
+            else:
+                self.yapper.yap("I found a ring but I'm not sure about its color.")
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
 
