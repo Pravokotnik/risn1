@@ -86,9 +86,15 @@ class HybridController(RobotCommander):
         ring_pose = PoseStamped()
         ring_pose.header = msg.header
         ring_pose.pose = msg.pose
-        ring_pose.color = msg.color
-        self.ring_queue.append(ring_pose)
-        self.get_logger().info(f"New ring detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
+        
+        # Create a custom message structure to store both pose and color
+        ring_data = {
+            'pose': ring_pose,
+            'color': msg.color  # Assuming the Marker message has a color field
+        }
+        
+        self.ring_queue.append(ring_data)
+        self.get_logger().info(f"New {msg.color} ring detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
 
     def initialize_robot(self):
         """Initialize and undock the robot"""
@@ -156,10 +162,10 @@ class HybridController(RobotCommander):
     def process_rings(self):
         """Process all detected rings"""
         if self.ring_queue:
-            ring_pose = self.ring_queue.popleft()
-            if self.goToPose(ring_pose):
+            ring_data = self.ring_queue.popleft()
+            if self.goToPose(ring_data['pose']):
                 self.wait_for_task_completion("Approaching ring")
-                self.execute_ring_behavior(ring_pose)
+                self.execute_ring_behavior(ring_data)
         else:
             self.get_logger().info("All rings visited, waiting for new detections")
             time.sleep(1.0)
@@ -183,23 +189,31 @@ class HybridController(RobotCommander):
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
 
-    def execute_ring_behavior(self, ring_pose):
-        """Custom ring interaction logic"""
-        self.get_logger().info(f"Executing ring behavior at X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f}")
+    def execute_ring_behavior(self, ring_data):
+        """Custom ring interaction logic with color"""
+        pose = ring_data['pose']
+        color = ring_data['color']
+        
+        self.get_logger().info(
+            f"Executing ring behavior at X:{pose.pose.position.x:.2f}, "
+            f"Y:{pose.pose.position.y:.2f} with color {color}"
+        )
+        
         try:
-            color = ring_pose.color
-            color_name = ""
-            if color.r > 0.5 and color.g < 0.5 and color.b < 0.5:
-                color_name = "red"
-            elif color.r < 0.5 and color.g > 0.5 and color.b < 0.5:
-                color_name = "green"
-            elif color.r < 0.5 and color.g < 0.5 and color.b > 0.5:
-                color_name = "blue"
-            elif color.r < 0.5 and color.g < 0.5 and color.b < 0.5:
-                color_name = "black"
-            else:
-                color_name = "unknown"
-            self.yapper.yap(f"{color_name}")
+            # Determine color name
+            if hasattr(color, 'r'):  # If using ColorRGBA
+                if color.r > 0.5 and color.g < 0.5 and color.b < 0.5:
+                    color_name = "red"
+                elif color.r < 0.5 and color.g > 0.5 and color.b < 0.5:
+                    color_name = "green"
+                elif color.r < 0.5 and color.g < 0.5 and color.b > 0.5:
+                    color_name = "blue"
+                else:
+                    color_name = "unknown"
+            else:  # If using string color representation
+                color_name = str(color)
+            
+            self.yapper.yap(f"{color_name} ring detected!")
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
 
