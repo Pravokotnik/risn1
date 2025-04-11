@@ -401,44 +401,77 @@ class RingDetector(Node):
         # Get 3D points for all ring points
         a = pc2.read_points_numpy(data, field_names= ("x", "y", "z"))
         a = a.reshape((height, width, 3))
+
+
+        color_name = self.last_published_color[0]
+
+        marker = Marker()
+
+        color = ColorRGBA()
+        if color_name == "red":
+            color.r = 1.0
+            color.g = 0.0
+            color.b = 0.0
+        elif color_name == "green":
+            color.r = 0.0
+            color.g = 1.0
+            color.b = 0.0
+        elif color_name == "blue":
+            color.r = 0.0
+            color.g = 0.0
+            color.b = 1.0
+        elif color_name == "black":
+            color.r = 0.0
+            color.g = 0.0
+            color.b = 0.0
+        else:  # unknown
+            color.r = 1.0
+            color.g = 1.0
+            color.b = 0.0
+        color.a = 1.0  # Fully opaque
+        marker.color = color
+
+        #self.get_logger().info(f"marker color: {marker.color }")
+
+        #self.get_logger().info(f"Publishing ring points with color: {color_name}")
         
-        markers = []
+        marker.header.frame_id = "/base_link"
+        marker.header.stamp = data.header.stamp
+        marker.type = 2  # Sphere
+
+        scale = 0.05  # Smaller than before since we have multiple points
+        marker.scale.x = scale
+        marker.scale.y = scale
+        marker.scale.z = scale
+
+        avg_x = 0
+        avg_y = 0
+        avg_z = 0
         
         for i, (x, y) in enumerate(self.ring_points):
             # Make sure coordinates are within bounds
             if 0 <= y < height and 0 <= x < width:
                 d = a[y, x, :]
                 
-                marker = Marker()
-                marker.header.frame_id = "/base_link"
-                marker.header.stamp = data.header.stamp
-                marker.type = 2  # Sphere
-                marker.id = i  # Unique ID for each point
+                if float(d[0]) == float('nan') or float(d[1]) == float('nan') or float(d[2]) == float('nan'):
+                    continue
+                if float(d[0]) == float('inf') or float(d[1]) == float('inf') or float(d[2]) == float('inf'):
+                    continue
+                    
+                avg_x += float(d[0])
+                avg_y += float(d[1])
+                avg_z += float(d[2])
+
+        if avg_x == 0 and avg_y == 0 and avg_z == 0:
+            return   
+                     
+        marker.pose.position.x = avg_x / len(self.ring_points)
+        marker.pose.position.y = avg_y / len(self.ring_points)
+        marker.pose.position.z = avg_z / len(self.ring_points)
                 
-                # Set the scale of the marker
-                scale = 0.05  # Smaller than before since we have multiple points
-                marker.scale.x = scale
-                marker.scale.y = scale
-                marker.scale.z = scale
-                
-                # Different colors for different points
-                marker.color.r = float(i == 0)  # Red for first point
-                marker.color.g = float(i == 1)  # Green for second point
-                marker.color.b = float(i == 2)  # Blue for third point
-                marker.color.a = 1.0
-                
-                # Set the pose of the marker
-                marker.pose.position.x = float(d[0])
-                marker.pose.position.y = float(d[1])
-                marker.pose.position.z = float(d[2])
-                
-                markers.append(marker)
-                
-        
-        # Publish all markers
-        for marker in markers:
-            self.get_logger().info(f"Publishing marker ID: {marker.id} at position: ({marker.pose.position.x}, {marker.pose.position.y}, {marker.pose.position.z})")
-            self.marker_pub.publish(marker)
+        self.get_logger().info(f"Publishing marker with color {color_name} at position: ({marker.pose.position.x}, {marker.pose.position.y}, {marker.pose.position.z})")
+        self.get_logger().info(f"marker color: {marker.color }")
+        self.marker_pub.publish(marker)
         
 
 def main():

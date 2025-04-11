@@ -87,6 +87,26 @@ class RingsFilterNode(Node):
             
             # Log
             self.get_logger().info(f"Transformed point: {point_map.point.x}, {point_map.point.y}, {point_map.point.z}")
+
+            r = msg.color.r
+            g = msg.color.g
+            b = msg.color.b
+
+            self.get_logger().info(f"Color: {r}, {g}, {b}")
+
+            if (r == 1.0 and g == 0.0 and b == 0.0):
+                color_name = "red"
+            elif (r == 0.0 and g == 1.0 and b == 0.0):
+                color_name = "green"
+            elif (r == 0.0 and g == 0.0 and b == 1.0):
+                color_name = "blue"
+            elif (r == 0.0 and g == 0.0 and b == 0.0):
+                color_name = "black"
+            else:
+                color_name = "unknown"
+
+            self.get_logger().info(f"Color: {color_name}")
+            
             
             # Filter and publish
             if self.is_new_face(point_map):
@@ -98,7 +118,9 @@ class RingsFilterNode(Node):
                 filtered_marker.scale.x = 0.3
                 filtered_marker.scale.y = 0.3
                 filtered_marker.scale.z = 0.3
-                filtered_marker.color.r = 1.0
+                filtered_marker.color.r = msg.color.r
+                filtered_marker.color.g = msg.color.g
+                filtered_marker.color.b = msg.color.b
                 filtered_marker.color.a = 1.0
                 filtered_marker.pose.position = point_map.point
                 
