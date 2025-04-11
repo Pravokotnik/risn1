@@ -6,32 +6,45 @@ from geometry_msgs.msg import PoseStamped
 from visualization_msgs.msg import Marker
 from collections import deque
 import time
-import pyttsx3
 from yapper import Yapper
+from enum import Enum, auto
 
-from robot_commander import RobotCommander  # Your existing robot commander
+from robot_commander import RobotCommander
+
+class NavigationMode(Enum):
+    WAYPOINTS = auto()
+    FACES = auto()
+    RINGS = auto()
 
 class HybridController(RobotCommander):
     def __init__(self):
         super().__init__('hybrid_controller')
         
         # Navigation queues
-        self.face_queue = deque()
         self.waypoints = self.get_default_waypoints()
-        self.current_waypoint_index = 0
+        self.face_queue = deque()
+        self.ring_queue = deque()
         
-        # Yapper
-        self.yapper = Yapper()
-        
-        # State management
+        # Current navigation state
+        self.current_mode = NavigationMode.WAYPOINTS
+        self.current_index = 0
         self.interrupted = False
-        self.saved_waypoint_index = 0
+        
+        # Yapper for speech
+        self.yapper = Yapper()
         
         # ROS2 subscriptions
         self.face_sub = self.create_subscription(
             Marker,
             '/filtered_people_marker',
             self.face_callback,
+            10
+        )
+        
+        self.ring_sub = self.create_subscription(
+            Marker,
+            '/filtered_rings_marker',
+            self.ring_callback,
             10
         )
         
@@ -50,7 +63,6 @@ class HybridController(RobotCommander):
             pose.pose.orientation = self.YawToQuaternion(yaw)
             return pose
         
-        # Example waypoints (modify as needed)
         waypoints.append(create_pose(-1.07, 0.97, -0.00))
         waypoints.append(create_pose(-1.63, 4.38, 0.00))
         waypoints.append(create_pose(2.32, 2.31, -0.00))
@@ -68,6 +80,14 @@ class HybridController(RobotCommander):
         face_pose.pose = msg.pose
         self.face_queue.append(face_pose)
         self.get_logger().info(f"New face detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
+
+    def ring_callback(self, msg):
+        """Handle incoming ring detections"""
+        ring_pose = PoseStamped()
+        ring_pose.header = msg.header
+        ring_pose.pose = msg.pose
+        self.ring_queue.append(ring_pose)
+        self.get_logger().info(f"New ring detected at X:{msg.pose.position.x:.2f}, Y:{msg.pose.position.y:.2f}")
 
     def initialize_robot(self):
         """Initialize and undock the robot"""
@@ -94,51 +114,54 @@ class HybridController(RobotCommander):
             while rclpy.ok():
                 rclpy.spin_once(self, timeout_sec=0.1)  # Process callbacks
                 
-                # 1. Handle face interrupts if any exist
-                if self.face_queue and not self.interrupted:
-                    self.handle_interrupt()
-                    continue
-                    
-                # 2. Normal waypoint navigation
-                if not self.interrupted and self.current_waypoint_index < len(self.waypoints):
-                    self.navigate_to_waypoint()
-                    
-                # 3. Completion handling
-                elif self.current_waypoint_index >= len(self.waypoints):
-                    self.handle_completion()
+                if not self.interrupted:
+                    if self.current_mode == NavigationMode.WAYPOINTS:
+                        self.process_waypoints()
+                    elif self.current_mode == NavigationMode.FACES:
+                        self.process_faces()
+                    elif self.current_mode == NavigationMode.RINGS:
+                        self.process_rings()
                     
         except Exception as e:
             self.get_logger().error(f"Fatal error: {str(e)}")
         finally:
             self.get_logger().info("Shutting down")
 
-    def handle_interrupt(self):
-        """Process face detection interrupt"""
-        self.get_logger().info("Face detected - interrupting current task")
-        self.interrupted = True
-        self.saved_waypoint_index = self.current_waypoint_index
-        
-        # Cancel current navigation
-        self.cancelTask()
-        
-        # Process face
-        face_pose = self.face_queue.popleft()
-        if self.goToPose(face_pose):
-            self.wait_for_task_completion("Approaching face")
-            self.execute_face_behavior(face_pose)
-        
-        # Resume normal operation
-        self.interrupted = False
-        self.get_logger().info("Resuming normal navigation")
+    def process_waypoints(self):
+        """Process all waypoints before moving to next mode"""
+        if self.current_index < len(self.waypoints):
+            waypoint = self.waypoints[self.current_index]
+            if self.goToPose(waypoint):
+                self.wait_for_task_completion(
+                    f"Navigating to waypoint {self.current_index+1}/{len(self.waypoints)}"
+                )
+                self.current_index += 1
+        else:
+            self.get_logger().info("All waypoints completed, switching to face navigation")
+            self.current_mode = NavigationMode.FACES
+            self.current_index = 0
 
-    def navigate_to_waypoint(self):
-        """Navigate to next waypoint"""
-        waypoint = self.waypoints[self.current_waypoint_index]
-        if self.goToPose(waypoint):
-            self.wait_for_task_completion(
-                f"Navigating to waypoint {self.current_waypoint_index+1}/{len(self.waypoints)}"
-            )
-            self.current_waypoint_index += 1
+    def process_faces(self):
+        """Process all detected faces before moving to ring detection"""
+        if self.face_queue:
+            face_pose = self.face_queue.popleft()
+            if self.goToPose(face_pose):
+                self.wait_for_task_completion("Approaching face")
+                self.execute_face_behavior(face_pose)
+        else:
+            self.get_logger().info("All faces visited, switching to ring detection")
+            self.current_mode = NavigationMode.RINGS
+
+    def process_rings(self):
+        """Process all detected rings"""
+        if self.ring_queue:
+            ring_pose = self.ring_queue.popleft()
+            if self.goToPose(ring_pose):
+                self.wait_for_task_completion("Approaching ring")
+                self.execute_ring_behavior(ring_pose)
+        else:
+            self.get_logger().info("All rings visited, waiting for new detections")
+            time.sleep(1.0)
 
     def wait_for_task_completion(self, task_name=""):
         """Helper for waiting on navigation tasks"""
@@ -152,28 +175,20 @@ class HybridController(RobotCommander):
             time.sleep(0.1)
 
     def execute_face_behavior(self, face_pose):
-        """Your custom face interaction logic"""
+        """Custom face interaction logic"""
         self.get_logger().info(f"Executing face behavior at X:{face_pose.pose.position.x:.2f}, Y:{face_pose.pose.position.y:.2f}")
-        
-        # Example behaviors:
-        # 1. Play sound
         try:
-            # Speak directly (no file saving needed)
             self.yapper.yap("What is up my G!")
-            
         except Exception as e:
             self.get_logger().error(f"TTS error: {str(e)}")
-        
-        # 2. Pause for interaction
-        # time.sleep(1.0)
-        
-        # # Return to original orientation
-        # self.spin(-3.14)
 
-    def handle_completion(self):
-        """Handle completion of all waypoints"""
-        self.get_logger().info("All waypoints completed - waiting for new faces")
-        time.sleep(5.0)  # Prevent CPU overload while idling
+    def execute_ring_behavior(self, ring_pose):
+        """Custom ring interaction logic"""
+        self.get_logger().info(f"Executing ring behavior at X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f}")
+        try:
+            self.yapper.yap(f"Ring detected at coordinates X:{ring_pose.pose.position.x:.2f}, Y:{ring_pose.pose.position.y:.2f}")
+        except Exception as e:
+            self.get_logger().error(f"TTS error: {str(e)}")
 
 def main(args=None):
     rclpy.init(args=args)

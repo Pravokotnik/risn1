@@ -7,11 +7,12 @@ from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 import tf2_geometry_msgs
 from visualization_msgs.msg import Marker, MarkerArray
-from geometry_msgs.msg import PointStamped, Point, PoseStamped
+from geometry_msgs.msg import PointStamped, Point, PoseStamped, Quaternion
 import numpy as np
 from collections import deque
 import time
 from rclpy.qos import QoSProfile, QoSHistoryPolicy
+import math
 
 class FaceFilterNode(Node):
     def __init__(self):
@@ -81,7 +82,7 @@ class FaceFilterNode(Node):
                 return
 
             # Calculate safe approach point
-            safe_point = self.calculate_safe_point(robot_pose.pose.position, face_point.point)
+            safe_point, orientation = self.calculate_safe_point(robot_pose.pose.position, face_point.point)
             
             # Create visualization markers
             if self.is_new_face(face_point.point):
@@ -90,7 +91,7 @@ class FaceFilterNode(Node):
                 filtered_marker.header.stamp = self.get_clock().now().to_msg()
                 filtered_marker.id = len(self.face_history)
                 filtered_marker.pose.position = safe_point
-                filtered_marker.pose.orientation # TODO
+                filtered_marker.pose.orientation = orientation
                 
                 marker_array = self.create_visualization_markers(
                     robot_pose.pose.position,
@@ -151,7 +152,7 @@ class FaceFilterNode(Node):
             return None
 
     def calculate_safe_point(self, robot_pos, face_pos):
-        """Calculate point 0.5m back from face toward robot"""
+        """Calculate point 0.5m back from face toward robot with orientation facing face"""
         # Convert to numpy arrays for vector math
         robot = np.array([robot_pos.x, robot_pos.y, robot_pos.z])
         face = np.array([face_pos.x, face_pos.y, face_pos.z])
@@ -167,13 +168,30 @@ class FaceFilterNode(Node):
         else:
             scaled_direction = np.zeros(3)
         
-        # Calculate safe point
+        # Calculate safe point position
         safe_point = Point()
         safe_point.x = face_pos.x + scaled_direction[0]
         safe_point.y = face_pos.y + scaled_direction[1]
         safe_point.z = face_pos.z + scaled_direction[2]
         
-        return safe_point
+        # Calculate orientation (facing toward the face)
+        # Get direction from safe point to face
+        face_dir = np.array([face_pos.x - safe_point.x, 
+                           face_pos.y - safe_point.y,
+                           face_pos.z - safe_point.z])
+        face_dir_2d = face_dir[:2]  # Only care about x,y for yaw
+        
+        # Calculate yaw angle
+        yaw = math.atan2(face_dir_2d[1], face_dir_2d[0])
+        
+        # Convert yaw to quaternion
+        orientation = Quaternion()
+        orientation.x = 0.0
+        orientation.y = 0.0
+        orientation.z = math.sin(yaw/2.0)
+        orientation.w = math.cos(yaw/2.0)
+        
+        return safe_point, orientation
 
     def create_visualization_markers(self, robot_pos, face_pos, safe_point):
         """Create markers for visualization"""

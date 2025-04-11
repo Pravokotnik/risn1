@@ -11,6 +11,8 @@
 
   <license>Apache-2.0</license>
 
+  <exec_depend>python3-yapper</exec_depend>
+
   <depend>rclpy</depend>
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
