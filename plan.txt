@@ -1,0 +1,36 @@
+******Face detection ideas:
+Send location and ID from filter to main. Whenever main gets new location it stores the ID. If there is already a location with that ID, replace with the new location.
+Filter for face detection: only send location if detected a face in the same location multiple times?
+Save both location of face and destination location (coming 1m off wall), that way even if two faces have a similar location like on either side of a wall, or the same destination, they will be stored as seperate faces.
+Should probably make the filter check the map to see if the robot can get there, and if not, check 30° angle around the detected point (30° with center at the face location), to see if any spot if free, else mark the face on the map as unreachable.
+Only store faces that cross the middle 10% of the screen or something. That way you still detect faces close to the camera, but also ignore anytihng in the sky, like people looking if the robot is working.
+This detecting and filtering could be standardizred for anything we want to detect, we just let the user specify the detection function.
+Proximity to the face should be taken into account, where the closer the robot was to the face, the more we trust that detection.
+
+The second the face is detected, look at it. If we detect it again multiple times store it, else it was a false alarm? This would only happen if a face is detected in a place that no other face has been detected.
+^ Maybe this could be an "emergency command" type thing. Look at the location for a second, and wait if any further instrucitons come, else go on your oway.
+^^ Maybe a queue for emergency commands too.
+
+Need some sort of confirmation on whether the face is actually there. Let's say we "detected" a face, the robot arrives, and there's nothing there.
+Maybe only finalize talking to the face if the face is currently on screen? Probably good only if it's in the middle of the screen once the final destination has been reached. Else look around to see if the position was just calculated wrong?
+
+
+
+Main loop:
+Detect face
+Calculate position of face and destination position.
+if new face, send emergency look command. Write it to a list.
+
+
+
+
+
+******Water/grass:
+TODO
+
+******Movement:
+Preset waypoints
+If face detected, go visit it immediately, then return to last visited checkpoint. Why? Smoother operation, looks cleaner.
+
+
+
