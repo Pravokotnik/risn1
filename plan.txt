@@ -18,9 +18,10 @@ Maybe only finalize talking to the face if the face is currently on screen? Prob
 
 Main loop:
 Detect face
+Check if any part of the bounding box reaches the middle of the screen.
 Calculate position of face and destination position.
-if new face, send emergency look command. Write it to a list.
-
+Check if there's any points in 1m radius of current point, and if those points also have the wall offsetted destination in 1m, else they aren't similar points. If there's at least 5, calculate their middle and store it. If it's at least 0.1m different from previous or this is the first one, send it. If more than 5, dispose of the point that was detected from furthest away. 
+if new face (no points in 0.5m radius), send emergency look command.
 
 
 
