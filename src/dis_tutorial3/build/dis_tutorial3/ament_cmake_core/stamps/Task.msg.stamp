@@ -1,0 +1,6 @@
+uint8 priority
+uint8 task_type
+geometry_msgs/PoseStamped pose
+string color
+string description
+int32 id

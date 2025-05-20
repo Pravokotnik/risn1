@@ -18,6 +18,16 @@ find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 
+find_package(geometry_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+# Generate messages
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Task.msg"
+  DEPENDENCIES geometry_msgs
+)
+
+
 install(DIRECTORY
   launch
   config
@@ -39,6 +49,7 @@ install(PROGRAMS
   scripts/face_filter.py
   scripts/detect_rings_mod.py
   scripts/main.py
+  scripts/main1.py
   scripts/get_rings.py
   scripts/rings_filter.py
   DESTINATION lib/${PROJECT_NAME})

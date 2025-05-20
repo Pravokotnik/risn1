@@ -1,48 +1,52 @@
 #!/usr/bin/env python3
-
 import rclpy
+import heapq
+import time
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
-from visualization_msgs.msg import Marker
-from collections import deque
-import time
+from tasks_msgs.msg import Task  # Custom message type
 from yapper import Yapper
-from enum import Enum, auto
-
-from rclpy.qos import QoSProfile, QoSHistoryPolicy
 from robot_commander import RobotCommander
-
-class NavigationMode(Enum):
-    WAYPOINTS = auto()
-    FACES = auto()
 
 class HybridController(RobotCommander):
     def __init__(self):
         super().__init__('hybrid_controller')
         
-        # Navigation setup
-        self.waypoints = self.get_default_waypoints()
-        self.face_list = []  # Stores tuples of (face_id, pose)
-        self.face_index = 0
-        self.waypoint_index = 0
-        self.last_waypoint_before_faces = None
-        self.current_mode = NavigationMode.WAYPOINTS
+        # Priority queue (max-heap using negative priorities)
+        self.task_heap = []
+        self.current_task = None
         
-        # Speech component
-        self.yapper = Yapper()
-        
-        # Face detection subscription
-        self.face_sub = self.create_subscription(
-            Marker,
-            '/filtered_people_marker',
-            self.face_callback,
+        # Single subscriber for all tasks
+        self.task_sub = self.create_subscription(
+            Task,  # Using our custom message type
+            '/tasks',
+            self.task_callback,
             10
         )
+        
+        self.yapper = Yapper()
+        self.get_logger().info("Priority-based controller ready")
 
-        self.get_logger().info("Hybrid controller initialized")
+    def task_callback(self, msg):
+        """Handle all incoming tasks with their sender-defined priorities"""
+        self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description)
+
+    def add_task(self, priority, task_type, pose, description=""):
+        """Add task to priority queue"""
+        entry = (-priority, time.time(), {  # Negative for max-heap
+            'type': task_type,
+            'pose': pose,
+            'description': description
+        })
+        heapq.heappush(self.task_heap, entry)
+        
+        # Interrupt current task if new one has higher priority
+        if self.current_task and priority > abs(self.current_task[0]):
+            self.get_logger().info(f"Interrupting for {description}")
+            self.cancel_current_task()
 
     def get_default_waypoints(self):
-        """Define your default waypoint route here"""
+        """Default waypoint route"""
         def create_pose(x, y, yaw=0.0):
             pose = PoseStamped()
             pose.header.frame_id = 'map'
@@ -64,23 +68,23 @@ class HybridController(RobotCommander):
             create_pose(2.39, 0.06)
         ]
 
-    def face_callback(self, msg):
-        """Handle incoming face detections with updates"""
-        face_id = msg.id
-        new_pose = PoseStamped()
-        new_pose.header = msg.header
-        new_pose.pose = msg.pose
+    def cancel_current_task(self):
+        """Cancel current task and requeue it"""
+        if self.current_task:
+            heapq.heappush(self.task_heap, self.current_task)
+            self.cancelTask()
+            self.current_task = None
 
-        # Update existing or add new face
-        for idx, (f_id, pose) in enumerate(self.face_list):
-            if f_id == face_id:
-                self.face_list[idx] = (face_id, new_pose)
-                return
-        self.face_list.append((face_id, new_pose))
-        self.get_logger().info(f"New face tracked: {face_id}")
+    # def determine_color(self, color_msg):
+    #     """Convert color message to name"""
+    #     if color_msg.r > 0.5: return "red"
+    #     if color_msg.g > 0.5: return "green"
+    #     if color_msg.b > 0.5: return "blue"
+    #     if sum([color_msg.r, color_msg.g, color_msg.b]) < 0.3: return "black"
+    #     return "unknown"
 
     def initialize_robot(self):
-        """Initialize and undock the robot"""
+        """Initialize and undock"""
         self.waitUntilNav2Active()
         while self.is_docked is None:
             rclpy.spin_once(self, timeout_sec=0.5)
@@ -95,57 +99,45 @@ class HybridController(RobotCommander):
         try:
             while rclpy.ok():
                 rclpy.spin_once(self, timeout_sec=0.1)
-                if self.current_mode == NavigationMode.WAYPOINTS:
-                    self.process_waypoints()
-                else:
-                    self.process_faces()
+                self.process_tasks()
         finally:
             self.destroyNode()
             rclpy.shutdown()
 
-    def process_waypoints(self):
-        """Process waypoints with face checking"""
-        if self.waypoint_index < len(self.waypoints):
-            self.last_waypoint_before_faces = self.waypoints[self.waypoint_index]
-            if self.goToPose(self.waypoints[self.waypoint_index]):
-                self.wait_for_task_completion(f"Waypoint {self.waypoint_index+1}")
-                self.waypoint_index += 1
-        else:
-            self.get_logger().info("All waypoints completed, switching to face navigation")
-            self.current_mode = NavigationMode.FACES
-            self.face_index = 0
+    def process_tasks(self):
+        """Process highest priority task"""
+        if not self.current_task and self.task_heap:
+            self.current_task = heapq.heappop(self.task_heap)
+            self.execute_task(self.current_task[2])
 
-    def process_faces(self):
-        """Process faces in detection order"""
-        if self.face_index < len(self.face_list):
-            face_id, face_pose = self.face_list[self.face_index]
-            if self.goToPose(face_pose):
-                self.wait_for_task_completion(f"Face {self.face_index+1}")
-                self.execute_face_behavior(face_pose)
-                self.face_index += 1
-        else:
-            self.get_logger().info("All faces visited")
-            if self.last_waypoint_before_faces:
-                self.goToPose(self.last_waypoint_before_faces)
+    def execute_task(self, task):
+        """Execute navigation task"""
+        try:
+            if self.goToPose(task['pose']):
+                self.handle_task_behavior(task)
+                self.wait_for_completion(task['description'])
+        except Exception as e:
+            self.get_logger().error(f"Task failed: {str(e)}")
+        finally:
+            self.current_task = None
 
-    def wait_for_task_completion(self, task_name=""):
-        """Helper for waiting on navigation tasks"""
+    def handle_task_behavior(self, task):
+        """Task-specific behaviors"""
+        if task['priority'] == PRIORITY_RING:
+            self.yapper.yap(f"Found {task.get('color', 'unknown')} ring!")
+        elif task['priority'] == PRIORITY_FACE:
+            self.yapper.yap("Hello there!")
+
+    def wait_for_completion(self, description):
+        """Wait for task completion with interrupt check"""
         while not self.isTaskComplete():
             self.get_logger().info(
-                f"{task_name}... Current position: "
-                f"X:{self.current_pose.pose.position.x:.2f}, "
-                f"Y:{self.current_pose.pose.position.y:.2f}",
+                f"{description}... "
+                f"Position: {self.current_pose.pose.position.x:.2f}, "
+                f"{self.current_pose.pose.position.y:.2f}",
                 throttle_duration_sec=2.0
             )
             time.sleep(0.1)
-
-    def execute_face_behavior(self, face_pose):
-        """Simple face interaction"""
-        self.get_logger().info(f"Reached face at {face_pose.pose.position.x:.2f}, {face_pose.pose.position.y:.2f}")
-        try:
-            self.yapper.yap("Hello there!")
-        except Exception as e:
-            self.get_logger().error(f"TTS error: {str(e)}")
 
 def main(args=None):
     rclpy.init(args=args)

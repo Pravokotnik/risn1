@@ -1,0 +1,9 @@
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/uninstall.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/dis_tutorial3_uninstall.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/test.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/edit_cache.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/rebuild_cache.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/list_install_components.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/install.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/install/local.dir
+/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/install/strip.dir
