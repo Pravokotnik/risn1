@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from dis_tutorial3/msg/Task.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/PoseStamped.idl"
+
+module dis_tutorial3 {
+  module msg {
+    @verbatim (language="comment", text=
+      "tasks_msgs/msg/Task.msg")
+    struct Task {
+      uint8 priority;
+
+      uint32 id;
+
+      @verbatim (language="comment", text=
+        "\"waypoint\", \"ring\", \"face\", etc.")
+      string task_type;
+
+      geometry_msgs::msg::PoseStamped target_pose;
+
+      string description;
+    };
+  };
+};

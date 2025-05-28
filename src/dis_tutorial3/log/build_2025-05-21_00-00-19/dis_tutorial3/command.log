@@ -1,2 +1,0 @@
-Invoking command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 -- -j20 -l20
-Invoked command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 -- -j20 -l20

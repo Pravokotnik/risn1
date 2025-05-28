@@ -1,0 +1,401 @@
+[0.008s] Invoking command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 -- -j20 -l20
+[0.023s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.274s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.290s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.291s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.294s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.299s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.306s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.323s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.324s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.382s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.408s] -- Found rclpy: 3.3.16 (/opt/ros/humble/share/rclpy/cmake)
+[0.408s] -- Found std_srvs: 4.8.0 (/opt/ros/humble/share/std_srvs/cmake)
+[0.413s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.420s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[0.942s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[1.493s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.678s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.755s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[1.864s] -- Using PYTHON_EXECUTABLE: /home/nik/.pyenv/shims/python3
+[1.865s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[1.865s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[1.887s] -- Configuring done
+[1.906s] -- Generating done
+[1.913s] -- Build files have been written to: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3
+[1.932s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_generator_c[0m
+[1.939s] [  3%] Built target dis_tutorial3__cpp
+[1.940s] [ 12%] Built target dis_tutorial3__rosidl_generator_c
+[1.942s] [ 12%] Built target ament_cmake_python_copy_dis_tutorial3
+[1.946s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_cpp[0m
+[1.947s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_c[0m
+[1.947s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_cpp[0m
+[1.948s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_cpp[0m
+[1.948s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_c[0m
+[1.949s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_c[0m
+[1.955s] [ 22%] Built target dis_tutorial3__rosidl_typesupport_c
+[1.955s] [ 32%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_c
+[1.955s] [ 41%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_cpp
+[1.955s] [ 51%] Built target dis_tutorial3__rosidl_typesupport_cpp
+[1.956s] [ 61%] Built target dis_tutorial3__rosidl_typesupport_introspection_cpp
+[1.958s] [ 70%] Built target dis_tutorial3__rosidl_typesupport_introspection_c
+[1.971s] [ 70%] Built target dis_tutorial3
+[1.984s] [ 74%] Built target dis_tutorial3__py
+[1.991s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_generator_py[0m
+[2.001s] [ 80%] Built target dis_tutorial3__rosidl_generator_py
+[2.009s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext[0m
+[2.009s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_c__pyext[0m
+[2.010s] [35m[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_c__pyext[0m
+[2.018s] [ 87%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext
+[2.019s] [ 93%] Built target dis_tutorial3__rosidl_typesupport_c__pyext
+[2.021s] [100%] Built target dis_tutorial3__rosidl_typesupport_introspection_c__pyext
+[2.167s] running egg_info
+[2.172s] writing dis_tutorial3.egg-info/PKG-INFO
+[2.172s] writing dependency_links to dis_tutorial3.egg-info/dependency_links.txt
+[2.172s] writing top-level names to dis_tutorial3.egg-info/top_level.txt
+[2.187s] reading manifest file 'dis_tutorial3.egg-info/SOURCES.txt'
+[2.187s] writing manifest file 'dis_tutorial3.egg-info/SOURCES.txt'
+[2.213s] [100%] Built target ament_cmake_python_build_dis_tutorial3_egg
+[2.220s] Invoked command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 -- -j20 -l20
+[2.226s] Invoking command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3
+[2.230s] -- Install configuration: ""
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/rosidl_interfaces/dis_tutorial3
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/task.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__struct.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__functions.c
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__functions.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_generator_c__visibility_control.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/library_path.sh
+[2.230s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/library_path.dsv
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_generator_c.so
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_fastrtps_c.h
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_fastrtps_c.so
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.230s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_generator_cpp__visibility_control.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__struct.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__builder.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__traits.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/task.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_fastrtps_cpp.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/dds_fastrtps
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_fastrtps_cpp.so
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.c
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_c.h
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_introspection_c.so
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_c.so
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.cpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_introspection_cpp.so
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_cpp.so
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/pythonpath.sh
+[2.231s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/pythonpath.dsv
+[2.231s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info
+[2.232s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/SOURCES.txt
+[2.232s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/top_level.txt
+[2.232s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/dependency_links.txt
+[2.232s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/PKG-INFO
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_c.c
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_introspection_c.c
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so
+[2.232s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/__init__.py
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/__init__.py
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/_task_s.c
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/_task.py
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
+[2.232s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[2.329s] Listing '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3'...
+[2.329s] Compiling '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/__init__.py'...
+[2.329s] Listing '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg'...
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_generator_py.so
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/msg/Task.idl
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/msg/Task.msg
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/turtlebot4_spawn_nav.launch.py
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/dis_sim.launch.py
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/create3_nodes.launch.py
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/sim_turtlebot_nav.launch.py
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/slam.launch.py
+[2.332s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/turtlebot4_spawn.launch.py
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/ignition.launch.py
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/localization.launch.py
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/sim_turtlebot_slam.launch.py
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/nav2.launch.py
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/slam.yaml
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/nav2.yaml
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/laser_filter_chain.yaml
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/localization.yaml
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/qr2.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/parking_space.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person4.png.001.png
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person5.png.001.png
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/objects.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person3.png.001.png
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/ground.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/red.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering3.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/map_colliders.dae
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/map.dae
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/black.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/qr1.jpg
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person6.png
+[2.334s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person2.png.001.png
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/green.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person13.png
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering1.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering2.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/blue.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/yellow.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/empty.sdf
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/parking_space.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/objects.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/ground.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering3.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/map_colliders.dae
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/map.dae
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/cylinders.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering1.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering2.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/parking_space.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/objects.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/ground.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering3.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/map_colliders.dae
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/map.dae
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/cylinders.jpg
+[2.335s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering1.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering2.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1.sdf
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2.sdf
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3.sdf
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/parking_space.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_4.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager1.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/objects.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_0.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager2.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_3.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/ground.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/mona.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_1.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_wrong.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_2.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering3.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_1.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/map_colliders.dae
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager4.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_cheat.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager3.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_0.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_2.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/map.dae
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_4.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/cylinders.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_url.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager5.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering1.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering2.jpg
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_3.png
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4.sdf
+[2.336s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/qr2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/parking_space.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person18.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/objects.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person20.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person8.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/ground.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person9.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering3.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/map_colliders.dae
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/map.dae
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person7.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/qr1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person6.png
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/cylinders.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/qr2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person5.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/parking_space.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person3.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/objects.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person4.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/ground.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering3.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/map_colliders.dae
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/map.dae
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/mona1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/davinci.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/qr1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/cylinders.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering1.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/wood.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1.sdf
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/qr2.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/parking_space.jpg
+[2.337s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/objects.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/ground.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/red.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person15.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering3.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/map_colliders.dae
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/map.dae
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person22.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/black.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person24.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/qr1.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person17.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/green.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering1.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering2.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person21.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/blue.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/yellow.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis.sdf
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/qr2.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/parking_space.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/objects.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person11.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/ground.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person4.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering3.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/map_colliders.dae
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/map.dae
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person2.png
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/qr1.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/cylinders.jpg
+[2.338s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person3.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering1.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering2.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person1.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person5.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2.sdf
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1.sdf
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3.sdf
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/qr2.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/parking_space.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person5.png.001.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/objects.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person8.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person3.png.001.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/ground.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/red.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering3.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/map_colliders.dae
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/map.dae
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/black.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/qr1.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person6.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person2.png.001.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/green.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person13.png
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering1.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering2.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/blue.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/yellow.jpg
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps
+[2.339s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/nasamapa.yaml
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/map.pgm
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/my_map.yaml
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/map.yaml
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/nasamapa.pgm
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/my_map.pgm
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_people.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/robot_commander.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/robot_commander_custom.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/dp2.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/clicked_point_listener.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/start_round.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/get_coords.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_rings.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_people_custom.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/face_filter.py
+[2.340s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/face_filter1.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_rings_mod.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/main.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/main1.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/get_rings.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/rings_filter.py
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/package_run_dependencies/dis_tutorial3
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/parent_prefix_path/dis_tutorial3
+[2.340s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/ament_prefix_path.sh
+[2.340s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/ament_prefix_path.dsv
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/path.sh
+[2.341s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/path.dsv
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.bash
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.sh
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.zsh
+[2.341s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.dsv
+[2.341s] -- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/package.dsv
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/packages/dis_tutorial3
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cppExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cppExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cppExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cppExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cppExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_pyExport.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_pyExport-noconfig.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake-extras.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.341s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_libraries-extras.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_targets-extras.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3Config.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3Config-version.cmake
+[2.342s] -- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/package.xml
+[2.342s] Invoked command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3

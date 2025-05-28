@@ -34,6 +34,11 @@ AMENT_CMAKE_UNINSTALL_TARGET:BOOL=ON
 //The path where test results are generated
 AMENT_TEST_RESULTS_DIR:PATH=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/test_results
 
+//Global flag to cause add_library() to create shared libraries
+// if on. If set to true, this will cause all libraries to be built
+// shared unless the library was explicitly added as a static library.
+BUILD_SHARED_LIBS:BOOL=ON
+
 //Build the testing tree.
 BUILD_TESTING:BOOL=ON
 
@@ -263,6 +268,18 @@ PKG_CONFIG_ARGN:STRING=
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Path to a program.
+PYTHON_EXECUTABLE:FILEPATH=/home/nik/.pyenv/shims/python3
+
+//Path to a file.
+PYTHON_INCLUDE_DIR:PATH=/usr/include/python3.10
+
+//Path to a library.
+PYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.10.so
+
+//Path to a library.
+PYTHON_LIBRARY_DEBUG:FILEPATH=PYTHON_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a program.
 Python3_EXECUTABLE:FILEPATH=/home/nik/.pyenv/shims/python3
 
 //Name of the computer/site where compile is being run
@@ -273,6 +290,9 @@ TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
 
 //Path to a library.
 _lib:FILEPATH=/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so
+
+//Path to a file.
+_numpy_h:FILEPATH=/usr/include/python3.10/numpy/numpyconfig.h
 
 //The directory containing a CMake configuration file for ament_cmake.
 ament_cmake_DIR:PATH=/opt/ros/humble/share/ament_cmake/cmake
@@ -304,14 +324,26 @@ ament_cmake_export_targets_DIR:PATH=/opt/ros/humble/share/ament_cmake_export_tar
 //The directory containing a CMake configuration file for ament_cmake_gen_version_h.
 ament_cmake_gen_version_h_DIR:PATH=/opt/ros/humble/share/ament_cmake_gen_version_h/cmake
 
+//The directory containing a CMake configuration file for ament_cmake_gmock.
+ament_cmake_gmock_DIR:PATH=/opt/ros/humble/share/ament_cmake_gmock/cmake
+
+//The directory containing a CMake configuration file for ament_cmake_gtest.
+ament_cmake_gtest_DIR:PATH=/opt/ros/humble/share/ament_cmake_gtest/cmake
+
 //The directory containing a CMake configuration file for ament_cmake_include_directories.
 ament_cmake_include_directories_DIR:PATH=/opt/ros/humble/share/ament_cmake_include_directories/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_libraries.
 ament_cmake_libraries_DIR:PATH=/opt/ros/humble/share/ament_cmake_libraries/cmake
 
+//The directory containing a CMake configuration file for ament_cmake_pytest.
+ament_cmake_pytest_DIR:PATH=/opt/ros/humble/share/ament_cmake_pytest/cmake
+
 //The directory containing a CMake configuration file for ament_cmake_python.
 ament_cmake_python_DIR:PATH=/opt/ros/humble/share/ament_cmake_python/cmake
+
+//The directory containing a CMake configuration file for ament_cmake_ros.
+ament_cmake_ros_DIR:PATH=/opt/ros/humble/share/ament_cmake_ros/cmake
 
 //The directory containing a CMake configuration file for ament_cmake_target_dependencies.
 ament_cmake_target_dependencies_DIR:PATH=/opt/ros/humble/share/ament_cmake_target_dependencies/cmake
@@ -336,6 +368,39 @@ dis_tutorial3_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 dis_tutorial3_SOURCE_DIR:STATIC=/home/nik/Documents/RIS/risn1/src/dis_tutorial3
+
+//Dependencies for the target
+dis_tutorial3__rosidl_generator_c_LIB_DEPENDS:STATIC=general;geometry_msgs::geometry_msgs__rosidl_generator_c;general;std_msgs::std_msgs__rosidl_generator_c;general;rosidl_runtime_c::rosidl_runtime_c;general;rcutils::rcutils;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_generator_py_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_c;general;/usr/lib/x86_64-linux-gnu/libpython3.10.so;general;dis_tutorial3__rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_generator_py;general;std_msgs::std_msgs__rosidl_generator_py;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_c_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_c;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_c::rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_c;general;std_msgs::std_msgs__rosidl_typesupport_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_c__pyext_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_py;general;/usr/lib/x86_64-linux-gnu/libpython3.10.so;general;dis_tutorial3__rosidl_typesupport_c;general;dis_tutorial3__rosidl_typesupport_c;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_c::rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_generator_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_cpp;general;geometry_msgs::geometry_msgs__rosidl_generator_py;general;std_msgs::std_msgs__rosidl_generator_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp;general;std_msgs::std_msgs__rosidl_typesupport_introspection_c;general;std_msgs::std_msgs__rosidl_typesupport_c;general;std_msgs::std_msgs__rosidl_typesupport_introspection_cpp;general;std_msgs::std_msgs__rosidl_typesupport_cpp;general;std_msgs::std_msgs__rosidl_generator_py;general;rosidl_runtime_c::rosidl_runtime_c;general;/opt/ros/humble/lib/librmw.so;general;rcutils::rcutils;general;rosidl_runtime_c::rosidl_runtime_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_cpp_LIB_DEPENDS:STATIC=general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_cpp::rosidl_typesupport_cpp;general;rosidl_typesupport_c::rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_cpp;general;std_msgs::std_msgs__rosidl_typesupport_cpp;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_fastrtps_c_LIB_DEPENDS:STATIC=general;fastcdr;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_fastrtps_cpp::rosidl_typesupport_fastrtps_cpp;general;rosidl_typesupport_fastrtps_c::rosidl_typesupport_fastrtps_c;general;dis_tutorial3__rosidl_generator_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_py;general;/usr/lib/x86_64-linux-gnu/libpython3.10.so;general;dis_tutorial3__rosidl_typesupport_fastrtps_c;general;dis_tutorial3__rosidl_typesupport_c;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_c::rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_generator_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_cpp;general;geometry_msgs::geometry_msgs__rosidl_generator_py;general;std_msgs::std_msgs__rosidl_generator_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp;general;std_msgs::std_msgs__rosidl_typesupport_introspection_c;general;std_msgs::std_msgs__rosidl_typesupport_c;general;std_msgs::std_msgs__rosidl_typesupport_introspection_cpp;general;std_msgs::std_msgs__rosidl_typesupport_cpp;general;std_msgs::std_msgs__rosidl_generator_py;general;rosidl_runtime_c::rosidl_runtime_c;general;/opt/ros/humble/lib/librmw.so;general;rcutils::rcutils;general;rosidl_runtime_c::rosidl_runtime_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_fastrtps_cpp_LIB_DEPENDS:STATIC=general;fastcdr;general;rmw::rmw;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_fastrtps_cpp::rosidl_typesupport_fastrtps_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_introspection_c_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_c;general;rosidl_typesupport_introspection_c::rosidl_typesupport_introspection_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_c;general;std_msgs::std_msgs__rosidl_typesupport_introspection_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_introspection_c__pyext_LIB_DEPENDS:STATIC=general;dis_tutorial3__rosidl_generator_py;general;/usr/lib/x86_64-linux-gnu/libpython3.10.so;general;dis_tutorial3__rosidl_typesupport_introspection_c;general;dis_tutorial3__rosidl_typesupport_c;general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_c::rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_generator_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_c;general;geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_cpp;general;geometry_msgs::geometry_msgs__rosidl_generator_py;general;std_msgs::std_msgs__rosidl_generator_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_c;general;std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp;general;std_msgs::std_msgs__rosidl_typesupport_introspection_c;general;std_msgs::std_msgs__rosidl_typesupport_c;general;std_msgs::std_msgs__rosidl_typesupport_introspection_cpp;general;std_msgs::std_msgs__rosidl_typesupport_cpp;general;std_msgs::std_msgs__rosidl_generator_py;general;rosidl_runtime_c::rosidl_runtime_c;general;/opt/ros/humble/lib/librmw.so;general;rcutils::rcutils;general;rosidl_runtime_c::rosidl_runtime_c;
+
+//Dependencies for the target
+dis_tutorial3__rosidl_typesupport_introspection_cpp_LIB_DEPENDS:STATIC=general;rosidl_runtime_c::rosidl_runtime_c;general;rosidl_typesupport_introspection_cpp::rosidl_typesupport_introspection_cpp;general;geometry_msgs::geometry_msgs__rosidl_typesupport_introspection_cpp;general;std_msgs::std_msgs__rosidl_typesupport_introspection_cpp;
 
 //The directory containing a CMake configuration file for fastcdr.
 fastcdr_DIR:PATH=/opt/ros/humble/lib/cmake/fastcdr
@@ -366,6 +431,9 @@ pkgcfg_lib__OPENSSL_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
 
 //Path to a library.
 pkgcfg_lib__OPENSSL_ssl:FILEPATH=/usr/lib/x86_64-linux-gnu/libssl.so
+
+//The directory containing a CMake configuration file for python_cmake_module.
+python_cmake_module_DIR:PATH=/opt/ros/humble/share/python_cmake_module/cmake
 
 //The directory containing a CMake configuration file for rcl.
 rcl_DIR:PATH=/opt/ros/humble/share/rcl/cmake
@@ -593,7 +661,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -642,6 +710,12 @@ FIND_PACKAGE_MESSAGE_DETAILS_FastRTPS:INTERNAL=[/opt/ros/humble/include][/opt/ro
 FIND_PACKAGE_MESSAGE_DETAILS_OpenSSL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcrypto.so][/usr/include][c ][v3.0.2()]
 //Details about finding Python3
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/nik/.pyenv/shims/python3][cfound components: Interpreter ][v3.10.13()]
+//Details about finding PythonExtra
+FIND_PACKAGE_MESSAGE_DETAILS_PythonExtra:INTERNAL=[.so][/usr/include/python3.10][/usr/lib/x86_64-linux-gnu/libpython3.10.so][cpython-310-x86_64-linux-gnu][.cpython-310-x86_64-linux-gnu][v()]
+//Details about finding PythonInterp
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/nik/.pyenv/shims/python3][v3.10.13(3.6)]
+//Details about finding PythonLibs
+FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/usr/lib/x86_64-linux-gnu/libpython3.10.so][/usr/include/python3.10][v3.10.12(3.5)]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: OPENSSL_CRYPTO_LIBRARY
@@ -654,6 +728,22 @@ OPENSSL_SSL_LIBRARY-ADVANCED:INTERNAL=1
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_EXECUTABLE
+PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_INCLUDE_DIR
+PYTHON_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//The directory for Python library installation. This needs to
+// be in PYTHONPATH when 'setup.py install' is called.
+PYTHON_INSTALL_DIR:INTERNAL=lib/python3.10/site-packages
+//ADVANCED property for variable: PYTHON_LIBRARY
+PYTHON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_LIBRARY_DEBUG
+PYTHON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//The SOABI suffix for Python native extensions. See PEP-3149:
+// https://www.python.org/dev/peps/pep-3149/.
+PYTHON_SOABI:INTERNAL=cpython-310-x86_64-linux-gnu
+//The full suffix for Python native extensions. See PEP-3149: https://www.python.org/dev/peps/pep-3149/.
+PythonExtra_EXTENSION_SUFFIX:INTERNAL=.cpython-310-x86_64-linux-gnu
 _OPENSSL_CFLAGS:INTERNAL=
 _OPENSSL_CFLAGS_I:INTERNAL=
 _OPENSSL_CFLAGS_OTHER:INTERNAL=
@@ -691,7 +781,7 @@ _OPENSSL_openssl_PREFIX:INTERNAL=
 _OPENSSL_openssl_VERSION:INTERNAL=
 _Python3_EXECUTABLE:INTERNAL=/home/nik/.pyenv/shims/python3
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;5;64;;cpython-312-x86_64-linux-gnu;/home/nik/.pyenv/versions/3.12.5/lib/python3.12;/home/nik/.pyenv/versions/3.12.5/lib/python3.12;/home/nik/.pyenv/versions/3.12.5/lib/python3.12/site-packages;/home/nik/.pyenv/versions/3.12.5/lib/python3.12/site-packages
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;10;13;64;;cpython-310-x86_64-linux-gnu;/home/nik/.pyenv/versions/3.10.13/lib/python3.10;/home/nik/.pyenv/versions/3.10.13/lib/python3.10;/home/nik/.pyenv/versions/3.10.13/lib/python3.10/site-packages;/home/nik/.pyenv/versions/3.10.13/lib/python3.10/site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=0f179e46344b8efb8162d051bbc717f2
 __pkg_config_arguments__OPENSSL:INTERNAL=QUIET;openssl
 __pkg_config_checked__OPENSSL:INTERNAL=1

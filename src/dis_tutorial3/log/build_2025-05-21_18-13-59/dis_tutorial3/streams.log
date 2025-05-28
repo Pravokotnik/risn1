@@ -1,0 +1,35 @@
+[0.005s] Invoking command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3': /usr/bin/cmake /home/nik/Documents/RIS/risn1/src/dis_tutorial3 -DCMAKE_INSTALL_PREFIX=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3
+[0.045s] -- The C compiler identification is GNU 11.4.0
+[0.084s] -- The CXX compiler identification is GNU 11.4.0
+[0.088s] -- Detecting C compiler ABI info
+[0.132s] -- Detecting C compiler ABI info - done
+[0.136s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.136s] -- Detecting C compile features
+[0.136s] -- Detecting C compile features - done
+[0.138s] -- Detecting CXX compiler ABI info
+[0.196s] -- Detecting CXX compiler ABI info - done
+[0.200s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.200s] -- Detecting CXX compile features
+[0.200s] -- Detecting CXX compile features - done
+[0.201s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.967s] -- Found Python3: /home/nik/.pyenv/shims/python3 (found version "3.10.13") found components: Interpreter 
+[1.088s] [31mCMake Error at CMakeLists.txt:15 (find_package):
+[1.088s]   By not providing "Findrclcpp.cmake" in CMAKE_MODULE_PATH this project has
+[1.088s]   asked CMake to find a package configuration file provided by "rclcpp", but
+[1.088s]   CMake did not find one.
+[1.088s] 
+[1.088s]   Could not find a package configuration file provided by "rclcpp" with any
+[1.088s]   of the following names:
+[1.088s] 
+[1.088s]     rclcppConfig.cmake
+[1.088s]     rclcpp-config.cmake
+[1.088s] 
+[1.088s]   Add the installation prefix of "rclcpp" to CMAKE_PREFIX_PATH or set
+[1.088s]   "rclcpp_DIR" to a directory containing one of the above files.  If "rclcpp"
+[1.088s]   provides a separate development package or SDK, be sure it has been
+[1.088s]   installed.
+[1.089s] 
+[1.089s] [0m
+[1.089s] -- Configuring incomplete, errors occurred!
+[1.089s] See also "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/CMakeOutput.log".
+[1.091s] Invoked command in '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3' returned '1': /usr/bin/cmake /home/nik/Documents/RIS/risn1/src/dis_tutorial3 -DCMAKE_INSTALL_PREFIX=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3

@@ -47,6 +47,7 @@ install(PROGRAMS
   scripts/detect_rings.py
   scripts/detect_people_custom.py
   scripts/face_filter.py
+  scripts/face_filter1.py
   scripts/detect_rings_mod.py
   scripts/main.py
   scripts/main1.py

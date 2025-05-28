@@ -1,0 +1,432 @@
+[0.000000] (-) TimerEvent: {}
+[0.000386] (dis_tutorial3) JobQueued: {'identifier': 'dis_tutorial3', 'dependencies': OrderedDict()}
+[0.000411] (dis_tutorial3) JobStarted: {'identifier': 'dis_tutorial3'}
+[0.006561] (dis_tutorial3) JobProgress: {'identifier': 'dis_tutorial3', 'progress': 'cmake'}
+[0.006850] (dis_tutorial3) JobProgress: {'identifier': 'dis_tutorial3', 'progress': 'build'}
+[0.007201] (dis_tutorial3) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3', '--', '-j20', '-l20'], 'cwd': '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'nik'), ('LC_TIME', 'sl_SI.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/nik'), ('DESKTOP_SESSION', 'ubuntu'), ('PYENV_SHELL', 'bash'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sl_SI.UTF-8'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '2349'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('COLCON_PREFIX_PATH', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'nik'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'nik'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/nik/.pyenv/shims:/home/nik/.pyenv/bin:/opt/ros/humble/bin:/home/nik/.pyenv/bin:/home/nik/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:@/tmp/.ICE-unix/2349,unix/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:/tmp/.ICE-unix/2349'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sl_SI.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a71ea27e_a230_4609_af1b_c1e8f2e57c56'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'sl_SI.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.177'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sl_SI.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:68a69768-6414-422b-b06d-a319ebe578d4'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sl_SI.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'sl_SI.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('PYENV_ROOT', '/home/nik/.pyenv'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'sl_SI.UTF-8'), ('LC_PAPER', 'sl_SI.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.023744] (dis_tutorial3) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.099786] (-) TimerEvent: {}
+[0.200123] (-) TimerEvent: {}
+[0.274692] (dis_tutorial3) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.289868] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.291223] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.294378] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.299414] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.300211] (-) TimerEvent: {}
+[0.305994] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.323283] (dis_tutorial3) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.324035] (dis_tutorial3) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.382299] (dis_tutorial3) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.400293] (-) TimerEvent: {}
+[0.408511] (dis_tutorial3) StdoutLine: {'line': b'-- Found rclpy: 3.3.16 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[0.408584] (dis_tutorial3) StdoutLine: {'line': b'-- Found std_srvs: 4.8.0 (/opt/ros/humble/share/std_srvs/cmake)\n'}
+[0.413503] (dis_tutorial3) StdoutLine: {'line': b'-- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.420161] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[0.500365] (-) TimerEvent: {}
+[0.600628] (-) TimerEvent: {}
+[0.700964] (-) TimerEvent: {}
+[0.801168] (-) TimerEvent: {}
+[0.901405] (-) TimerEvent: {}
+[0.941838] (dis_tutorial3) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[1.001536] (-) TimerEvent: {}
+[1.101822] (-) TimerEvent: {}
+[1.202054] (-) TimerEvent: {}
+[1.302243] (-) TimerEvent: {}
+[1.402478] (-) TimerEvent: {}
+[1.493192] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.502556] (-) TimerEvent: {}
+[1.602766] (-) TimerEvent: {}
+[1.678749] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.702961] (-) TimerEvent: {}
+[1.755720] (dis_tutorial3) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[1.803167] (-) TimerEvent: {}
+[1.864748] (dis_tutorial3) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /home/nik/.pyenv/shims/python3\n'}
+[1.864933] (dis_tutorial3) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[1.865093] (dis_tutorial3) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[1.887785] (dis_tutorial3) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.903236] (-) TimerEvent: {}
+[1.906143] (dis_tutorial3) StdoutLine: {'line': b'-- Generating done\n'}
+[1.913318] (dis_tutorial3) StdoutLine: {'line': b'-- Build files have been written to: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3\n'}
+[1.932457] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_generator_c\x1b[0m\n'}
+[1.938880] (dis_tutorial3) StdoutLine: {'line': b'[  3%] Built target dis_tutorial3__cpp\n'}
+[1.940715] (dis_tutorial3) StdoutLine: {'line': b'[ 12%] Built target dis_tutorial3__rosidl_generator_c\n'}
+[1.942444] (dis_tutorial3) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_dis_tutorial3\n'}
+[1.945849] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_cpp\x1b[0m\n'}
+[1.947313] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[1.947600] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[1.947876] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[1.947986] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_c\x1b[0m\n'}
+[1.949657] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[1.955018] (dis_tutorial3) StdoutLine: {'line': b'[ 22%] Built target dis_tutorial3__rosidl_typesupport_c\n'}
+[1.955322] (dis_tutorial3) StdoutLine: {'line': b'[ 32%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_c\n'}
+[1.955449] (dis_tutorial3) StdoutLine: {'line': b'[ 41%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_cpp\n'}
+[1.955657] (dis_tutorial3) StdoutLine: {'line': b'[ 51%] Built target dis_tutorial3__rosidl_typesupport_cpp\n'}
+[1.956113] (dis_tutorial3) StdoutLine: {'line': b'[ 61%] Built target dis_tutorial3__rosidl_typesupport_introspection_cpp\n'}
+[1.958183] (dis_tutorial3) StdoutLine: {'line': b'[ 70%] Built target dis_tutorial3__rosidl_typesupport_introspection_c\n'}
+[1.971521] (dis_tutorial3) StdoutLine: {'line': b'[ 70%] Built target dis_tutorial3\n'}
+[1.983967] (dis_tutorial3) StdoutLine: {'line': b'[ 74%] Built target dis_tutorial3__py\n'}
+[1.991563] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_generator_py\x1b[0m\n'}
+[2.001657] (dis_tutorial3) StdoutLine: {'line': b'[ 80%] Built target dis_tutorial3__rosidl_generator_py\n'}
+[2.003345] (-) TimerEvent: {}
+[2.008946] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[2.009108] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[2.010265] (dis_tutorial3) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target dis_tutorial3__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[2.018073] (dis_tutorial3) StdoutLine: {'line': b'[ 87%] Built target dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext\n'}
+[2.018883] (dis_tutorial3) StdoutLine: {'line': b'[ 93%] Built target dis_tutorial3__rosidl_typesupport_c__pyext\n'}
+[2.021199] (dis_tutorial3) StdoutLine: {'line': b'[100%] Built target dis_tutorial3__rosidl_typesupport_introspection_c__pyext\n'}
+[2.103478] (-) TimerEvent: {}
+[2.167360] (dis_tutorial3) StdoutLine: {'line': b'running egg_info\n'}
+[2.172419] (dis_tutorial3) StdoutLine: {'line': b'writing dis_tutorial3.egg-info/PKG-INFO\n'}
+[2.172491] (dis_tutorial3) StdoutLine: {'line': b'writing dependency_links to dis_tutorial3.egg-info/dependency_links.txt\n'}
+[2.172547] (dis_tutorial3) StdoutLine: {'line': b'writing top-level names to dis_tutorial3.egg-info/top_level.txt\n'}
+[2.186988] (dis_tutorial3) StdoutLine: {'line': b"reading manifest file 'dis_tutorial3.egg-info/SOURCES.txt'\n"}
+[2.187295] (dis_tutorial3) StdoutLine: {'line': b"writing manifest file 'dis_tutorial3.egg-info/SOURCES.txt'\n"}
+[2.203582] (-) TimerEvent: {}
+[2.212945] (dis_tutorial3) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_dis_tutorial3_egg\n'}
+[2.220176] (dis_tutorial3) CommandEnded: {'returncode': 0}
+[2.220602] (dis_tutorial3) JobProgress: {'identifier': 'dis_tutorial3', 'progress': 'install'}
+[2.225731] (dis_tutorial3) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3'], 'cwd': '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'nik'), ('LC_TIME', 'sl_SI.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/nik'), ('DESKTOP_SESSION', 'ubuntu'), ('PYENV_SHELL', 'bash'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sl_SI.UTF-8'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '2349'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('COLCON_PREFIX_PATH', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'nik'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'nik'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/nik/.pyenv/shims:/home/nik/.pyenv/bin:/opt/ros/humble/bin:/home/nik/.pyenv/bin:/home/nik/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:@/tmp/.ICE-unix/2349,unix/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:/tmp/.ICE-unix/2349'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sl_SI.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a71ea27e_a230_4609_af1b_c1e8f2e57c56'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'sl_SI.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.177'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sl_SI.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:68a69768-6414-422b-b06d-a319ebe578d4'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sl_SI.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'sl_SI.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('PYENV_ROOT', '/home/nik/.pyenv'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'sl_SI.UTF-8'), ('LC_PAPER', 'sl_SI.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[2.230123] (dis_tutorial3) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.230191] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/rosidl_interfaces/dis_tutorial3\n'}
+[2.230247] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.230276] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.230369] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/task.h\n'}
+[2.230413] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.230447] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__struct.h\n'}
+[2.230476] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.h\n'}
+[2.230503] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__functions.c\n'}
+[2.230526] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__functions.h\n'}
+[2.230553] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_generator_c__visibility_control.h\n'}
+[2.230578] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/library_path.sh\n'}
+[2.230600] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/library_path.dsv\n'}
+[2.230652] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_generator_c.so\n'}
+[2.230699] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.230723] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.230747] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[2.230770] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.230793] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_fastrtps_c.h\n'}
+[2.230829] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_fastrtps_c.so\n'}
+[2.230853] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.230877] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.230899] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[2.230962] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.231008] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__struct.hpp\n'}
+[2.231032] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__builder.hpp\n'}
+[2.231055] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.hpp\n'}
+[2.231078] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__traits.hpp\n'}
+[2.231134] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/task.hpp\n'}
+[2.231156] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.231177] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.231202] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.231225] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.231272] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/dds_fastrtps\n'}
+[2.231294] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[2.231344] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_fastrtps_cpp.so\n'}
+[2.231371] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.231395] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.231430] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[2.231455] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.231496] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.c\n'}
+[2.231519] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_c.h\n'}
+[2.231543] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_introspection_c.so\n'}
+[2.231567] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_c.so\n'}
+[2.231591] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3\n'}
+[2.231616] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg\n'}
+[2.231669] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail\n'}
+[2.231692] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__type_support.cpp\n'}
+[2.231723] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/include/dis_tutorial3/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.231756] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_introspection_cpp.so\n'}
+[2.231776] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_typesupport_cpp.so\n'}
+[2.231814] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/pythonpath.sh\n'}
+[2.231856] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/pythonpath.dsv\n'}
+[2.231880] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info\n'}
+[2.231902] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/SOURCES.txt\n'}
+[2.231926] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/top_level.txt\n'}
+[2.231949] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/dependency_links.txt\n'}
+[2.231996] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3-0.0.1-py3.10.egg-info/PKG-INFO\n'}
+[2.232017] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3\n'}
+[2.232038] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_c.c\n'}
+[2.232059] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[2.232080] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so\n'}
+[2.232100] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/__init__.py\n'}
+[2.232120] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg\n'}
+[2.232141] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/__init__.py\n'}
+[2.232162] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/_task_s.c\n'}
+[2.232182] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg/_task.py\n'}
+[2.232203] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.232224] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.232246] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[2.232269] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.303714] (-) TimerEvent: {}
+[2.329139] (dis_tutorial3) StdoutLine: {'line': b"Listing '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3'...\n"}
+[2.329248] (dis_tutorial3) StdoutLine: {'line': b"Compiling '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/__init__.py'...\n"}
+[2.329281] (dis_tutorial3) StdoutLine: {'line': b"Listing '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/msg'...\n"}
+[2.331945] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.332064] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.332148] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/python3.10/site-packages/dis_tutorial3/dis_tutorial3_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.332267] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/libdis_tutorial3__rosidl_generator_py.so\n'}
+[2.332321] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/msg/Task.idl\n'}
+[2.332352] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/msg/Task.msg\n'}
+[2.332408] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch\n'}
+[2.332435] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/turtlebot4_spawn_nav.launch.py\n'}
+[2.332486] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/dis_sim.launch.py\n'}
+[2.332523] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/create3_nodes.launch.py\n'}
+[2.332546] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/sim_turtlebot_nav.launch.py\n'}
+[2.332569] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/slam.launch.py\n'}
+[2.332593] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/turtlebot4_spawn.launch.py\n'}
+[2.333969] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/ignition.launch.py\n'}
+[2.334043] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/localization.launch.py\n'}
+[2.334102] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/sim_turtlebot_slam.launch.py\n'}
+[2.334132] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//launch/nav2.launch.py\n'}
+[2.334173] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config\n'}
+[2.334200] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/slam.yaml\n'}
+[2.334227] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/nav2.yaml\n'}
+[2.334252] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/laser_filter_chain.yaml\n'}
+[2.334277] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//config/localization.yaml\n'}
+[2.334302] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds\n'}
+[2.334367] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes\n'}
+[2.334431] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/qr2.jpg\n'}
+[2.334456] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/parking_space.jpg\n'}
+[2.334480] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person4.png.001.png\n'}
+[2.334505] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person5.png.001.png\n'}
+[2.334529] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/objects.jpg\n'}
+[2.334553] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person3.png.001.png\n'}
+[2.334576] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/ground.jpg\n'}
+[2.334600] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/red.jpg\n'}
+[2.334624] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering3.jpg\n'}
+[2.334647] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/map_colliders.dae\n'}
+[2.334687] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/map.dae\n'}
+[2.334711] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/black.jpg\n'}
+[2.334735] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/qr1.jpg\n'}
+[2.334759] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person6.png\n'}
+[2.334783] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person2.png.001.png\n'}
+[2.334918] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/green.jpg\n'}
+[2.334949] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/person13.png\n'}
+[2.334975] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering1.jpg\n'}
+[2.335001] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/fakering2.jpg\n'}
+[2.335028] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/blue.jpg\n'}
+[2.335054] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4_meshes/yellow.jpg\n'}
+[2.335079] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/empty.sdf\n'}
+[2.335104] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024\n'}
+[2.335129] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes\n'}
+[2.335153] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/parking_space.jpg\n'}
+[2.335178] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/objects.jpg\n'}
+[2.335203] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/ground.jpg\n'}
+[2.335227] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering3.jpg\n'}
+[2.335278] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/map_colliders.dae\n'}
+[2.335303] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/map.dae\n'}
+[2.335333] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/cylinders.jpg\n'}
+[2.335358] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering1.jpg\n'}
+[2.335382] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1_meshes/fakering2.jpg\n'}
+[2.335406] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes\n'}
+[2.335430] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/parking_space.jpg\n'}
+[2.335453] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/objects.jpg\n'}
+[2.335622] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/ground.jpg\n'}
+[2.335648] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering3.jpg\n'}
+[2.335673] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/map_colliders.dae\n'}
+[2.335699] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/map.dae\n'}
+[2.335723] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/cylinders.jpg\n'}
+[2.335748] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering1.jpg\n'}
+[2.335772] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2_meshes/fakering2.jpg\n'}
+[2.335942] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo1.sdf\n'}
+[2.335966] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task2_demo2.sdf\n'}
+[2.335994] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3.sdf\n'}
+[2.336020] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes\n'}
+[2.336045] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/parking_space.jpg\n'}
+[2.336070] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_4.png\n'}
+[2.336096] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager1.png\n'}
+[2.336122] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/objects.jpg\n'}
+[2.336147] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_0.png\n'}
+[2.336172] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager2.png\n'}
+[2.336202] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_3.png\n'}
+[2.336229] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/ground.jpg\n'}
+[2.336254] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/mona.png\n'}
+[2.336319] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_1.png\n'}
+[2.336347] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_wrong.png\n'}
+[2.336373] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_2.png\n'}
+[2.336399] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering3.jpg\n'}
+[2.336424] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_1.png\n'}
+[2.336448] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/map_colliders.dae\n'}
+[2.336473] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager4.png\n'}
+[2.336498] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_cheat.png\n'}
+[2.336522] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager3.png\n'}
+[2.336547] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_0.png\n'}
+[2.336572] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_2.png\n'}
+[2.336596] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/map.dae\n'}
+[2.336620] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/anomona_4.png\n'}
+[2.336645] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/cylinders.jpg\n'}
+[2.336670] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/qr_url.png\n'}
+[2.336694] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/villager5.png\n'}
+[2.336742] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering1.jpg\n'}
+[2.336767] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/fakering2.jpg\n'}
+[2.336791] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/2024/task3_meshes/easy_anomona_3.png\n'}
+[2.336816] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo4.sdf\n'}
+[2.336840] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes\n'}
+[2.336900] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/qr2.jpg\n'}
+[2.336926] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/parking_space.jpg\n'}
+[2.336951] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person18.png\n'}
+[2.336974] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/objects.jpg\n'}
+[2.337029] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person20.png\n'}
+[2.337054] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person8.png\n'}
+[2.337077] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/ground.jpg\n'}
+[2.337099] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person9.png\n'}
+[2.337121] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering3.jpg\n'}
+[2.337143] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/map_colliders.dae\n'}
+[2.337165] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/map.dae\n'}
+[2.337186] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person7.png\n'}
+[2.337209] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/qr1.jpg\n'}
+[2.337232] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/person6.png\n'}
+[2.337261] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/cylinders.jpg\n'}
+[2.337283] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering1.jpg\n'}
+[2.337305] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2_meshes/fakering2.jpg\n'}
+[2.337333] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes\n'}
+[2.337356] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/qr2.jpg\n'}
+[2.337378] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person5.jpg\n'}
+[2.337400] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/parking_space.jpg\n'}
+[2.337423] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person1.jpg\n'}
+[2.337448] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person3.jpg\n'}
+[2.337470] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/objects.jpg\n'}
+[2.337492] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person4.jpg\n'}
+[2.337517] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/ground.jpg\n'}
+[2.337539] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/person2.jpg\n'}
+[2.337561] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering3.jpg\n'}
+[2.337583] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/map_colliders.dae\n'}
+[2.337605] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/map.dae\n'}
+[2.337627] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/mona1.jpg\n'}
+[2.337649] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/davinci.jpg\n'}
+[2.337672] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/qr1.jpg\n'}
+[2.337695] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/cylinders.jpg\n'}
+[2.337717] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering1.jpg\n'}
+[2.337740] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/fakering2.jpg\n'}
+[2.337762] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis_meshes/wood.jpg\n'}
+[2.337785] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1.sdf\n'}
+[2.337807] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes\n'}
+[2.337830] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/qr2.jpg\n'}
+[2.337853] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/parking_space.jpg\n'}
+[2.337876] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/objects.jpg\n'}
+[2.337901] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/ground.jpg\n'}
+[2.337928] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/red.jpg\n'}
+[2.337952] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person15.png\n'}
+[2.337977] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering3.jpg\n'}
+[2.338000] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/map_colliders.dae\n'}
+[2.338025] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/map.dae\n'}
+[2.338050] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person22.png\n'}
+[2.338077] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/black.jpg\n'}
+[2.338104] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person24.png\n'}
+[2.338129] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/qr1.jpg\n'}
+[2.338155] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person17.png\n'}
+[2.338182] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/green.jpg\n'}
+[2.338231] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering1.jpg\n'}
+[2.338310] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/fakering2.jpg\n'}
+[2.338347] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/person21.png\n'}
+[2.338383] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/blue.jpg\n'}
+[2.338406] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3_meshes/yellow.jpg\n'}
+[2.338440] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/dis.sdf\n'}
+[2.338466] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes\n'}
+[2.338489] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/qr2.jpg\n'}
+[2.338604] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/parking_space.jpg\n'}
+[2.338638] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/objects.jpg\n'}
+[2.338665] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person11.png\n'}
+[2.338693] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/ground.jpg\n'}
+[2.338719] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person4.png\n'}
+[2.338744] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering3.jpg\n'}
+[2.338769] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/map_colliders.dae\n'}
+[2.338796] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/map.dae\n'}
+[2.338821] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person2.png\n'}
+[2.338846] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/qr1.jpg\n'}
+[2.338871] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/cylinders.jpg\n'}
+[2.338896] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person3.png\n'}
+[2.338921] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering1.jpg\n'}
+[2.338947] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/fakering2.jpg\n'}
+[2.338972] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person1.png\n'}
+[2.338997] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1_meshes/person5.png\n'}
+[2.339022] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo2.sdf\n'}
+[2.339048] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo1.sdf\n'}
+[2.339073] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/demo3.sdf\n'}
+[2.339098] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes\n'}
+[2.339124] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/qr2.jpg\n'}
+[2.339149] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/parking_space.jpg\n'}
+[2.339174] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person5.png.001.png\n'}
+[2.339223] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/objects.jpg\n'}
+[2.339339] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person8.png\n'}
+[2.339416] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person3.png.001.png\n'}
+[2.339448] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/ground.jpg\n'}
+[2.339479] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/red.jpg\n'}
+[2.339508] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering3.jpg\n'}
+[2.339536] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/map_colliders.dae\n'}
+[2.339565] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/map.dae\n'}
+[2.339592] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/black.jpg\n'}
+[2.339618] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/qr1.jpg\n'}
+[2.339644] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person6.png\n'}
+[2.339674] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person2.png.001.png\n'}
+[2.339700] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/green.jpg\n'}
+[2.339727] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/person13.png\n'}
+[2.339753] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering1.jpg\n'}
+[2.339778] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/fakering2.jpg\n'}
+[2.339805] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/blue.jpg\n'}
+[2.339830] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//worlds/task1_meshes/yellow.jpg\n'}
+[2.339855] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps\n'}
+[2.339881] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/nasamapa.yaml\n'}
+[2.339906] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/map.pgm\n'}
+[2.339932] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/my_map.yaml\n'}
+[2.339958] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/map.yaml\n'}
+[2.339986] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/nasamapa.pgm\n'}
+[2.340012] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3//maps/my_map.pgm\n'}
+[2.340037] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_people.py\n'}
+[2.340063] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/robot_commander.py\n'}
+[2.340090] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/robot_commander_custom.py\n'}
+[2.340115] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/dp2.py\n'}
+[2.340141] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/clicked_point_listener.py\n'}
+[2.340166] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/start_round.py\n'}
+[2.340270] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/get_coords.py\n'}
+[2.340298] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_rings.py\n'}
+[2.340390] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_people_custom.py\n'}
+[2.340469] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/face_filter.py\n'}
+[2.340522] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/face_filter1.py\n'}
+[2.340551] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/detect_rings_mod.py\n'}
+[2.340580] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/main.py\n'}
+[2.340608] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/main1.py\n'}
+[2.340635] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/get_rings.py\n'}
+[2.340660] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/lib/dis_tutorial3/rings_filter.py\n'}
+[2.340687] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/package_run_dependencies/dis_tutorial3\n'}
+[2.340723] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/parent_prefix_path/dis_tutorial3\n'}
+[2.340749] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/ament_prefix_path.sh\n'}
+[2.340775] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/ament_prefix_path.dsv\n'}
+[2.340801] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/path.sh\n'}
+[2.340989] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/environment/path.dsv\n'}
+[2.341020] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.bash\n'}
+[2.341048] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.sh\n'}
+[2.341076] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.zsh\n'}
+[2.341107] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/local_setup.dsv\n'}
+[2.341134] (dis_tutorial3) StdoutLine: {'line': b'-- Installing: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/package.dsv\n'}
+[2.341160] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/ament_index/resource_index/packages/dis_tutorial3\n'}
+[2.341186] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cExport.cmake\n'}
+[2.341211] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cExport-noconfig.cmake\n'}
+[2.341237] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[2.341264] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[2.341290] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_cppExport.cmake\n'}
+[2.341321] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[2.341349] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[2.341374] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cExport.cmake\n'}
+[2.341554] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[2.341584] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cExport.cmake\n'}
+[2.341610] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[2.341636] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[2.341662] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[2.341712] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cppExport.cmake\n'}
+[2.341737] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[2.341762] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_pyExport.cmake\n'}
+[2.341788] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/export_dis_tutorial3__rosidl_generator_pyExport-noconfig.cmake\n'}
+[2.341813] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake-extras.cmake\n'}
+[2.341839] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[2.341863] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[2.341889] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[2.341913] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[2.341938] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[2.341964] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[2.341989] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3Config.cmake\n'}
+[2.342014] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/cmake/dis_tutorial3Config-version.cmake\n'}
+[2.342040] (dis_tutorial3) StdoutLine: {'line': b'-- Up-to-date: /home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3/share/dis_tutorial3/package.xml\n'}
+[2.342065] (dis_tutorial3) CommandEnded: {'returncode': 0}
+[2.354850] (dis_tutorial3) JobEnded: {'identifier': 'dis_tutorial3', 'rc': 0}
+[2.355194] (-) EventReactorShutdown: {}

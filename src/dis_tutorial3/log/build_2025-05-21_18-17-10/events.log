@@ -1,0 +1,72 @@
+[0.000000] (-) TimerEvent: {}
+[0.000303] (dis_tutorial3) JobQueued: {'identifier': 'dis_tutorial3', 'dependencies': OrderedDict()}
+[0.000341] (dis_tutorial3) JobStarted: {'identifier': 'dis_tutorial3'}
+[0.007794] (dis_tutorial3) JobProgress: {'identifier': 'dis_tutorial3', 'progress': 'cmake'}
+[0.008012] (dis_tutorial3) Command: {'cmd': ['/usr/bin/cmake', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3', '-DCMAKE_INSTALL_PREFIX=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3'], 'cwd': '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'nik'), ('LC_TIME', 'sl_SI.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/nik'), ('DESKTOP_SESSION', 'ubuntu'), ('PYENV_SHELL', 'bash'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'sl_SI.UTF-8'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '2349'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('COLCON_PREFIX_PATH', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'nik'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'nik'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/nik/.pyenv/shims:/home/nik/.pyenv/bin:/opt/ros/humble/bin:/home/nik/.pyenv/bin:/home/nik/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:@/tmp/.ICE-unix/2349,unix/nik-ROG-Zephyrus-M16-GU603ZW-GU603ZW:/tmp/.ICE-unix/2349'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'sl_SI.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/5576f6b0_6fa8_4e8b_8c60_91f44a01da1a'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'sl_SI.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.110'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'sl_SI.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:3f93416c-f3ee-46aa-bc99-b7a2cc7755cc'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'sl_SI.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'sl_SI.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=c2ea5ff7d4c4b6f55691a798682e0e55'), ('PYENV_ROOT', '/home/nik/.pyenv'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'sl_SI.UTF-8'), ('LC_PAPER', 'sl_SI.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/nik/Documents/RIS/risn1/src/dis_tutorial3/install/dis_tutorial3:/opt/ros/humble')]), 'shell': False}
+[0.045548] (dis_tutorial3) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.082147] (dis_tutorial3) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.089921] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.099588] (-) TimerEvent: {}
+[0.140444] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.144517] (dis_tutorial3) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.144657] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.144828] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.146652] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.199725] (-) TimerEvent: {}
+[0.204481] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.209903] (dis_tutorial3) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.210113] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.210670] (dis_tutorial3) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.211921] (dis_tutorial3) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.299839] (-) TimerEvent: {}
+[0.400169] (-) TimerEvent: {}
+[0.500511] (-) TimerEvent: {}
+[0.600766] (-) TimerEvent: {}
+[0.701118] (-) TimerEvent: {}
+[0.801415] (-) TimerEvent: {}
+[0.901662] (-) TimerEvent: {}
+[1.001945] (-) TimerEvent: {}
+[1.066663] (dis_tutorial3) StdoutLine: {'line': b'-- Found Python3: /home/nik/.pyenv/shims/python3 (found version "3.10.13") found components: Interpreter \n'}
+[1.102102] (-) TimerEvent: {}
+[1.191681] (dis_tutorial3) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.202199] (-) TimerEvent: {}
+[1.208748] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.210397] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.213952] (dis_tutorial3) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.219181] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.225908] (dis_tutorial3) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.244827] (dis_tutorial3) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.245657] (dis_tutorial3) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.300051] (dis_tutorial3) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.302326] (-) TimerEvent: {}
+[1.317687] (dis_tutorial3) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.341686] (dis_tutorial3) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.346887] (dis_tutorial3) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.398557] (dis_tutorial3) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.398730] (dis_tutorial3) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.402390] (-) TimerEvent: {}
+[1.448731] (dis_tutorial3) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.449567] (dis_tutorial3) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.482820] (dis_tutorial3) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:16 (find_package):\n'}
+[1.482996] (dis_tutorial3) StderrLine: {'line': b'  By not providing "Findrclpy.cmake" in CMAKE_MODULE_PATH this project has\n'}
+[1.483069] (dis_tutorial3) StderrLine: {'line': b'  asked CMake to find a package configuration file provided by "rclpy", but\n'}
+[1.483132] (dis_tutorial3) StderrLine: {'line': b'  CMake did not find one.\n'}
+[1.483196] (dis_tutorial3) StderrLine: {'line': b'\n'}
+[1.483256] (dis_tutorial3) StderrLine: {'line': b'  Could not find a package configuration file provided by "rclpy" with any of\n'}
+[1.483317] (dis_tutorial3) StderrLine: {'line': b'  the following names:\n'}
+[1.483377] (dis_tutorial3) StderrLine: {'line': b'\n'}
+[1.483438] (dis_tutorial3) StderrLine: {'line': b'    rclpyConfig.cmake\n'}
+[1.483504] (dis_tutorial3) StderrLine: {'line': b'    rclpy-config.cmake\n'}
+[1.483570] (dis_tutorial3) StderrLine: {'line': b'\n'}
+[1.483631] (dis_tutorial3) StderrLine: {'line': b'  Add the installation prefix of "rclpy" to CMAKE_PREFIX_PATH or set\n'}
+[1.483692] (dis_tutorial3) StderrLine: {'line': b'  "rclpy_DIR" to a directory containing one of the above files.  If "rclpy"\n'}
+[1.483754] (dis_tutorial3) StderrLine: {'line': b'  provides a separate development package or SDK, be sure it has been\n'}
+[1.483814] (dis_tutorial3) StderrLine: {'line': b'  installed.\n'}
+[1.483874] (dis_tutorial3) StderrLine: {'line': b'\n'}
+[1.483934] (dis_tutorial3) StderrLine: {'line': b'\x1b[0m\n'}
+[1.483995] (dis_tutorial3) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[1.484064] (dis_tutorial3) StdoutLine: {'line': b'See also "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/CMakeOutput.log".\n'}
+[1.488995] (dis_tutorial3) CommandEnded: {'returncode': 1}
+[1.501733] (dis_tutorial3) JobEnded: {'identifier': 'dis_tutorial3', 'rc': 1}
+[1.502456] (-) TimerEvent: {}
+[1.512077] (-) EventReactorShutdown: {}

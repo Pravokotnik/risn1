@@ -111,7 +111,7 @@ class detect_faces(Node):
 			# create marker
 			marker = Marker()
 
-			marker.header.frame_id = "/base_link"
+			marker.header.frame_id = "base_link"
 			marker.header.stamp = data.header.stamp
 
 			marker.type = 2

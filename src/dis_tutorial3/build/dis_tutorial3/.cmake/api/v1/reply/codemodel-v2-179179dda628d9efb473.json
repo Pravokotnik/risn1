@@ -1,0 +1,233 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-a17559d342655ca8795d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				},
+				{
+					"build" : "dis_tutorial3__py",
+					"jsonFile" : "directory-dis_tutorial3__py-2ee298b394b4eea70ab8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "build/dis_tutorial3/dis_tutorial3__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "dis_tutorial3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_dis_tutorial3_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_dis_tutorial3_egg-43dd692d86ace870e111.json",
+					"name" : "ament_cmake_python_build_dis_tutorial3_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_dis_tutorial3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_dis_tutorial3-7f58499bea47bfdb68b9.json",
+					"name" : "ament_cmake_python_copy_dis_tutorial3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3-d41151b3f2fda2e89ae3.json",
+					"name" : "dis_tutorial3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__cpp-c9af9574ce3056c1df4a.json",
+					"name" : "dis_tutorial3__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "dis_tutorial3__py::@4c160168c08d6dae1710",
+					"jsonFile" : "target-dis_tutorial3__py-16d2d3c1f6a24f255169.json",
+					"name" : "dis_tutorial3__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_generator_c-5b06f3afae50ac0bfdcc.json",
+					"name" : "dis_tutorial3__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_generator_py-69de45285336bb693708.json",
+					"name" : "dis_tutorial3__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_c-9395d0bd8661f3e900a9.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_c__pyext-963629a8400451512718.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_cpp-e338758b7d1b73dbdeee.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_fastrtps_c-27c3c63bb877297360f4.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext-e3023fee28ca84ad3d27.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_fastrtps_cpp-a4eed0eb1873de8a589e.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_introspection_c-5e1132b7f722b81fef57.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_introspection_c__pyext-04efe918de69a07f9f26.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3__rosidl_typesupport_introspection_cpp-95453df07bdd130c18ab.json",
+					"name" : "dis_tutorial3__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dis_tutorial3_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dis_tutorial3_uninstall-ede8b95a96f9e53ec3de.json",
+					"name" : "dis_tutorial3_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-6db78726937b231eac41.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3",
+		"source" : "/home/nik/Documents/RIS/risn1/src/dis_tutorial3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
