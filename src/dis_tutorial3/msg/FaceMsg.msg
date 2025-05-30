@@ -1,0 +1,5 @@
+geometry_msgs/PoseStamped target_pose
+geometry_msgs/Point bottom_left_point
+geometry_msgs/Point top_left_point
+geometry_msgs/Point bottom_right_point
+geometry_msgs/Point top_right_point

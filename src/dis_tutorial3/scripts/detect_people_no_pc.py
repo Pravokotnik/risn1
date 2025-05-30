@@ -4,7 +4,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data, QoSReliabilityPolicy
 
-from sensor_msgs.msg import Image, PointCloud2
+from sensor_msgs.msg import Image, PointCloud2, CameraInfo
 from geometry_msgs.msg import Point
 from sensor_msgs_py import point_cloud2 as pc2
 from dis_tutorial3.msg import FaceMsg
@@ -17,6 +17,10 @@ import numpy as np
 import math
 
 from ultralytics import YOLO
+from cv_bridge import CvBridge
+from geometry_msgs.msg import PointStamped
+from tf2_ros import Buffer, TransformListener
+
 
 # from rclpy.parameter import Parameter
 # from rcl_interfaces.msg import SetParametersResult
@@ -40,8 +44,27 @@ class detect_faces(Node):
 		self.bridge = CvBridge()
 		self.scan = None
 
-		self.rgb_image_sub = self.create_subscription(Image, "/oakd/rgb/preview/image_raw", self.rgb_callback, qos_profile_sensor_data)
+		self.create_subscription(
+			Image,
+			"/oak/rgb/image_raw",
+			self.rgb_callback,
+			qos_profile_sensor_data
+		)
+
 		self.pointcloud_sub = self.create_subscription(PointCloud2, "/oakd/rgb/preview/depth/points", self.pointcloud_callback, qos_profile_sensor_data)
+		# self.camera_info_sub = self.create_subscription(CameraInfo, "/oak/stereo/camera_info", self.caminfo_cb, qos_profile_sensor_data)
+		self.depth_image_sub = self.create_subscription(Image, "/oak/right/image_raw/compressedDepth", self.depth_cb, qos_profile_sensor_data)
+		self.create_subscription(CameraInfo,
+								'/oak/rgb/camera_info',
+								self.caminfo_cb,
+								qos_profile_sensor_data)
+  
+
+		self.bridge = CvBridge()
+		self.K_inv = None
+		self.camera_frame = None
+		self.tf_buffer = Buffer()
+		self.tf_listener = TransformListener(self.tf_buffer, self)
 
 		self.marker_pub = self.create_publisher(Marker, marker_topic, QoSReliabilityPolicy.BEST_EFFORT)
 		self.coord_pub = self.create_publisher(FaceMsg, "/face_coordinates", QoSReliabilityPolicy.BEST_EFFORT)
@@ -49,10 +72,160 @@ class detect_faces(Node):
 		self.model = YOLO("yolov8n.pt")
 
 		self.faces = []
-  
 		self.offset = 60 # offset for point cloud access
 
 		self.get_logger().info(f"Node has been initialized! Will publish face markers to {marker_topic}.")
+	
+ 
+ 
+ 
+	# Try with oak/points
+	from sensor_msgs.msg import PointCloud2
+	from sensor_msgs_py import point_cloud2 as pc2
+	def cloud_cb(self, data: PointCloud2):
+		# read into an (H×W×3) numpy array
+		arr = pc2.read_points_numpy(data, field_names=('x','y','z'))
+		pts = arr.reshape((data.height, data.width, 3))
+		# for each detected face at (u,v):
+		X, Y, Z = pts[v, u]   # already in camera frame, in meters
+		# then tf2-transform into base_link if you need
+  
+
+	# Stereo camera --------------------------------------------------------------------
+	# Callback for stereo camera info
+	def caminfo_cb(self, info: CameraInfo):
+		"""
+		Grab and invert the 3×3 intrinsic matrix once, and remember the camera frame.
+		"""
+		K = np.array(info.k).reshape(3,3)
+		self.K_inv = np.linalg.inv(K)
+		self.camera_frame = info.header.frame_id
+		self.get_logger().info(f"Camera intrinsics received, frame = {self.camera_frame}")
+
+
+
+	def depth_cb(self, img_msg: Image):
+		"""
+		For each detected face:
+		- read z = depth[v,u] at center and at each corner
+		- back-project all five points
+		- TF into base_link
+		- publish Marker and FaceMsg (with corners)
+		"""
+		if self.K_inv is None or not self.faces:
+			return
+
+		depth = self.bridge.imgmsg_to_cv2(img_msg, desired_encoding='32FC1')
+		h, w = depth.shape
+
+		for idx, (u, v, tl, br, tr, bl) in enumerate(self.faces):
+			# helper to back-project a single pixel
+			def unproject(px, py):
+				if px<0 or px>=w or py<0 or py>=h:
+					return None
+				z = float(depth[py, px])
+				if z <= 0.0:
+					return None
+				p = np.array([px, py, 1.0])
+				X, Y, Z = z * (self.K_inv @ p)
+				return (X, Y, Z)
+
+			pts_cam = {
+				'center': unproject(u, v),
+				'tl'    : unproject(*tl),
+				'br'    : unproject(*br),
+				'tr'    : unproject(*tr),
+				'bl'    : unproject(*bl),
+			}
+			if any(pt is None for pt in pts_cam.values()):
+				continue
+
+			# TF each into base_link
+			stamped = {}
+			for key,(X,Y,Z) in pts_cam.items():
+				ps = PointStamped()
+				ps.header.frame_id = self.camera_frame
+				ps.header.stamp    = img_msg.header.stamp
+				ps.point.x, ps.point.y, ps.point.z = X, Y, Z
+				try:
+					stamped[key] = self.tf_buffer.transform(ps,
+															'base_link',
+															timeout_sec=0.5)
+				except Exception as e:
+					self.get_logger().warn(f"TF failed for {key}: {e}")
+					stamped = {}
+					break
+			if len(stamped) < 5:
+				continue
+
+			# publish a sphere marker at the center
+			m = Marker()
+			m.header = stamped['center'].header
+			m.ns, m.id, m.type = "faces", idx, Marker.SPHERE
+			m.scale.x = m.scale.y = m.scale.z = 0.1
+			m.color.r = 1.0; m.color.a = 1.0
+			m.pose.position = stamped['center'].point
+			self.marker_pub.publish(m)
+
+			# publish FaceMsg with all five points
+			fm = FaceMsg()
+			fm.target_pose.header = stamped['center'].header
+			fm.target_pose.pose.position = stamped['center'].point
+
+			fm.top_left_point     = stamped['tl'].point
+			fm.bottom_right_point = stamped['br'].point
+			fm.top_right_point    = stamped['tr'].point
+			fm.bottom_left_point  = stamped['bl'].point
+
+			self.coord_pub.publish(fm)
+
+	def rgb_callback(self, img_msg: Image):
+		"""
+		1) Run YOLO on the incoming RGB image.
+		2) For each detection, compute center + the four corners pulled in by 30%.
+		3) Store (u,v, tl, br, tr, bl) in self.faces.
+		"""
+		cv_img = self.bridge.imgmsg_to_cv2(img_msg, "bgr8")
+		res = self.model.predict(cv_img,
+								imgsz=(256,320),
+								show=False, verbose=False,
+								classes=[0],
+								device=self.device)
+
+		self.faces.clear()
+		for det in res:
+			if det.boxes.xyxy.nelement() == 0:
+				continue
+			x1,y1,x2,y2 = det.boxes.xyxy[0].tolist()
+			# center
+			u = int((x1 + x2)/2)
+			v = int((y1 + y2)/2)
+
+			# raw corners
+			tl = np.array([x1, y1])
+			br = np.array([x2, y2])
+			tr = np.array([x2, y1])
+			bl = np.array([x1, y2])
+
+			# pull 30% toward center
+			pct = 0.3
+			center = np.array([u, v])
+			tl = tl + pct*(center - tl)
+			br = br + pct*(center - br)
+			tr = tr + pct*(center - tr)
+			bl = bl + pct*(center - bl)
+
+			# round to ints
+			tl = tl.astype(int)
+			br = br.astype(int)
+			tr = tr.astype(int)
+			bl = bl.astype(int)
+
+			self.faces.append((u, v, tl, br, tr, bl))
+
+
+
+
 
 	def rgb_callback(self, data):
 

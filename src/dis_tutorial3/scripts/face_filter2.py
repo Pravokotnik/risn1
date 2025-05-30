@@ -13,7 +13,7 @@ from collections import deque, defaultdict
 import math
 import time
 from sklearn.decomposition import PCA
-from dis_tutorial3.msg import Task
+from dis_tutorial3.msg import Task, FaceMsg
 from tf2_geometry_msgs import do_transform_point
 
 from message_filters import Subscriber
@@ -39,15 +39,9 @@ class FaceFilter(Node):
         
         # Subscribers
         self.create_subscription(
-            Marker, 
-            '/people_marker',  # Input topic for detected people
+            FaceMsg, 
+            '/face_coordinates',  # Input topic for detected people
             self.marker_callback, 
-            10
-        )
-        self.create_subscription(
-            PointCloud2, 
-            '/oakd/rgb/preview/depth/points',  # Depth data source
-            self.pc_callback, 
             10
         )
         self.create_subscription(
@@ -67,7 +61,7 @@ class FaceFilter(Node):
         # Cluster configuration parameters
         self.cluster_radius = 1.0  # Max distance between face positions to consider same cluster
         self.dest_radius = 1.0     # Max distance between destinations to consider same cluster
-        self.min_cluster_size = 5  # Minimum observations before publishing a task
+        self.min_cluster_size = 15  # Minimum observations before publishing a task
         self.new_face_threshold = 0.5  # Distance to consider a face new/unique
         self.movement_threshold = 0.1  # Minimum movement to publish update (in meters)
         
@@ -77,7 +71,7 @@ class FaceFilter(Node):
         
         # Cluster history now tracks both current and published states
         self.position_history = defaultdict(lambda: {
-            'points': deque(maxlen=10),  # Stores tuples of (position, destination, robot_pose_at_detection)
+            'points': deque(maxlen=self.min_cluster_size+5),  # Stores tuples of (position, destination, robot_pose_at_detection)
             'position': None,            # Current average position
             'destination': None,         # Current average destination
             'last_published_position': None,    # Last published position
@@ -85,10 +79,6 @@ class FaceFilter(Node):
         })
         self.next_cluster_id = 0  # Unique ID for each cluster
 
-        # PCA setup for wall normal calculation
-        self.pca = PCA(n_components=3)
-        self.search_radius = 0.1  # Radius to search for wall points around face
-        
         # ----------------- Marker queue for face tracking -----------------
         self.face_queue = deque()               # will hold (Marker, frame_id, stamp)
         self.create_timer(0.1, self._process_face_queue)
@@ -101,62 +91,77 @@ class FaceFilter(Node):
         # self.get_logger().info(f"Received robot pose: {msg.pose.pose.position.x}, {msg.pose.pose.position.y}, {msg.pose.pose.position.z}")
         self.current_robot_pose = msg.pose.pose
 
-    def pc_callback(self, msg):
-        """Store the latest point cloud data for processing"""
-        self.current_pc = msg
-
     def marker_callback(self, msg):
-        if self.current_pc is None:
-            self.get_logger().warn("No PointCloud2 received yet – skipping this face detection.")
+        target_point = msg.target_pose.pose.position
+        distance = np.linalg.norm(np.array([
+            target_point.x - self.current_robot_pose.position.x,
+            target_point.y - self.current_robot_pose.position.y
+        ]))
+        if distance > 7.0:
+            self.get_logger().info(f"Face too far away ({distance:.2f}m), ignoring")
             return
-
-        # make extra sure it's the right type
-        if not isinstance(self.current_pc, PointCloud2):
-            self.get_logger().error(f"current_pc is not a PointCloud2 (got {type(self.current_pc)})")
+        if distance < 1.0:
+            self.get_logger().info(f"Face too close ({distance:.2f}m), ignoring")
             return
-
-        pc_points = self.get_pointcloud_points(msg.pose.position)
-        if pc_points is None:
-            self.get_logger().warn("Not enough points found in point cloud within search radius.")
-            return
-        self.face_queue.append((msg, msg.header.frame_id, msg.header.stamp, pc_points))
+        
+        self.face_queue.append((msg, msg.target_pose.header.frame_id, msg.target_pose.header.stamp))
 
     def _process_face_queue(self):
         zero = Duration(seconds=0.0)
         last_successful_index = -1
-        for i, (msg, frame_id, stamp, pc_points) in enumerate(self.face_queue):
+        for i, (msg, frame_id, stamp) in enumerate(self.face_queue):
             # wait until we can transform into map
+            target_point = msg.target_pose.pose.position
+            bl_point = msg.bottom_left_point
+            br_point = msg.bottom_right_point
+            tl_point = msg.top_left_point
+            tp_point = msg.top_right_point
             if not self.tf_buffer.can_transform('map', frame_id, stamp, zero):
                 self.get_logger().info(f"Waiting for transform from {frame_id} to map")
                 continue
 
             # transform the face detection itself
-            map_point_stamped = self.transform_to_map(msg.pose.position, frame_id, stamp)
+            map_point_stamped = self.transform_to_map(target_point, frame_id, stamp)
             if map_point_stamped is None:
                 continue
             world_face = map_point_stamped.point
+            
+            
+            bl_point_stamped = self.transform_to_map(bl_point, frame_id, stamp)
+            if bl_point_stamped is None:
+                self.get_logger().error("Failed to transform bottom left point")
+                continue
+            
+            br_point_stamped = self.transform_to_map(br_point, frame_id, stamp)
+            if br_point_stamped is None:
+                self.get_logger().error("Failed to transform bottom right point")
+                continue
+            
+            tl_point_stamped = self.transform_to_map(tl_point, frame_id, stamp)
+            if tl_point_stamped is None:
+                self.get_logger().error("Failed to transform top left point")
+                continue
+            
+            tr_point_stamped = self.transform_to_map(tp_point, frame_id, stamp)
+            if tr_point_stamped is None:
+                self.get_logger().error("Failed to transform top point")
+                continue
 
-            # now transform each nearby camera‐cloud point into map
-            map_pc_points = []
-            for pt in pc_points:
-                # pt is an array [x,y,z]
-                cam_pt = Point(x=float(pt[0]), y=float(pt[1]), z=float(pt[2]))
-                mp_stamped = self.transform_to_map(cam_pt, frame_id, stamp)
-                if mp_stamped is not None:
-                    p = mp_stamped.point
-                    map_pc_points.append([p.x, p.y, p.z])  # collect as simple lists
 
             # hand off to your handler using world‐frame points
-            self._handle_mapped_face(world_face, map_pc_points)
+            self._handle_mapped_face(world_face, 
+                                     bl_point_stamped.point, 
+                                     br_point_stamped.point, 
+                                     tl_point_stamped.point,
+                                     tr_point_stamped.point)
             last_successful_index = i
 
         # drop processed entries
         if last_successful_index >= 0:
             self.face_queue = deque(list(self.face_queue)[last_successful_index+1:])
     
-    def _handle_mapped_face(self, map_point, pc_points):
+    def _handle_mapped_face(self, map_point, bottom_left_point, bottom_right_point, top_left_point, top_right_point):
         # Transform face point into map frame
-        self.get_logger().info(f"Detected face at {map_point.x}, {map_point.y}, {map_point.z}")
         if not map_point:
             return
         
@@ -167,7 +172,7 @@ class FaceFilter(Node):
 
         # Compute wall normal
         self.get_logger().warning("Calculating wall normal...")
-        normal = self.calculate_wall_normal(map_point, pc_points)
+        normal = self.calculate_wall_normal(bottom_left_point, bottom_right_point, top_left_point)
         if normal is None:
             return
 
@@ -230,40 +235,34 @@ class FaceFilter(Node):
                 f"{source_frame} to map at {stamp}: {ex}"
             )
             return None
-    
-    def get_pointcloud_points(self, face_point):
-        points = []
-        # Precompute face as numpy array
-        face_np = np.array([face_point.x, face_point.y, face_point.z])
-
-        # read_points yields tuples matching field_names; unpack them directly
-        for x, y, z in pc2.read_points(
-                self.current_pc,
-                field_names=("x", "y", "z"),
-                skip_nans=True
-            ):
-            # Now x,y,z are guaranteed floats
-            pt = np.array([x, y, z])
-            if np.linalg.norm(pt - face_np) < self.search_radius:
-                points.append(pt)  # always a 1-D array of length 3
-
-        # later, when you do np.stack(points), you get an (N,3) array every time
-
-        self.get_logger().info(f"Found {len(points)} points within search radius.")
-        if len(points) < 10:  # Need minimum points for reliable PCA
-            return None
-        return points
         
 
-    def calculate_wall_normal(self, face_point, points):
+    def calculate_wall_normal(self, bottom_left_point, bottom_right_point, top_left_point):
         """
-        Compute wall normal vector using PCA on nearby points
-        Returns normalized normal vector pointing away from wall
+        Get vector from left to right point and get perpendicular vector by multiplying with top_point
         """
-
-        self.pca.fit(points)
-        normal = self.pca.components_[2]  # Third component has least variance
-        return normal / np.linalg.norm(normal)  # Return unit vector
+        
+        # Convert points to numpy arrays for easier calculations
+        bl = np.array([bottom_left_point.x, bottom_left_point.y, bottom_left_point.z])
+        br = np.array([bottom_right_point.x, bottom_right_point.y, bottom_right_point.z])
+        tl = np.array([top_left_point.x, top_left_point.y, top_left_point.z])
+        
+        # Calculate vectors along the wall
+        left_to_right = br - bl  # Vector from bottom left to bottom right
+        top_to_bottom = tl - bl  # Vector from bottom left to top left
+        
+        # Calculate the normal vector using cross product
+        normal = np.cross(left_to_right, top_to_bottom)
+        self.get_logger().info(f"Calculated normal vector: {normal}")
+        
+        # Normalize the normal vector
+        norm = np.linalg.norm(normal)
+        if norm < 1e-6:
+            self.get_logger().error("Calculated normal vector has zero length, cannot normalize.")
+            return None
+        normal = normal / norm
+        
+        return normal
 
     def calculate_perpendicular_destination(self, face_point, normal):
         """Calculate stopping position 1m from wall along normal vector"""
@@ -439,7 +438,12 @@ class FaceFilter(Node):
         task.task_type = "emergency"
         task.target_pose = PoseStamped()
         task.target_pose.header.frame_id = "map"
-        task.target_pose.pose.position = position
+        # Current robot position is used to stop the robot
+        task.target_pose.pose.position = Point(
+            x=self.current_robot_pose.position.x,
+            y=self.current_robot_pose.position.y,
+            z=0.0  # Keep on ground plane
+        )
         task.description = "Emergency stop"
         
         # after task.target_pose.pose.position = position
@@ -479,51 +483,6 @@ class FaceFilter(Node):
         
         task.description = f"Face cluster {cluster_id}"
         self.task_pub.publish(task)
-
-
-
-    # def transform_to_map(self, point, source_frame, stamp):
-    #     """Convert face coords to map frame by adding to robot's position"""
-    #     try:
-    #         # 1. First transform face point to base_link frame if it's not already
-    #         if source_frame != 'base_link':
-    #             cam_to_base = self.tf_buffer.lookup_transform(
-    #                 'base_link',
-    #                 source_frame,
-    #                 stamp,
-    #                 timeout=Duration(seconds=0.1))
-    #             base_point = do_transform_point(
-    #                 PointStamped(
-    #                     header=Header(frame_id=source_frame, stamp=stamp),
-    #                     point=point
-    #                 ),
-    #                 cam_to_base
-    #             ).point
-    #         else:
-    #             base_point = point
-
-    #         # 2. Get robot's position in map frame at detection time
-    #         base_to_map = self.tf_buffer.lookup_transform(
-    #             'map',
-    #             'base_link',
-    #             stamp,
-    #             timeout=Duration(seconds=0.1))
-            
-    #         # 3. Sum the coordinates (simple vector addition)
-    #         map_point = PointStamped()
-    #         map_point.header.frame_id = 'map'
-    #         map_point.header.stamp = stamp
-    #         map_point.point.x = base_to_map.transform.translation.x + base_point.x
-    #         map_point.point.y = base_to_map.transform.translation.y + base_point.y
-    #         map_point.point.z = base_to_map.transform.translation.z + base_point.z
-            
-    #         return map_point
-            
-    #     except TransformException as e:
-    #         self.get_logger().warning(f"Transform failed: {e}")
-    #         return None
-
-
 
 
 def main():
