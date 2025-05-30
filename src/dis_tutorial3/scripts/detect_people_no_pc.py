@@ -227,74 +227,74 @@ class detect_faces(Node):
 
 
 
-	def rgb_callback(self, data):
+	# def rgb_callback(self, data):
 
-		self.faces = []
+	# 	self.faces = []
 
-		try:
-			cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+	# 	try:
+	# 		cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
 
-			self.get_logger().info(f"Running inference on image...")
+	# 		self.get_logger().info(f"Running inference on image...")
 
-			# run inference
-			res = self.model.predict(cv_image, imgsz=(256, 320), show=False, verbose=False, classes=[0], device=self.device)
+	# 		# run inference
+	# 		res = self.model.predict(cv_image, imgsz=(256, 320), show=False, verbose=False, classes=[0], device=self.device)
    
-			# Draw detection threshold (offset)
-			width = data.width
-			height = data.height
-			cv_image = cv2.rectangle(cv_image, (self.offset, self.offset), (width-self.offset, height-self.offset), (0, 255, 0), 2)
+	# 		# Draw detection threshold (offset)
+	# 		width = data.width
+	# 		height = data.height
+	# 		cv_image = cv2.rectangle(cv_image, (self.offset, self.offset), (width-self.offset, height-self.offset), (0, 255, 0), 2)
 
-			# iterate over results
-			for x in res:
-				bbox = x.boxes.xyxy
-				if bbox.nelement() == 0: # skip if empty
-					continue
+	# 		# iterate over results
+	# 		for x in res:
+	# 			bbox = x.boxes.xyxy
+	# 			if bbox.nelement() == 0: # skip if empty
+	# 				continue
 
-				self.get_logger().info(f"Person has been detected!")
+	# 			self.get_logger().info(f"Person has been detected!")
 
-				bbox = bbox[0]
+	# 			bbox = bbox[0]
 
-				# draw rectangle
-				cv_image = cv2.rectangle(cv_image, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), self.detection_color, 3)
+	# 			# draw rectangle
+	# 			cv_image = cv2.rectangle(cv_image, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), self.detection_color, 3)
 
-				cx = int((bbox[0]+bbox[2])/2)
-				cy = int((bbox[1]+bbox[3])/2)
+	# 			cx = int((bbox[0]+bbox[2])/2)
+	# 			cy = int((bbox[1]+bbox[3])/2)
 
-				# draw the center of bounding box
-				cv_image = cv2.circle(cv_image, (cx,cy), 5, self.detection_color, -1)
+	# 			# draw the center of bounding box
+	# 			cv_image = cv2.circle(cv_image, (cx,cy), 5, self.detection_color, -1)
     
-				# Draw these in blue
-				center_point = np.array([cx, cy])
-				top_left_point = np.array([int(bbox[0]), int(bbox[1])])
-				bottom_right_point = np.array([int(bbox[2]), int(bbox[3])])
-				top_right_point = np.array([int(bbox[2]), int(bbox[1])])
-				bottom_left_point = np.array([int(bbox[0]), int(bbox[3])])
+	# 			# Draw these in blue
+	# 			center_point = np.array([cx, cy])
+	# 			top_left_point = np.array([int(bbox[0]), int(bbox[1])])
+	# 			bottom_right_point = np.array([int(bbox[2]), int(bbox[3])])
+	# 			top_right_point = np.array([int(bbox[2]), int(bbox[1])])
+	# 			bottom_left_point = np.array([int(bbox[0]), int(bbox[3])])
     
     
-				# Pull points X% closer to the center point
-				percentage = 0.3
-				top_left_point = top_left_point + percentage * (center_point - top_left_point)
-				bottom_right_point = bottom_right_point + percentage * (center_point - bottom_right_point)
-				top_right_point = top_right_point + percentage * (center_point - top_right_point)
-				bottom_left_point = bottom_left_point + percentage * (center_point - bottom_left_point)
+	# 			# Pull points X% closer to the center point
+	# 			percentage = 0.3
+	# 			top_left_point = top_left_point + percentage * (center_point - top_left_point)
+	# 			bottom_right_point = bottom_right_point + percentage * (center_point - bottom_right_point)
+	# 			top_right_point = top_right_point + percentage * (center_point - top_right_point)
+	# 			bottom_left_point = bottom_left_point + percentage * (center_point - bottom_left_point)
     
-				# Draw these points in different colors
-				cv_image = cv2.circle(cv_image, tuple(top_left_point.astype(int)), 5, (255, 0, 0), -1)
-				cv_image = cv2.circle(cv_image, tuple(bottom_right_point.astype(int)), 5, (0, 255, 0), -1)
-				cv_image = cv2.circle(cv_image, tuple(top_right_point.astype(int)), 5, (0, 0, 255), -1)
-				cv_image = cv2.circle(cv_image, tuple(bottom_left_point.astype(int)), 5, (255, 255, 0), -1)
+	# 			# Draw these points in different colors
+	# 			cv_image = cv2.circle(cv_image, tuple(top_left_point.astype(int)), 5, (255, 0, 0), -1)
+	# 			cv_image = cv2.circle(cv_image, tuple(bottom_right_point.astype(int)), 5, (0, 255, 0), -1)
+	# 			cv_image = cv2.circle(cv_image, tuple(top_right_point.astype(int)), 5, (0, 0, 255), -1)
+	# 			cv_image = cv2.circle(cv_image, tuple(bottom_left_point.astype(int)), 5, (255, 255, 0), -1)
 
 
-				self.faces.append((cx,cy, top_left_point, bottom_right_point, top_right_point, bottom_left_point))
+	# 			self.faces.append((cx,cy, top_left_point, bottom_right_point, top_right_point, bottom_left_point))
 
-			cv2.imshow("image", cv_image)
-			key = cv2.waitKey(1)
-			if key==27:
-				print("exiting")
-				exit()
+	# 		cv2.imshow("image", cv_image)
+	# 		key = cv2.waitKey(1)
+	# 		if key==27:
+	# 			print("exiting")
+	# 			exit()
 			
-		except CvBridgeError as e:
-			print(e)
+	# 	except CvBridgeError as e:
+	# 		print(e)
 
 	def pointcloud_callback(self, data):
 
