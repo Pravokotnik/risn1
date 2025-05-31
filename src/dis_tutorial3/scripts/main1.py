@@ -44,6 +44,8 @@ class HybridController(RobotCommander):
     def add_task(self, priority, task_type, pose, description="", task_id=None):
         # Search for existing task with same priority, type, and id
         for idx, entry in enumerate(self.task_heap):
+            if task_id is None:
+                continue
             prio, _, task = entry
             if -prio == priority and task['type'] == task_type and task.get('id') == task_id:
                 # Update this existing task
