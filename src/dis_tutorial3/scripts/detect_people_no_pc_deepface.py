@@ -16,7 +16,8 @@ import cv2
 import numpy as np
 import math
 
-from ultralytics import YOLO
+# Replace YOLO with DeepFace
+from deepface import DeepFace
 from cv_bridge import CvBridge
 from geometry_msgs.msg import PointStamped
 import tf2_geometry_msgs
@@ -69,7 +70,7 @@ class detect_faces(Node):
 		self.marker_pub = self.create_publisher(MarkerArray, marker_topic, QoSReliabilityPolicy.BEST_EFFORT)
 		self.coord_pub = self.create_publisher(FaceMsg, "/face_coordinates", QoSReliabilityPolicy.BEST_EFFORT)
 
-		self.model = YOLO("yolov8n.pt")
+		# No need to initialize DeepFace with a model
 
 		self.faces = []
 		self.top_offset = 100 # offset for point cloud access
@@ -227,21 +228,21 @@ class detect_faces(Node):
 
 	def rgb_callback(self, img_msg: Image):
 		"""
-		1) Run YOLO on the incoming RGB image.
+		1) Run DeepFace on the incoming RGB image.
 		2) For each detection, compute center + the four corners pulled in by 30%.
 		3) Store (u,v, tl, br, tr, bl) in self.faces.
 		"""
 		try:
 			cv_image = self.bridge.imgmsg_to_cv2(img_msg, "bgr8")
-      
-			res = self.model.predict(cv_image,
-									imgsz=(256,320),
-									show=False, verbose=False,
-									classes=[0],
-									device=self.device)
-
+		
+			# Use DeepFace for face detection
+			faces = DeepFace.extract_faces(cv_image, 
+										  detector_backend='opencv', 
+										  enforce_detection=False,
+										  align=False)
+			
 			self.faces.clear()
-   
+
 			# Draw detection threshold square (offset)
 			width = img_msg.width
 			height = img_msg.height
@@ -249,15 +250,18 @@ class detect_faces(Node):
 									(self.left_offset, self.top_offset),
 									(width - self.right_offset, height - self.bottom_offset),
 									(0, 255, 0), 2)
-   
-			for det in res:
-				if det.boxes.xyxy.nelement() == 0:
+
+			for face in faces:
+				facial_area = face['facial_area']
+				x1, y1, x2, y2 = facial_area['x'], facial_area['y'], facial_area['x'] + facial_area['w'], facial_area['y'] + facial_area['h']
+				
+				if x1 < 5 and x2 > width - 5  and y1 < 5 and y2 > height - 5:
 					continue
-				x1,y1,x2,y2 = det.boxes.xyxy[0].tolist()
+    
 				# center
 				u = int((x1 + x2)/2)
 				v = int((y1 + y2)/2)
-    
+
 				if v < self.top_offset or v >= height - self.bottom_offset or \
 				   u < self.left_offset or u >= width - self.right_offset:
 					self.get_logger().warn(f"Skipping face at ({u},{v}) due to out of bounds access.")
@@ -282,7 +286,7 @@ class detect_faces(Node):
 				br = br.astype(int)
 				tr = tr.astype(int)
 				bl = bl.astype(int)
-    
+
 				cv_image = cv2.circle(cv_image, tuple(tl), 5, (255, 0, 0), -1)
 				cv_image = cv2.circle(cv_image, tuple(br), 5, (0, 255, 0), -1)
 				cv_image = cv2.circle(cv_image, tuple(tr), 5, (0, 0, 255), -1)

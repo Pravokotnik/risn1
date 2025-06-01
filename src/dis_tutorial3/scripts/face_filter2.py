@@ -12,7 +12,6 @@ import numpy as np
 from collections import deque, defaultdict
 import math
 import time
-from sklearn.decomposition import PCA
 from dis_tutorial3.msg import Task, FaceMsg
 from tf2_geometry_msgs import do_transform_point
 
@@ -93,16 +92,20 @@ class FaceFilter(Node):
 
     def marker_callback(self, msg):
         target_point = msg.target_pose.pose.position
+        if not self.current_robot_pose:
+            return
         distance = np.linalg.norm(np.array([
-            target_point.x - self.current_robot_pose.position.x,
-            target_point.y - self.current_robot_pose.position.y
+            target_point.x,
+            target_point.y
         ]))
-        if distance > 7.0:
+        if distance > 1.25:
             self.get_logger().info(f"Face too far away ({distance:.2f}m), ignoring")
             return
-        if distance < 1.0:
+        if distance < 0.15:
             self.get_logger().info(f"Face too close ({distance:.2f}m), ignoring")
             return
+        self.get_logger().info(f"Received face detection at {target_point.x}, {target_point.y}, {target_point.z} with distance {distance:.2f}m")
+        
         
         self.face_queue.append((msg, msg.target_pose.header.frame_id, msg.target_pose.header.stamp))
 
@@ -181,6 +184,16 @@ class FaceFilter(Node):
         if destination is None:
             self.get_logger().error("Failed to calculate destination from wall normal.")
             return
+        
+        # Get distance between map point and destination. If smaller than 0.5, do no process further
+        distance = np.linalg.norm(np.array([
+            map_point.x - destination.x,
+            map_point.y - destination.y
+        ]))
+        if distance < 0.4:
+            self.get_logger().warn(f"Destination too close to face ({distance:.2f}m), ignoring")
+            return
+        
         self.publish_to_map(destination, r=0.0, g=1.0, b=0.0, a=0.9)
         self.get_logger().error(f"Calculated destination at {destination.x}, {destination.y}, {destination.z}")
         self.process_clusters(map_point, destination)

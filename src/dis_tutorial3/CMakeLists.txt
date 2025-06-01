@@ -39,6 +39,8 @@ install(DIRECTORY
 
 install(PROGRAMS
   scripts/detect_people.py
+  scripts/detect_people_no_pc.py
+  scripts/detect_people_no_pc_deepface.py
   scripts/robot_commander.py
   scripts/robot_commander_custom.py
   scripts/dp2.py
@@ -53,6 +55,7 @@ install(PROGRAMS
   scripts/detect_rings_mod.py
   scripts/main.py
   scripts/main1.py
+  scripts/main_irl.py
   scripts/get_rings.py
   scripts/rings_filter.py
   DESTINATION lib/${PROJECT_NAME})

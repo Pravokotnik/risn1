@@ -33,9 +33,12 @@ class HybridController(RobotCommander):
         
         self._next_marker_id = 500
         
+        self.canceledTask = False
         
         self.yapper = Yapper()
         self.get_logger().info("Priority-based controller ready")
+        
+        self.seen_ids = {}
 
     def task_callback(self, msg):
         self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
@@ -45,6 +48,9 @@ class HybridController(RobotCommander):
         # Search for existing task with same priority, type, and id
         for idx, entry in enumerate(self.task_heap):
             if task_id is None:
+                continue
+            # Check if task id and task type already in seen_ids dict
+            if not (task_id, task_type) in self.seen_ids:
                 continue
             prio, _, task = entry
             if -prio == priority and task['type'] == task_type and task.get('id') == task_id:
@@ -59,19 +65,27 @@ class HybridController(RobotCommander):
                 self.task_heap[idx] = new_entry
                 heapq.heapify(self.task_heap)  # Rebuild heap after modification
                 self.get_logger().info(f"Updated existing task {task_type} with id {task_id} and priority {priority}")
+                
+                # If updated task is currently running, interrupt it
+                if self.current_task and self.current_task[2]['id'] == task_id and self.current_task[2]['type'] == task_type:
+                    self.get_logger().info(f"Interrupting current task {task_type} with id {task_id} due to update")
+                    self.cancel_current_task()
                 break
         else:
-            # No existing task with same priority and id found; add new
-            entry = (-priority, time.time(), {
-                'type': task_type,
-                'pose': pose,
-                'description': description,
-                'id': task_id,
-                'priority': priority
-            })
-            heapq.heappush(self.task_heap, entry)
-            self.get_logger().info(f"Added new task {task_type} with id {task_id} and priority {priority}")
-        
+            if not (task_id, task_type) in self.seen_ids:
+                # No existing task with same priority and id found; add new
+                entry = (-priority, time.time(), {
+                    'type': task_type,
+                    'pose': pose,
+                    'description': description,
+                    'id': task_id,
+                    'priority': priority
+                })
+                heapq.heappush(self.task_heap, entry)
+                self.get_logger().info(f"Added new task {task_type} with id {task_id} and priority {priority}")
+
+        if task_id is not None:
+            self.seen_ids[task_id, task_type] = True
         r = 0.0
         g = 0.0
         b = 0.0
@@ -103,6 +117,7 @@ class HybridController(RobotCommander):
             heapq.heappush(self.task_heap, self.current_task)
             self.cancelTask()
             self.current_task = None
+            self.canceledTask = True
             self.get_logger().warn("Current task cancelled and requeued")
             self.publish_task_markers()
 
@@ -153,16 +168,15 @@ class HybridController(RobotCommander):
             return pose
         
         return [
-            create_pose(-0.15, -1.91, -0.00),
-            create_pose(3.04, -1.13, -0.00),
-            create_pose(2.34, 0.00, 0.01),
-            create_pose(2.06, 2.80, 0.01),
-            create_pose(-1.42, 3.26, -0.00),
-            create_pose(-1.48, 4.82, 0.00),
-            create_pose(-1.67, 1.18, 0.01),
-            create_pose(0.14, 1.93, 0.01),
-            create_pose(1.06, -0.09, 0.01),
-            create_pose(2.39, 0.06, 0.01),
+            create_pose(0.06, -0.35, 0.00),
+            create_pose(0.74, -0.43, 0.04),
+            create_pose(1.89, -0.19, 0.00),
+            create_pose(0.73, -0.41, 0.16),
+            create_pose(0.79, -2.09, -0.00),
+            create_pose(2.28, -1.87, -0.00),
+            create_pose(2.22, -2.37, -0.00),
+            create_pose(0.80, -1.83, -0.00),
+            create_pose(0.12, -0.36, -0.00),
         ]
 
     def initialize_robot(self):
@@ -204,6 +218,19 @@ class HybridController(RobotCommander):
             if self.goToPose(task['pose']):
                 self.handle_task_behavior(task)
                 self.wait_for_completion(task['description'])
+                # Spin 360 degrees if it's a waypoint task
+                if not self.canceledTask:
+                    if task['type'] == "waypoint":
+                        self.spin(360.0)
+                        self.wait_for_completion("Spinning 360 degrees")
+                    # Say "Hello!" if it's a face task
+                    elif task['type'] == "face":
+                        self.get_logger().error("YAPPING!")
+                        self.yapper.yap("Hello there!")
+                    # Wait 1s if emergency task
+                    elif task['type'] == "emergency":
+                        time.sleep(5.0)
+                self.canceledTask = False
             else:
                 self.get_logger().error(f"Failed to reach {task['description']}")
         except Exception as e:
