@@ -360,7 +360,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/msg" TYPE FILE FILES "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3/msg/FaceMsg.idl")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/msg" TYPE FILE FILES "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/msg/Task.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dis_tutorial3/msg" TYPE FILE FILES "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/msg/FaceMsg.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -385,6 +393,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/detect_people_custom.py"
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/face_filter.py"
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/face_filter1.py"
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/face_filter2.py"
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/detect_rings_mod.py"
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/main.py"
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/scripts/main1.py"

@@ -71,6 +71,11 @@ CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/tas
 CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__struct.hpp
 CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__traits.hpp
 CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__type_support.hpp
+CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/face_msg.hpp
+CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__builder.hpp
+CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__struct.hpp
+CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__traits.hpp
+CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__type_support.hpp
 CMakeFiles/dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/rosidl_generator_cpp__visibility_control.hpp
 
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/lib/rosidl_generator_cpp/rosidl_generator_cpp
@@ -89,6 +94,7 @@ rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/rosidl_ge
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/rosidl_generator_cpp/resource/srv__struct.hpp.em
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/rosidl_generator_cpp/resource/srv__traits.hpp.em
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: rosidl_adapter/dis_tutorial3/msg/Task.idl
+rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: rosidl_adapter/dis_tutorial3/msg/FaceMsg.idl
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/geometry_msgs/msg/Accel.idl
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/geometry_msgs/msg/AccelStamped.idl
 rosidl_generator_cpp/dis_tutorial3/msg/task.hpp: /opt/ros/humble/share/geometry_msgs/msg/AccelWithCovariance.idl
@@ -164,11 +170,31 @@ rosidl_generator_cpp/dis_tutorial3/msg/detail/task__traits.hpp: rosidl_generator
 rosidl_generator_cpp/dis_tutorial3/msg/detail/task__type_support.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/detail/task__type_support.hpp
 
+rosidl_generator_cpp/dis_tutorial3/msg/face_msg.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/face_msg.hpp
+
+rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__builder.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__builder.hpp
+
+rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__struct.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__struct.hpp
+
+rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__traits.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__traits.hpp
+
+rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__type_support.hpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__type_support.hpp
+
 dis_tutorial3__cpp: CMakeFiles/dis_tutorial3__cpp
+dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__builder.hpp
+dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__struct.hpp
+dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__traits.hpp
+dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/face_msg__type_support.hpp
 dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__builder.hpp
 dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__struct.hpp
 dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__traits.hpp
 dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/detail/task__type_support.hpp
+dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/face_msg.hpp
 dis_tutorial3__cpp: rosidl_generator_cpp/dis_tutorial3/msg/task.hpp
 dis_tutorial3__cpp: CMakeFiles/dis_tutorial3__cpp.dir/build.make
 .PHONY : dis_tutorial3__cpp

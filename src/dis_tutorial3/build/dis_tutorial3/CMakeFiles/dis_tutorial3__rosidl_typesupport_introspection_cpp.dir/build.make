@@ -78,6 +78,7 @@ rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_types
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: /opt/ros/humble/share/rosidl_typesupport_introspection_cpp/resource/srv__rosidl_typesupport_introspection_cpp.hpp.em
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: /opt/ros/humble/share/rosidl_typesupport_introspection_cpp/resource/srv__type_support.cpp.em
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: rosidl_adapter/dis_tutorial3/msg/Task.idl
+rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: rosidl_adapter/dis_tutorial3/msg/FaceMsg.idl
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: /opt/ros/humble/share/geometry_msgs/msg/Accel.idl
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: /opt/ros/humble/share/geometry_msgs/msg/AccelStamped.idl
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp: /opt/ros/humble/share/geometry_msgs/msg/AccelWithCovariance.idl
@@ -141,8 +142,14 @@ rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_types
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ introspection for ROS interfaces"
 	/home/nik/.pyenv/shims/python3 /opt/ros/humble/lib/rosidl_typesupport_introspection_cpp/rosidl_typesupport_introspection_cpp --generator-arguments-file /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_typesupport_introspection_cpp__arguments.json
 
+rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__rosidl_typesupport_introspection_cpp.hpp: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__rosidl_typesupport_introspection_cpp.hpp
+
 rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp
+
+rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp
 
 CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.o: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/flags.make
 CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.o: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp
@@ -158,14 +165,30 @@ CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesu
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp -o CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.s
 
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/flags.make
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o -MF CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o.d -o CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o -c /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp
+
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp > CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.i
+
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp -o CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.s
+
 # Object files for target dis_tutorial3__rosidl_typesupport_introspection_cpp
 dis_tutorial3__rosidl_typesupport_introspection_cpp_OBJECTS = \
-"CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.o"
+"CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.o" \
+"CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o"
 
 # External object files for target dis_tutorial3__rosidl_typesupport_introspection_cpp
 dis_tutorial3__rosidl_typesupport_introspection_cpp_EXTERNAL_OBJECTS =
 
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp.o
+libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp.o
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/build.make
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so
@@ -175,7 +198,7 @@ libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: /opt/ros/humble/lib/l
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: /opt/ros/humble/lib/librcutils.so
 libdis_tutorial3__rosidl_typesupport_introspection_cpp.so: CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libdis_tutorial3__rosidl_typesupport_introspection_cpp.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libdis_tutorial3__rosidl_typesupport_introspection_cpp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -186,6 +209,8 @@ CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/clean
 
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/depend: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__rosidl_typesupport_introspection_cpp.hpp
+CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/depend: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/face_msg__type_support.cpp
 CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/depend: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__rosidl_typesupport_introspection_cpp.hpp
 CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/depend: rosidl_typesupport_introspection_cpp/dis_tutorial3/msg/detail/task__type_support.cpp
 	cd /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nik/Documents/RIS/risn1/src/dis_tutorial3 /home/nik/Documents/RIS/risn1/src/dis_tutorial3 /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3 /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_cpp.dir/DependInfo.cmake --color=$(COLOR)

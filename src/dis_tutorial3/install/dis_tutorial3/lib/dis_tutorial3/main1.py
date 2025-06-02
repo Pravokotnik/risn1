@@ -27,26 +27,68 @@ class HybridController(RobotCommander):
         )
         
         # Publisher for RViz markers
-        self.marker_pub = self.create_publisher(MarkerArray, '/task_markers', 10)
+        self.marker_pub = self.create_publisher(MarkerArray, 'waypoints', 10)
+        
+        
+        
+        self._next_marker_id = 500
+        
         
         self.yapper = Yapper()
         self.get_logger().info("Priority-based controller ready")
 
     def task_callback(self, msg):
-        """Handle all incoming tasks with their sender-defined priorities"""
-        self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description)
+        self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
 
-    def add_task(self, priority, task_type, pose, description=""):
-        """Add task to priority queue, then refresh RViz markers"""
-        entry = (-priority, time.time(), {
-            'type': task_type,
-            'pose': pose,
-            'description': description
-        })
-        heapq.heappush(self.task_heap, entry)
+
+    def add_task(self, priority, task_type, pose, description="", task_id=None):
+        # Search for existing task with same priority, type, and id
+        for idx, entry in enumerate(self.task_heap):
+            prio, _, task = entry
+            if -prio == priority and task['type'] == task_type and task.get('id') == task_id:
+                # Update this existing task
+                new_entry = (-priority, time.time(), {
+                    'type': task_type,
+                    'pose': pose,
+                    'description': description,
+                    'id': task_id,
+                    'priority': priority
+                })
+                self.task_heap[idx] = new_entry
+                heapq.heapify(self.task_heap)  # Rebuild heap after modification
+                self.get_logger().info(f"Updated existing task {task_type} with id {task_id} and priority {priority}")
+                break
+        else:
+            # No existing task with same priority and id found; add new
+            entry = (-priority, time.time(), {
+                'type': task_type,
+                'pose': pose,
+                'description': description,
+                'id': task_id,
+                'priority': priority
+            })
+            heapq.heappush(self.task_heap, entry)
+            self.get_logger().info(f"Added new task {task_type} with id {task_id} and priority {priority}")
+        
+        r = 0.0
+        g = 0.0
+        b = 0.0
+        
+        if task_type == "face":
+            r, g, b = 1.0, 0.5, 0.5
+        elif task_type == "waypoint":
+            r, g, b = 0.2, 1.0, 0.2
+        elif task_type == "speech":
+            r, g, b = 0.2, 0.2, 1.0
+        elif task_type == "emergency":
+            r, g, b = 1.0, 0.0, 0.0
+        else:
+            r, g, b = 0.5, 0.5, 0.5
+        
+        self.publish_to_map(pose.pose.position, r=r, g=g, b=b, a=0.9)
         
         # If a higher-priority task arrives, interrupt
-        if self.current_task and -priority > self.current_task[0]:
+        if self.current_task and -priority < self.current_task[0]:
             self.get_logger().info(f"Interrupting for {description}")
             self.cancel_current_task()
 
@@ -59,6 +101,7 @@ class HybridController(RobotCommander):
             heapq.heappush(self.task_heap, self.current_task)
             self.cancelTask()
             self.current_task = None
+            self.get_logger().warn("Current task cancelled and requeued")
             self.publish_task_markers()
 
     def publish_task_markers(self):
@@ -108,9 +151,16 @@ class HybridController(RobotCommander):
             return pose
         
         return [
-            create_pose(-0.15, -1.91),
-            create_pose(3.04, -1.13),
-            # … etc …
+            create_pose(-0.15, -1.91, -0.00),
+            create_pose(3.04, -1.13, -0.00),
+            create_pose(2.34, 0.00, 0.01),
+            create_pose(2.06, 2.80, 0.01),
+            create_pose(-1.42, 3.26, -0.00),
+            create_pose(-1.48, 4.82, 0.00),
+            create_pose(-1.67, 1.18, 0.01),
+            create_pose(0.14, 1.93, 0.01),
+            create_pose(1.06, -0.09, 0.01),
+            create_pose(2.39, 0.06, 0.01),
         ]
 
     def initialize_robot(self):
@@ -152,6 +202,8 @@ class HybridController(RobotCommander):
             if self.goToPose(task['pose']):
                 self.handle_task_behavior(task)
                 self.wait_for_completion(task['description'])
+            else:
+                self.get_logger().error(f"Failed to reach {task['description']}")
         except Exception as e:
             self.get_logger().error(f"Task failed: {e}")
         finally:
@@ -172,6 +224,25 @@ class HybridController(RobotCommander):
                 throttle_duration_sec=2.0
             )
             time.sleep(0.1)
+    
+    def publish_to_map(self, map_point, r=1.0, g=0.2, b=0.2, a=0.9):
+        m = Marker()
+        m.header.frame_id = 'map'
+        m.header.stamp = self.get_clock().now().to_msg()
+        m.ns = 'waypoints'
+        m.id = self._next_marker_id
+        self._next_marker_id += 1
+        m.type = Marker.SPHERE
+        m.action = Marker.ADD
+        m.pose.position = map_point
+        m.pose.orientation.w = 1.0
+        m.scale.x = m.scale.y = m.scale.z = 0.2
+        m.color = ColorRGBA(r=r, g=g, b=b, a=a)
+        arr = MarkerArray()
+        arr.markers.append(m)
+        self.marker_pub.publish(arr)
+        
+        self.get_logger().info(f"Published marker at {map_point.x}, {map_point.y}, {map_point.z}")
 
 def main(args=None):
     rclpy.init(args=args)

@@ -87,7 +87,7 @@ class FaceFilter(Node):
 
         # PCA setup for wall normal calculation
         self.pca = PCA(n_components=3)
-        self.search_radius = 0.3  # Radius to search for wall points around face
+        self.search_radius = 0.1  # Radius to search for wall points around face
         
         # ----------------- Marker queue for face tracking -----------------
         self.face_queue = deque()               # will hold (Marker, frame_id, stamp)
@@ -268,8 +268,8 @@ class FaceFilter(Node):
     def calculate_perpendicular_destination(self, face_point, normal):
         """Calculate stopping position 1m from wall along normal vector"""
         dest = Point()
-        dest.x = face_point.x + normal[0] * 1.0  # Move 1m along normal
-        dest.y = face_point.y + normal[1] * 1.0
+        dest.x = face_point.x + normal[0] * 0.5  # Move 1m along normal
+        dest.y = face_point.y + normal[1] * 0.5
         dest.z = 0.0  # Keep on ground plane
         return dest
 

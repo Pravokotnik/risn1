@@ -3,7 +3,8 @@
   "output_dir": "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_c/dis_tutorial3",
   "template_dir": "/opt/ros/humble/share/rosidl_generator_c/cmake/../resource",
   "idl_tuples": [
-    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3:msg/Task.idl"
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3:msg/Task.idl",
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3:msg/FaceMsg.idl"
   ],
   "ros_interface_dependencies": [
     "geometry_msgs:/opt/ros/humble/share/geometry_msgs/msg/Accel.idl",
@@ -82,6 +83,7 @@
     "/opt/ros/humble/share/rosidl_generator_c/cmake/../resource/msg__type_support.h.em",
     "/opt/ros/humble/share/rosidl_generator_c/cmake/../resource/srv__type_support.h.em",
     "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3/msg/Task.idl",
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_adapter/dis_tutorial3/msg/FaceMsg.idl",
     "/opt/ros/humble/share/geometry_msgs/msg/Accel.idl",
     "/opt/ros/humble/share/geometry_msgs/msg/AccelStamped.idl",
     "/opt/ros/humble/share/geometry_msgs/msg/AccelWithCovariance.idl",

@@ -186,7 +186,8 @@ class RobotCommander(Node):
         self.info('Canceling current task.')
         if self.result_future:
             future = self.goal_handle.cancel_goal_async()
-            rclpy.spin_until_future_complete(self, future)
+            rclpy.spin_until_future_complete(self, future, timeout_sec=0.5)
+        self.info('Task canceled.')
         return
 
     def isTaskComplete(self):

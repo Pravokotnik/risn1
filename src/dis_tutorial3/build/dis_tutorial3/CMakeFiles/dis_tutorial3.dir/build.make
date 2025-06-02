@@ -67,6 +67,7 @@ include CMakeFiles/dis_tutorial3.dir/compiler_depend.make
 include CMakeFiles/dis_tutorial3.dir/progress.make
 
 CMakeFiles/dis_tutorial3: ../../msg/Task.msg
+CMakeFiles/dis_tutorial3: ../../msg/FaceMsg.msg
 CMakeFiles/dis_tutorial3: /opt/ros/humble/share/geometry_msgs/msg/Accel.idl
 CMakeFiles/dis_tutorial3: /opt/ros/humble/share/geometry_msgs/msg/AccelStamped.idl
 CMakeFiles/dis_tutorial3: /opt/ros/humble/share/geometry_msgs/msg/AccelWithCovariance.idl

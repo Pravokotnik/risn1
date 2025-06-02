@@ -255,4 +255,7 @@ CMakeFiles/dis_tutorial3__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_genera
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.h
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__struct.h
  /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_c/dis_tutorial3/msg/detail/task__functions.h
+ /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__type_support.h
+ /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__struct.h
+ /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__functions.h
 

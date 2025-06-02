@@ -1,6 +1,7 @@
 {
   "package_name": "dis_tutorial3",
   "non_idl_tuples": [
-    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3:msg/Task.msg"
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3:msg/Task.msg",
+    "/home/nik/Documents/RIS/risn1/src/dis_tutorial3:msg/FaceMsg.msg"
   ]
 }

@@ -70,8 +70,10 @@ dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial
 dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_introspection_c.c
 dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_c.c
 dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_task.py
+dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_face_msg.py
 dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/__init__.py
 dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_task_s.c
+dis_tutorial3__py/CMakeFiles/dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c
 
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/lib/rosidl_generator_py/rosidl_generator_py
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/local/lib/python3.10/dist-packages/rosidl_generator_py/__init__.py
@@ -87,6 +89,7 @@ rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtp
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/rosidl_generator_py/resource/_srv_pkg_typesupport_entry_point.c.em
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/rosidl_generator_py/resource/_srv.py.em
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/dis_tutorial3/msg/Task.idl
+rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: rosidl_adapter/dis_tutorial3/msg/FaceMsg.idl
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/Accel.idl
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/AccelStamped.idl
 rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c: /opt/ros/humble/share/geometry_msgs/msg/AccelWithCovariance.idl
@@ -159,17 +162,25 @@ rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_c.c: ro
 rosidl_generator_py/dis_tutorial3/msg/_task.py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/dis_tutorial3/msg/_task.py
 
+rosidl_generator_py/dis_tutorial3/msg/_face_msg.py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/dis_tutorial3/msg/_face_msg.py
+
 rosidl_generator_py/dis_tutorial3/msg/__init__.py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/dis_tutorial3/msg/__init__.py
 
 rosidl_generator_py/dis_tutorial3/msg/_task_s.c: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/dis_tutorial3/msg/_task_s.c
 
+rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c
+
 dis_tutorial3__py: dis_tutorial3__py/CMakeFiles/dis_tutorial3__py
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_c.c
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_fastrtps_c.c
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/_dis_tutorial3_s.ep.rosidl_typesupport_introspection_c.c
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/__init__.py
+dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_face_msg.py
+dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_task.py
 dis_tutorial3__py: rosidl_generator_py/dis_tutorial3/msg/_task_s.c
 dis_tutorial3__py: dis_tutorial3__py/CMakeFiles/dis_tutorial3__py.dir/build.make

@@ -253,8 +253,13 @@ CMakeFiles/dis_tutorial3__rosidl_typesupport_introspection_c__pyext.dir/rosidl_g
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__struct.h \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.h \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__struct.h \
-  rosidl_generator_c/dis_tutorial3/msg/detail/task__functions.h
+  rosidl_generator_c/dis_tutorial3/msg/detail/task__functions.h \
+  rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__type_support.h \
+  rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__struct.h \
+  rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__functions.h
 
+
+rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__type_support.h:
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.h:
 
@@ -276,6 +281,8 @@ rosidl_generator_c/dis_tutorial3/msg/detail/task__type_support.h:
 
 /usr/include/python3.10/intrcheck.h:
 
+rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__struct.h:
+
 /usr/include/python3.10/osmodule.h:
 
 /usr/include/python3.10/tracemalloc.h:
@@ -285,6 +292,8 @@ rosidl_generator_c/dis_tutorial3/msg/detail/task__type_support.h:
 /usr/include/python3.10/compile.h:
 
 /usr/include/python3.10/context.h:
+
+rosidl_generator_c/dis_tutorial3/msg/detail/face_msg__functions.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
 

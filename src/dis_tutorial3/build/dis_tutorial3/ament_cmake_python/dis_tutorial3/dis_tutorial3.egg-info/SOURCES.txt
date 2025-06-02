@@ -5,4 +5,5 @@ dis_tutorial3.egg-info/SOURCES.txt
 dis_tutorial3.egg-info/dependency_links.txt
 dis_tutorial3.egg-info/top_level.txt
 dis_tutorial3/msg/__init__.py
+dis_tutorial3/msg/_face_msg.py
 dis_tutorial3/msg/_task.py

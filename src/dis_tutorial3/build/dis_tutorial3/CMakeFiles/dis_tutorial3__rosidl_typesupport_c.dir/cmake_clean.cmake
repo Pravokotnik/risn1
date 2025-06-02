@@ -1,8 +1,11 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/dis_tutorial3__rosidl_typesupport_c.dir/rosidl_typesupport_c/dis_tutorial3/msg/face_msg__type_support.cpp.o"
+  "CMakeFiles/dis_tutorial3__rosidl_typesupport_c.dir/rosidl_typesupport_c/dis_tutorial3/msg/face_msg__type_support.cpp.o.d"
   "CMakeFiles/dis_tutorial3__rosidl_typesupport_c.dir/rosidl_typesupport_c/dis_tutorial3/msg/task__type_support.cpp.o"
   "CMakeFiles/dis_tutorial3__rosidl_typesupport_c.dir/rosidl_typesupport_c/dis_tutorial3/msg/task__type_support.cpp.o.d"
   "libdis_tutorial3__rosidl_typesupport_c.pdb"
   "libdis_tutorial3__rosidl_typesupport_c.so"
+  "rosidl_typesupport_c/dis_tutorial3/msg/face_msg__type_support.cpp"
   "rosidl_typesupport_c/dis_tutorial3/msg/task__type_support.cpp"
 )
 

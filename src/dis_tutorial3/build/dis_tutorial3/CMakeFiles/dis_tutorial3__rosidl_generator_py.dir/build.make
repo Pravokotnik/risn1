@@ -83,14 +83,30 @@ CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutori
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_task_s.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_py/dis_tutorial3/msg/_task_s.c -o CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_task_s.c.s
 
+CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/flags.make
+CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o: rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c
+CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o -MF CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o.d -o CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o -c /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c
+
+CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c > CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.i
+
+CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c -o CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.s
+
 # Object files for target dis_tutorial3__rosidl_generator_py
 dis_tutorial3__rosidl_generator_py_OBJECTS = \
-"CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_task_s.c.o"
+"CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_task_s.c.o" \
+"CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o"
 
 # External object files for target dis_tutorial3__rosidl_generator_py
 dis_tutorial3__rosidl_generator_py_EXTERNAL_OBJECTS =
 
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_task_s.c.o
+rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/rosidl_generator_py/dis_tutorial3/msg/_face_msg_s.c.o
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/build.make
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: /usr/lib/x86_64-linux-gnu/libpython3.10.so
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: libdis_tutorial3__rosidl_typesupport_c.so
@@ -108,7 +124,7 @@ rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: /opt
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: /opt/ros/humble/lib/librosidl_runtime_c.so
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: /opt/ros/humble/lib/librcutils.so
 rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so: CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C shared library rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nik/Documents/RIS/risn1/src/dis_tutorial3/build/dis_tutorial3/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C shared library rosidl_generator_py/dis_tutorial3/libdis_tutorial3__rosidl_generator_py.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dis_tutorial3__rosidl_generator_py.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
