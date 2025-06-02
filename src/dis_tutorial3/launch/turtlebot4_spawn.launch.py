@@ -67,7 +67,7 @@ def generate_launch_description():
     pkg_turtlebot4_ignition_bringup = get_package_share_directory(
         'turtlebot4_ignition_bringup')
     this_package = get_package_share_directory(
-        'dis_tutorial7')
+        'dis_tutorial3')
     pkg_turtlebot4_viz = get_package_share_directory(
         'turtlebot4_viz')
     pkg_irobot_create_common_bringup = get_package_share_directory(

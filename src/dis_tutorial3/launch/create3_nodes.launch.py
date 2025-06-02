@@ -24,7 +24,7 @@ def generate_launch_description():
 
     # Directories
     pkg_create3_common_bringup = get_package_share_directory('irobot_create_common_bringup')
-    this_package = get_package_share_directory('dis_tutorial7')
+    this_package = get_package_share_directory('dis_tutorial3')
 
     # Paths
     control_launch_file = PathJoinSubstitution(

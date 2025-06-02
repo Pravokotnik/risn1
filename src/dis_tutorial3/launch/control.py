@@ -18,7 +18,7 @@ ARGUMENTS = [
 
 
 def generate_launch_description():
-    this_package = get_package_share_directory('dis_tutorial7')
+    this_package = get_package_share_directory('dis_tutorial3')
 
     namespace = LaunchConfiguration('namespace')
 

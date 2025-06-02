@@ -48,7 +48,7 @@ for pose_element in ['x', 'y', 'z', 'yaw']:
 
 def generate_launch_description():
     # Directories
-    package_dir_robot = get_package_share_directory('dis_tutorial7')
+    package_dir_robot = get_package_share_directory('dis_tutorial3')
 
     # Paths
     ignition_launch = PathJoinSubstitution(

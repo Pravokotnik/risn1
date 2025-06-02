@@ -40,7 +40,7 @@ ARGUMENTS = [
 
 
 def generate_launch_description():
-    pkg_turtlebot4_description = get_package_share_directory('dis_tutorial7')
+    pkg_turtlebot4_description = get_package_share_directory('dis_tutorial3')
     xacro_file = PathJoinSubstitution([pkg_turtlebot4_description,
                                        'urdf',
                                        LaunchConfiguration('model'),
