@@ -31,6 +31,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
 install(DIRECTORY
   launch
+  meshes
+  urdf
   config
   worlds
   maps
@@ -38,6 +40,7 @@ install(DIRECTORY
 )
 
 install(PROGRAMS
+  scripts/arm_mover_actions.py
   scripts/detect_people.py
   scripts/detect_people_no_pc.py
   scripts/detect_people_no_pc_deepface.py

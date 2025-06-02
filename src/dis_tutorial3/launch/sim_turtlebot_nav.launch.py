@@ -31,13 +31,13 @@ ARGUMENTS = [
                           description='Robot namespace'),
     DeclareLaunchArgument('rviz', default_value='true',
                           choices=['true', 'false'], description='Start rviz.'),
-    DeclareLaunchArgument('world', default_value='task2',
+    DeclareLaunchArgument('world', default_value='task1',
                           description='Ignition World'),
     DeclareLaunchArgument('model', default_value='standard',
                           choices=['standard', 'lite'],
                           description='Turtlebot4 Model'),
     DeclareLaunchArgument('map', default_value=PathJoinSubstitution(
-                          [pkg_dis_tutorial3, 'maps', 'task2.yaml']),
+                          [pkg_dis_tutorial3, 'maps', 'map.yaml']),
                           description='Full path to map yaml file to load'),
 ]
 
@@ -48,13 +48,13 @@ for pose_element in ['x', 'y', 'z', 'yaw']:
 
 def generate_launch_description():
     # Directories
-    package_dir = get_package_share_directory('dis_tutorial3')
+    package_dir_robot = get_package_share_directory('dis_tutorial7')
 
     # Paths
     ignition_launch = PathJoinSubstitution(
-        [package_dir, 'launch', 'ignition.launch.py'])
+        [pkg_dis_tutorial3, 'launch', 'ignition.launch.py'])
     robot_spawn_launch = PathJoinSubstitution(
-        [package_dir, 'launch', 'turtlebot4_spawn.launch.py'])
+        [package_dir_robot, 'launch', 'turtlebot4_spawn.launch.py'])
     localization_launch = PathJoinSubstitution(
         [pkg_dis_tutorial3, 'launch', 'localization.launch.py'])
     nav2_launch = PathJoinSubstitution(

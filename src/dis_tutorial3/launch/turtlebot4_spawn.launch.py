@@ -66,8 +66,8 @@ def generate_launch_description():
         'turtlebot4_navigation')
     pkg_turtlebot4_ignition_bringup = get_package_share_directory(
         'turtlebot4_ignition_bringup')
-    pkg_turtlebot4_description = get_package_share_directory(
-        'turtlebot4_description')
+    this_package = get_package_share_directory(
+        'dis_tutorial7')
     pkg_turtlebot4_viz = get_package_share_directory(
         'turtlebot4_viz')
     pkg_irobot_create_common_bringup = get_package_share_directory(
@@ -77,17 +77,17 @@ def generate_launch_description():
 
     # Paths
     turtlebot4_ros_ign_bridge_launch = PathJoinSubstitution(
-        [pkg_turtlebot4_ignition_bringup, 'launch', 'ros_ign_bridge.launch.py'])
+        [this_package, 'launch', 'ros_ign_bridge.launch.py'])
     rviz_launch = PathJoinSubstitution(
-        [pkg_turtlebot4_viz, 'launch', 'view_robot.launch.py'])
+        [this_package, 'launch', 'view_robot.launch.py'])
     turtlebot4_node_launch = PathJoinSubstitution(
         [pkg_turtlebot4_ignition_bringup, 'launch', 'turtlebot4_nodes.launch.py'])
     create3_nodes_launch = PathJoinSubstitution(
-        [pkg_irobot_create_common_bringup, 'launch', 'create3_nodes.launch.py'])
+        [this_package, 'launch', 'create3_nodes.launch.py'])
     create3_ignition_nodes_launch = PathJoinSubstitution(
         [pkg_irobot_create_ignition_bringup, 'launch', 'create3_ignition_nodes.launch.py'])
     robot_description_launch = PathJoinSubstitution(
-        [pkg_turtlebot4_description, 'launch', 'robot_description.launch.py'])
+        [this_package, 'launch', 'robot_description.launch.py'])
     dock_description_launch = PathJoinSubstitution(
         [pkg_irobot_create_common_bringup, 'launch', 'dock_description.launch.py'])
 
@@ -151,17 +151,17 @@ def generate_launch_description():
         ),
 
         # Spawn Dock
-        Node(
-            package='ros_ign_gazebo',
-            executable='create',
-            arguments=['-name', dock_name,
-                       '-x', x_dock,
-                       '-y', y_dock,
-                       '-z', z,
-                       '-Y', yaw_dock,
-                       '-topic', 'standard_dock_description'],
-            output='screen',
-        ),
+        # Node(
+        #     package='ros_ign_gazebo',
+        #     executable='create',
+        #     arguments=['-name', dock_name,
+        #                '-x', x_dock,
+        #                '-y', y_dock,
+        #                '-z', z,
+        #                '-Y', yaw_dock,
+        #                '-topic', 'standard_dock_description'],
+        #     output='screen',
+        # ),
 
         # ROS IGN bridge
         IncludeLaunchDescription(
@@ -225,9 +225,26 @@ def generate_launch_description():
             output='screen',
             arguments=[
                 '0', '0', '0',
-                '1.5707', '-1.5707', '0',
+                '0.0', '-0.0', '0',
                 'oakd_rgb_camera_optical_frame',
                 [robot_name, '/oakd_rgb_camera_frame/rgbd_camera']
+            ],
+            remappings=[
+                ('/tf', 'tf'),
+                ('/tf_static', 'tf_static'),
+            ]
+        ),
+
+        Node(
+            name='camera2_stf',
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            output='screen',
+            arguments=[
+                '0', '0', '0',
+                '0.0', '-0.0', '0',
+                'top_camera_rgb_camera_optical_frame',
+                [robot_name, '/top_camera_rgb_camera_frame/rgbd_camera']
             ],
             remappings=[
                 ('/tf', 'tf'),
