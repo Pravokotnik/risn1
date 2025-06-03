@@ -43,7 +43,7 @@ class RingDetector(Node):
         self.latest_rgb_image = None
 
         # Subscribe to the image and/or depth topic
-        self.depth_sub = self.create_subscription(Image, "/oakd/rgb/preview/depth", self.image_callback, 1)
+        self.depth_sub = self.create_subscription(Image, "/oakd/rgb/preview/depth", self.depth_callback, 1)
         self.image_sub = self.create_subscription(Image, "/oakd/rgb/preview/image_raw", self.rgb_callback, 1)
 
         # Publiser for the visualization markers
@@ -67,7 +67,7 @@ class RingDetector(Node):
             print(e)
     
 
-    def image_callback(self, data):
+    def depth_callback(self, data):
         #self.get_logger().info(f"I got a new image! Will try to find rings...")
 
         self.ring_centers = []

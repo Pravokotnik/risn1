@@ -56,6 +56,7 @@ install(PROGRAMS
   scripts/face_filter1.py
   scripts/face_filter2.py
   scripts/detect_rings_mod.py
+  scripts/detect_rings1.py
   scripts/main.py
   scripts/main1.py
   scripts/main_irl.py
