@@ -130,6 +130,8 @@ class detect_faces(Node):
 		width = data.width
 		point_step = data.point_step
 		row_step = data.row_step		
+  
+		self.get_logger().info(f"Received point cloud with height {height}, width {width}, point step {point_step}, row step {row_step}.")
 
 		# iterate over face coordinates
 		for x,y, top_left, bottom_right, top_right, bottom_left in self.faces:

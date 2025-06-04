@@ -229,7 +229,7 @@ class HybridController(RobotCommander):
                         self.yapper.yap("Hello there!")
                     # Wait 1s if emergency task
                     elif task['type'] == "emergency":
-                        time.sleep(5.0)
+                        time.sleep(2.0)
                 self.canceledTask = False
             else:
                 self.get_logger().error(f"Failed to reach {task['description']}")

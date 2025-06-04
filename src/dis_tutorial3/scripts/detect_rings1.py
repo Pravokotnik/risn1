@@ -4,13 +4,16 @@ import rclpy
 from rclpy.node import Node
 import cv2
 import numpy as np
+
 from sensor_msgs.msg import Image, PointCloud2
 from std_msgs.msg import String
-from geometry_msgs.msg import PointStamped, Vector3, Pose
+from geometry_msgs.msg import PointStamped, Vector3, Pose, Point
+from dis_tutorial3.msg import RingMsg
+
 from cv_bridge import CvBridge, CvBridgeError
-from visualization_msgs.msg import Marker
+from visualization_msgs.msg import Marker, MarkerArray
 from sensor_msgs_py import point_cloud2 as pc2
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy, qos_profile_sensor_data
 from message_filters import Subscriber, ApproximateTimeSynchronizer
 
 qos_profile = QoSProfile(
@@ -28,19 +31,24 @@ class RingDetector(Node):
         self.latest_rgb_image = None
         self.latest_rgb_image_msg = None
         self.ring_points = []
+        self.rings = []  # Store ring candidates as (mask, rgb_image)
         self.last_published_color = None
         self.publish_cooldown = 0
+        
+        
 
         # self.depth_sub = self.create_subscription(Image, "/oakd/rgb/preview/depth", self.depth_callback, 1)
         # self.image_sub = self.create_subscription(Image, "/oakd/rgb/preview/image_raw", self.rgb_callback, 1)
         self.image_sub = Subscriber(self, Image, "/oakd/rgb/preview/image_raw")
         self.depth_sub = Subscriber(self, Image, "/oakd/rgb/preview/depth")
-        self.pointcloud_sub = self.create_subscription(PointCloud2, "/oakd/rgb/preview/depth/points", self.pointcloud_callback, qos_profile)
-        self.color_pub = self.create_publisher(String, "/ring/color", 10)
-        self.marker_pub = self.create_publisher(Marker, "/ring_marker", 10)
+        self.pointcloud_sub = Subscriber(self, PointCloud2, "/oakd/rgb/preview/depth/points", qos_profile=qos_profile_sensor_data)
+        
+        self.marker_pub = self.create_publisher(MarkerArray, "waypoints", 10)
+        self.ring_pub = self.create_publisher(RingMsg, "/ring_coordinates", 10)
+        
         
         # Time synchronizer to sync RGB and depth images
-        self.ts = ApproximateTimeSynchronizer([self.image_sub, self.depth_sub], queue_size=10, slop=0.1)
+        self.ts = ApproximateTimeSynchronizer([self.image_sub, self.depth_sub, self.pointcloud_sub], queue_size=30, slop=0.03)
         self.ts.registerCallback(self.synced_callback)
         
         self.left_right_offset = 30 # amount of pixels to crop left and right for detections
@@ -61,34 +69,8 @@ class RingDetector(Node):
             cv2.namedWindow("Ring Color Detection", cv2.WINDOW_NORMAL)
             cv2.namedWindow("Ring Masked RGB", cv2.WINDOW_NORMAL)
 
-    # def rgb_callback(self, msg):
-    #     try:
-    #         self.latest_rgb_image_msg = msg
-    #         self.latest_rgb_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
-    #     except CvBridgeError as e:
-    #         self.get_logger().error(f"RGB conversion error: {e}")
 
-    # def depth_callback(self, msg):
-    #     try:
-    #         depth_image = self.bridge.imgmsg_to_cv2(msg, "32FC1")
-    #     except CvBridgeError as e:
-    #         self.get_logger().error(f"Depth conversion error: {e}")
-    #         return
-        
-    #     if self.latest_rgb_image_msg is None:
-    #         self.get_logger().warn("No RGB image available for processing")
-    #         return
-        
-    #     while msg.header.stamp != self.latest_rgb_image_msg.header.stamp:
-    #         self.get_logger().warn(f"Depth: {msg.header.stamp} ||| RGB: {self.latest_rgb_image_msg.header.stamp}.")
-            
-    #     self.get_logger().info(f"Processing depth image at time {msg.header.stamp}")
-        
-    #     rgb_image = self.latest_rgb_image.copy()
-        
-
-
-    def synced_callback(self, rgb_msg, depth_msg):
+    def synced_callback(self, rgb_msg, depth_msg, cloud_msg):
         # Convert images from ROS msg to OpenCV
         try:
             rgb_image = self.bridge.imgmsg_to_cv2(rgb_msg, "bgr8")
@@ -96,11 +78,41 @@ class RingDetector(Node):
         except CvBridgeError as e:
             self.get_logger().error(f"CV Bridge Error: {e}")
             return
+        
+        
+        ###########################3
+        # height, width = cloud_msg.height, cloud_msg.width
+        
+        # points_np = pc2.read_points_numpy(cloud_msg, field_names=("x", "y", "z"))
+        # points_np = points_np.reshape((height, width, 3))
+
+        # pointcloud_image = np.zeros((height, width, 3), dtype=np.float32)
+        # # convert inf values to 100
+        # points_np[np.isinf(points_np)] = 5.0  # Replace inf with a large value for visualization
+        # max_val = np.max(points_np)
+        
+        # min_val = np.min(points_np)
+        # self.get_logger().info(f"Point cloud min: {min_val}, max: {max_val}")
+        # scaled_points = (points_np - min_val) / (max_val - min_val)  # Normalize points to [0, 1]
+        # for i in range(height):
+        #     for j in range(width):
+        #         pointcloud_image[i, j] = [scaled_points[i, j, 0] * 255, scaled_points[i, j, 1] * 255, scaled_points[i, j, 2] * 255]
+        # # Convert point cloud to OpenCV image for visualization
+        # pointcloud_image = pointcloud_image.astype(np.uint8)
+        # # Show the point cloud image
+        # pointcloud_image = cv2.cvtColor(pointcloud_image, cv2.COLOR_BGR2GRAY)
+        # pointcloud_image = cv2.applyColorMap(pointcloud_image, cv2.COLORMAP_JET)
+        # cv2.imshow("Point Cloud", pointcloud_image)
+        cv2.imshow("RGB Image", rgb_image)
+        # cv2.imshow("Depth Image", depth_image)
+        cv2.waitKey(1)
+
+        #############################
 
         # Now rgb_image and depth_image are synced in time, process them together
-        self.process_images(rgb_image, depth_image)
+        self.process_images(rgb_image, depth_image, cloud_msg, rgb_msg.header.stamp)
     
-    def process_images(self, rgb_image, depth_image):
+    def process_images(self, rgb_image, depth_image, cloud_msg, stamp):
         # Crop RGB to upper half as well
 
         # Filter depth range 1m to 5m
@@ -152,35 +164,28 @@ class RingDetector(Node):
         # self.get_logger().info(f"Found {len(contours)} contours in depth image")
 
         candidates = []
-        counters = [0, 0, 0, 0, 0, 0, 0]
         for cnt in contours:
-            counters[0] += 1  # total contours
             if len(cnt) < 20:
                 continue
 
-            counters[1] += 1  # contours with enough points
             area = cv2.contourArea(cnt)
             # if area < 50:  # too small
             #     continue
             # if area > 5:  # too large
             #     continue
 
-            counters[2] += 1  # contours with sufficient area
             perimeter = cv2.arcLength(cnt, True)
             if perimeter == 0:
                 continue
 
-            counters[3] += 1  # contours with valid perimeter
             circularity = 4 * np.pi * (area / (perimeter * perimeter))
             # if circularity < 0.02:  # tune threshold for ring shape
             #     continue
 
-            counters[4] += 1  # contours with good circularity
             # Fit ellipse and check axis ratio (should not be too elongated)
             if cnt.shape[0] < 5:
                 continue  # Need at least 5 points for ellipse
 
-            counters[5] += 1  # contours with enough points for ellipse fitting
             ellipse = cv2.fitEllipse(cnt)
             major_axis = max(ellipse[1])
             minor_axis = min(ellipse[1])
@@ -193,17 +198,8 @@ class RingDetector(Node):
             if center_x < self.left_right_offset or center_x > rgb_crop.shape[1] - self.left_right_offset:
                 continue
             
-            # Check area of the fitted ellipse
-            # if major_axis < 10 or minor_axis < 10:  # tune thresholds for minimum size
-            #     continue
-            
-            # if major_axis > 50 or minor_axis > 50:  # tune thresholds for maximum size
-            #     continue
-            self.get_logger().info(f"Detected elipse circularity: {circularity:.3f}, axis ratio: {axis_ratio:.3f}")
-            counters[6] += 1  # contours with good axis ratio
             candidates.append(ellipse)
         
-        # self.get_logger().info(f"Contour analysis: {counters}")
         
         ring_candidates = []
         for i, cnt in enumerate(candidates):
@@ -212,63 +208,28 @@ class RingDetector(Node):
                 continue
             ring_candidates.append(cnt)  # Store both outer and inner as same for now
 
-        # Pair candidates into possible rings (inner/outer ellipse pairs)
-        # for i in range(len(candidates)):
-        #     for j in range(i+1, len(candidates)):
-        #         e1 = candidates[i]
-        #         e2 = candidates[j]
-
-        #         # Compute bounding box for e1
-        #         x1_c, y1_c = e1[0]
-        #         half_w1, half_h1 = e1[1][0] / 2, e1[1][1] / 2
-        #         x1_min, x1_max = x1_c - half_w1, x1_c + half_w1
-        #         y1_min, y1_max = y1_c - half_h1, y1_c + half_h1
-
-        #         # Compute bounding box for e2
-        #         x2_c, y2_c = e2[0]
-        #         half_w2, half_h2 = e2[1][0] / 2, e2[1][1] / 2
-        #         x2_min, x2_max = x2_c - half_w2, x2_c + half_w2
-        #         y2_min, y2_max = y2_c - half_h2, y2_c + half_h2
-
-        #         # Check if center of e1 is inside bounding box of e2 OR center of e2 inside bounding box of e1
-        #         def inside_bbox(cx, cy, xmin, xmax, ymin, ymax):
-        #             return xmin <= cx <= xmax and ymin <= cy <= ymax
-
-        #         if not (inside_bbox(x1_c, y1_c, x2_min, x2_max, y2_min, y2_max) or
-        #                 inside_bbox(x2_c, y2_c, x1_min, x1_max, y1_min, y1_max)):
-        #             continue
-
-        #         # Identify outer and inner ellipse by area
-        #         area1 = np.pi * (e1[1][0]/2) * (e1[1][1]/2)
-        #         area2 = np.pi * (e2[1][0]/2) * (e2[1][1]/2)
-        #         if area1 > area2:
-        #             outer, inner = e1, e2
-        #         else:
-        #             outer, inner = e2, e1
-
-        #         # Depth hollow check
-        #         if not self.check_depth_hollow(depth_crop, outer, inner):
-        #             continue
-
-        #         ring_candidates.append((outer, inner))
-        
-        # self.get_logger().info(f"Found {len(ring_candidates)} ring candidates after pairing")
-        
         # If no candidates found, just return
         if len(ring_candidates) == 0:
             self.ring_points = []
             return
 
-        # Visualization & publish
-        self.get_logger().info(f"Found {len(ring_candidates)} ring candidates")
 
         # For each ring candidate, verify color and publish
         for ring in ring_candidates:
             # Draw ellipses on RGB crop
             cv2.ellipse(rgb_crop, ring, (0,255,0), 2)
 
-            center_x, center_y = int(ring[0][0]), int(ring[0][1])
-            ring_color = self.detect_ring_color(rgb_image, norm_depth, ring)
+            ring_mask = self.get_ring_mask(rgb_image, norm_depth, ring)
+            if ring_mask is None or isinstance(ring_mask, str):
+                self.get_logger().warn(f"Invalid ring mask: {ring_mask}")
+                continue
+            
+            
+            ring_color = self.detect_ring_color(rgb_image, ring_mask)
+            if ring_color == "unknown":
+                self.get_logger().warn("Detected ring color is unknown, skipping")
+                continue
+            self.rings.append((ring_mask, rgb_image, ring_color, stamp))
             self.visualize_ring_color_detection(rgb_image, ring, ring_color)
 
             circularity_ring = self.compute_circularity_score(ring)
@@ -289,6 +250,8 @@ class RingDetector(Node):
 
         cv2.imshow("Rings RGB Crop", rgb_crop)
         cv2.waitKey(1)
+        
+        self.pointcloud_calculation(cloud_msg)
 
     def check_depth_hollow(self, depth_img, ring):
         # Check if the center of the ring has a distance of 0
@@ -302,8 +265,8 @@ class RingDetector(Node):
         if center_depth > 0.1:  # Tune threshold for hollow check
             return False
         return True
-
-    def detect_ring_color(self, rgb_img, norm_depth, ring):
+    
+    def get_ring_mask(self, rgb_img, norm_depth, ring):
         h, w = rgb_img.shape[:2]
         
         # Remove any pixel of this value: #b2b2b2; from the rgb_img and make a new image from it
@@ -315,12 +278,6 @@ class RingDetector(Node):
 
         # 5 pixels around the elipse
         ring_mask = cv2.dilate(ring_mask, np.ones((5,5), np.uint8), iterations=1)
-        
-        # # Create new mask that's 5 pixels smaller than the original and remove it from the original mask
-        # ring_mask_inner = np.zeros((h,w), dtype=np.uint8)
-        # cv2.ellipse(ring_mask_inner, ring, 255, -1)
-        # ring_mask_inner = cv2.erode(ring_mask_inner, np.ones((3,3), np.uint8), iterations=1)
-        # ring_mask = cv2.bitwise_and(ring_mask, cv2.bitwise_not(ring_mask_inner))
         
         # Keep only pixels with depth > 0.1. The norm_depth image is cut in half, so we need to add blank pixels to the bottom so it's the same size as the rgb_img
         if norm_depth.shape[0] < h:
@@ -371,14 +328,17 @@ class RingDetector(Node):
         if np.sum(really_dilated) > 0:
             return "invalid_thickness"
 
-
-
         # Extract ring pixels
         ring_pixels = rgb_img[ring_mask > 0]
         if len(ring_pixels) < 30:
-            return "unknown"
+            return "few_pixels"
         
         
+        return ring_mask
+
+    def detect_ring_color(self, rgb_img, ring_mask):
+        
+        ring_pixels = rgb_img[ring_mask > 0]
 
         hsv_pixels = cv2.cvtColor(np.array([ring_pixels]), cv2.COLOR_BGR2HSV)[0]
 
@@ -453,20 +413,21 @@ class RingDetector(Node):
 
     def publish_ring(self, color, circularity):
         # Cooldown to avoid spamming same color
-        if self.last_published_color == color and self.publish_cooldown > 0:
-            self.publish_cooldown -= 1
-            return
+        # if self.last_published_color == color and self.publish_cooldown > 0:
+        #     self.publish_cooldown -= 1
+        #     return
 
-        self.last_published_color = color
-        self.publish_cooldown = 5
+        # self.last_published_color = color
+        # self.publish_cooldown = 5
 
-        msg = String()
-        msg.data = f"color={color}, circularity={circularity:.3f}"
-        self.color_pub.publish(msg)
-        self.get_logger().info(f"Published ring color: {color}")
+        # msg = String()
+        # msg.data = f"color={color}, circularity={circularity:.3f}"
+        # self.get_logger().info(f"Published ring color: {color}")
+        pass
 
-    def pointcloud_callback(self, msg):
-        if not self.ring_points or self.latest_rgb_image is None:
+    def pointcloud_calculation(self, msg):
+        if not self.rings:
+            self.get_logger().warn("No rings detected, skipping pointcloud processing")
             return
 
         height = msg.height
@@ -475,18 +436,7 @@ class RingDetector(Node):
         points_np = pc2.read_points_numpy(msg, field_names=("x","y","z"))
         points_np = points_np.reshape((height, width, 3))
 
-        color = self.last_published_color if self.last_published_color else "unknown"
-
-        marker = Marker()
-        marker.header = msg.header
-        marker.header.frame_id = "base_link"
-        marker.type = Marker.SPHERE_LIST
-        marker.action = Marker.ADD
-
-        scale = 0.05
-        marker.scale.x = scale
-        marker.scale.y = scale
-        marker.scale.z = scale
+        scale = 0.2
 
         color_map = {
             "red": (1.0,0.0,0.0),
@@ -495,49 +445,134 @@ class RingDetector(Node):
             "black": (0.0,0.0,0.0),
             "unknown": (1.0,1.0,0.0)
         }
-        r,g,b = color_map.get(color, (1.0,1.0,0.0))
-
-        marker.color.r = r
-        marker.color.g = g
-        marker.color.b = b
-        marker.color.a = 1.0
-
-        # Compute average position of ring points
-        avg_x = 0.0
-        avg_y = 0.0
-        avg_z = 0.0
-        valid_points = 0
-
-        marker.points = []
-        for (x, y) in self.ring_points:
-            if 0 <= y < height and 0 <= x < width:
-                p = points_np[y,x]
-                if np.any(np.isnan(p)) or np.any(np.isinf(p)):
-                    continue
-                avg_x += p[0]
-                avg_y += p[1]
-                avg_z += p[2]
-                valid_points += 1
-
-                pt = PointStamped()
-                pt.point.x = float(p[0])
-                pt.point.y = float(p[1])
-                pt.point.z = float(p[2])
-                marker.points.append(pt.point)
-
-        if valid_points == 0:
-            return
-
-        avg_x /= valid_points
-        avg_y /= valid_points
-        avg_z /= valid_points
-
-        marker.pose.position.x = avg_x
-        marker.pose.position.y = avg_y
-        marker.pose.position.z = avg_z
-
-        self.marker_pub.publish(marker)
-        self.get_logger().info(f"Published marker at ({avg_x:.2f},{avg_y:.2f},{avg_z:.2f}) with color {color}")
+        
+        for ring_mask, rgb_image, ring_color, stamp in self.rings:
+            # Get all pixel coordinates where mask is non-zero
+            y_coords, x_coords = np.where(ring_mask > 0)
+            
+            # Get corresponding 3D points
+            ring_depth_pixels = points_np[y_coords, x_coords]
+            
+            # Remove points with invalid depth (NaN or Inf)
+            valid_mask = ~np.isnan(ring_depth_pixels).any(axis=1) & ~np.isinf(ring_depth_pixels).any(axis=1)
+            y_coords = y_coords[valid_mask]
+            x_coords = x_coords[valid_mask]
+            ring_depth_pixels = ring_depth_pixels[valid_mask]
+            
+            if len(ring_depth_pixels) == 0:
+                self.get_logger().warn("No valid ring points after NaN/Inf removal")
+                continue
+                
+            # Remove outliers based on distance from mean
+            avg_location = np.mean(ring_depth_pixels, axis=0)
+            distances = np.linalg.norm(ring_depth_pixels - avg_location, axis=1)
+            threshold = np.percentile(distances, 66)
+            inlier_mask = distances <= threshold
+            
+            y_coords = y_coords[inlier_mask]
+            x_coords = x_coords[inlier_mask]
+            ring_depth_pixels = ring_depth_pixels[inlier_mask]
+            
+            if len(ring_depth_pixels) == 0:
+                self.get_logger().warn("No valid ring points after outlier removal")
+                continue
+                
+            # Find leftmost, rightmost, and topmost points in 2D image space
+            leftmost_idx = np.argmin(x_coords)
+            rightmost_idx = np.argmax(x_coords)
+            topmost_idx = np.argmin(y_coords)
+            
+            left_point = ring_depth_pixels[leftmost_idx]
+            right_point = ring_depth_pixels[rightmost_idx]
+            top_point = ring_depth_pixels[topmost_idx]
+            
+            # Calculate vectors and normal
+            vector1 = right_point - left_point
+            vector2 = top_point - left_point
+            normal_vector = np.cross(vector1, vector2)
+            
+            if normal_vector[2] > 0.3:
+                self.get_logger().error("Normal vector too steep, skipping ring")
+                continue
+            
+            normal_vector[2] = 0  # Project onto XY plane
+            normal_vector /= np.linalg.norm(normal_vector)  # Normalize
+            
+            # Create normal marker
+            normal_marker = Marker()
+            normal_marker.header.frame_id = "base_link"
+            normal_marker.header.stamp = stamp
+            normal_marker.type = Marker.ARROW
+            normal_marker.id = len(self.rings) + 1000  # Unique ID
+            normal_marker.action = Marker.ADD
+            
+            # Start point of arrow (ring center)
+            avg_x = np.mean(ring_depth_pixels[:, 0])
+            avg_y = np.mean(ring_depth_pixels[:, 1])
+            avg_z = np.mean(ring_depth_pixels[:, 2])
+            
+            # End point of arrow (normal direction)
+            normal_length = 0.5  # meters
+            normal_marker.points = [
+                Point(x=float(avg_x), y=float(avg_y), z=float(avg_z)),
+                Point(x=float(avg_x + normal_vector[0]*normal_length),
+                    y=float(avg_y + normal_vector[1]*normal_length),
+                    z=float(avg_z + normal_vector[2]*normal_length))
+            ]
+            
+            normal_marker.scale = Vector3(x=0.02, y=0.04, z=0.0)  # Shaft and head dimensions
+            normal_marker.color.r = 1.0
+            normal_marker.color.g = 1.0
+            normal_marker.color.b = 0.0
+            normal_marker.color.a = 1.0
+            normal_marker.lifetime = rclpy.duration.Duration(seconds=2).to_msg()
+            
+            color = color_map.get(ring_color, (1.0, 1.0, 0.0))
+            
+            # Create a marker for the ring to publish
+            marker = Marker()
+            marker.header.frame_id = "base_link"
+            marker.header.stamp = stamp
+            marker.type = Marker.SPHERE
+            marker.id = len(self.rings)
+            marker.action = Marker.ADD
+            marker.pose.position.x = float(avg_x)
+            marker.pose.position.y = float(avg_y)
+            marker.pose.position.z = float(avg_z)
+            marker.scale = Vector3(x=scale, y=scale, z=scale)
+            marker.color.r = color[0]
+            marker.color.g = color[1]
+            marker.color.b = color[2]
+            marker.color.a = 0.3
+            marker.lifetime = rclpy.duration.Duration(seconds=2).to_msg()
+            
+            # Create MarkerArray and append the marker then publish the array
+            marker_array = MarkerArray()
+            marker_array.markers.append(marker)
+            marker_array.markers.append(normal_marker)
+            self.marker_pub.publish(marker_array)
+            
+            normal_vector = [float(normal_vector[0]), float(normal_vector[1]), float(normal_vector[2])]
+            # Create and publish the RingMsg
+            # geometry_msgs/PoseStamped target_pose
+            # geometry_msgs/Vector3 normal
+            # string color
+            ring_msg = RingMsg()
+            ring_msg.color = ring_color
+            ring_msg.target_pose.header.frame_id = "base_link"
+            ring_msg.target_pose.header.stamp = stamp
+            ring_msg.target_pose.pose.position.x = float(avg_x)
+            ring_msg.target_pose.pose.position.y = float(avg_y)
+            ring_msg.target_pose.pose.position.z = float(avg_z)
+            ring_msg.target_pose.pose.orientation.w = 1.0  # Default orientation
+            ring_msg.normal.x = normal_vector[0]
+            ring_msg.normal.y = normal_vector[1]
+            ring_msg.normal.z = normal_vector[2]
+            self.ring_pub.publish(ring_msg)
+            self.get_logger().info(f"Published ring at ({avg_x:.2f}, {avg_y:.2f}, {avg_z:.2f}) with color {ring_color} and normal ({normal_vector[0]}, {normal_vector[1]}, {normal_vector[2]})")
+        self.rings.clear()
+            
+            
 
 def main():
     rclpy.init()

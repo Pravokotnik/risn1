@@ -1,0 +1,3 @@
+geometry_msgs/PoseStamped target_pose
+geometry_msgs/Vector3 normal
+string color

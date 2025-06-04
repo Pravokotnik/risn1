@@ -25,6 +25,7 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Task.msg"
   "msg/FaceMsg.msg"
+  "msg/RingMsg.msg"
   DEPENDENCIES geometry_msgs
 )
 
@@ -57,6 +58,7 @@ install(PROGRAMS
   scripts/face_filter2.py
   scripts/detect_rings_mod.py
   scripts/detect_rings1.py
+  scripts/ring_filter2.py
   scripts/main.py
   scripts/main1.py
   scripts/main_irl.py
