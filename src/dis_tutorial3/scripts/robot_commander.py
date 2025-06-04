@@ -115,6 +115,56 @@ class RobotCommander(Node):
 
         self.result_future = self.goal_handle.get_result_async()
         return True
+    
+    def goToPoseProximity(self, pose, tolerance, behavior_tree=''):
+        """Send a `NavToPose` action request that completes when within tolerance distance."""
+        self.debug("Waiting for 'NavigateToPose' action server")
+        while not self.nav_to_pose_client.wait_for_server(timeout_sec=1.0):
+            self.info("'NavigateToPose' action server not available, waiting...")
+
+        goal_msg = NavigateToPose.Goal()
+        goal_msg.pose = pose
+        goal_msg.behavior_tree = behavior_tree
+
+        self.info(f'Navigating to goal within {tolerance}m of: ' + 
+                str(pose.pose.position.x) + ' ' + str(pose.pose.position.y) + '...')
+        
+        send_goal_future = self.nav_to_pose_client.send_goal_async(goal_msg,
+                                                                self._feedbackCallback)
+        rclpy.spin_until_future_complete(self, send_goal_future)
+        self.goal_handle = send_goal_future.result()
+
+        if not self.goal_handle.accepted:
+            self.error('Goal to ' + str(pose.pose.position.x) + ' ' +
+                    str(pose.pose.position.y) + ' was rejected!')
+            return False
+
+        self.result_future = self.goal_handle.get_result_async()
+        
+        # Create a timer to check proximity periodically
+        self.proximity_tolerance = tolerance
+        self.target_position = (pose.pose.position.x, pose.pose.position.y)
+        self.proximity_timer = self.create_timer(0.1, self._checkProximity)
+        
+        return True
+
+    def _checkProximity(self):
+        """Check if robot is within tolerance distance of target and cancel if so."""
+        if not hasattr(self, 'current_pose') or not self.current_pose:
+            return
+            
+        current_position = (
+            self.current_pose.pose.position.x,
+            self.current_pose.pose.position.y
+        )
+        
+        distance = ((current_position[0] - self.target_position[0])**2 + 
+                (current_position[1] - self.target_position[1])**2)**0.5
+        
+        if distance <= self.proximity_tolerance:
+            self.info(f'Reached proximity target (distance: {distance:.2f}m <= {self.proximity_tolerance}m)')
+            self.cancelTask()
+            self.destroy_timer(self.proximity_timer)
 
     def spin(self, spin_dist=1.57, time_allowance=10):
         self.debug("Waiting for 'Spin' action server")

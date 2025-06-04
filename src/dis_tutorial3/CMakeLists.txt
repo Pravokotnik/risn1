@@ -61,6 +61,7 @@ install(PROGRAMS
   scripts/ring_filter2.py
   scripts/main.py
   scripts/main1.py
+  scripts/main2.py
   scripts/main_irl.py
   scripts/get_rings.py
   scripts/rings_filter.py

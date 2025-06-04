@@ -168,15 +168,9 @@ class HybridController(RobotCommander):
             return pose
         
         return [
-            create_pose(0.06, -0.35, 0.00),
-            create_pose(0.74, -0.43, 0.04),
-            create_pose(1.89, -0.19, 0.00),
-            create_pose(0.73, -0.41, 0.16),
-            create_pose(0.79, -2.09, -0.00),
-            create_pose(2.28, -1.87, -0.00),
-            create_pose(2.22, -2.37, -0.00),
-            create_pose(0.80, -1.83, -0.00),
-            create_pose(0.12, -0.36, -0.00),
+            create_pose(0.87, 5.64, -0.00),
+            create_pose(-3.41, 6.00, -0.00),
+            create_pose(-2.98, 1.77, -0.00),
         ]
 
     def initialize_robot(self):
@@ -215,7 +209,12 @@ class HybridController(RobotCommander):
     def execute_task(self, task):
         """Navigate to the pose and handle post-arrival behavior"""
         try:
-            if self.goToPose(task['pose']):
+            completed = False
+            if task['type'] == "ring":
+                completed = self.goToPoseProximity(task['pose'], 0.3)
+            else:
+                completed = self.goToPose(task['pose'])
+            if completed:
                 self.handle_task_behavior(task)
                 self.wait_for_completion(task['description'])
                 # Spin 360 degrees if it's a waypoint task
