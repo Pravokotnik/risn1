@@ -3,6 +3,11 @@
 import rclpy
 import rclpy.duration
 from rclpy.node import Node
+import os
+import cv2
+import datetime
+from cv_bridge import CvBridge
+from sensor_msgs.msg import Image
 
 from rclpy.action import ActionClient
 from control_msgs.action import FollowJointTrajectory
@@ -13,12 +18,11 @@ from trajectory_msgs.msg import JointTrajectoryPoint
 from rclpy.qos import QoSDurabilityPolicy, QoSHistoryPolicy
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 
-
 qos_profile = QoSProfile(
-          durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
-          reliability=QoSReliabilityPolicy.RELIABLE,
-          history=QoSHistoryPolicy.KEEP_LAST,
-          depth=1)
+    durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
+    reliability=QoSReliabilityPolicy.RELIABLE,
+    history=QoSHistoryPolicy.KEEP_LAST,
+    depth=1)
 
 class ArmMoverAction(Node):
     def __init__(self):
@@ -36,6 +40,24 @@ class ArmMoverAction(Node):
         self.arm_command_sub = self.create_subscription(String, "/arm_command", self.arm_command_callback, 1)
         self.arm_position_client = ActionClient(self, FollowJointTrajectory, '/arm_controller/follow_joint_trajectory')
 
+        # Camera setup
+        self.bridge = CvBridge()
+        self.image_sub = self.create_subscription(
+            Image,
+            '/top_camera/rgb/preview/image_raw',
+            self.image_callback,
+            qos_profile=QoSProfile(
+                reliability=QoSReliabilityPolicy.BEST_EFFORT,
+                depth=1
+            )
+        )
+        self.latest_image = None
+        self.photo_commands = {'look_for_bird'}
+        
+        # Create images directory
+        self.image_dir = os.path.join(os.getcwd(), 'images')
+        os.makedirs(self.image_dir, exist_ok=True)
+
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         # Predefined positions for the robot arm
@@ -44,12 +66,42 @@ class ArmMoverAction(Node):
                           'look_for_qr':[0.,0.6,0.5,2.0],
                           'garage':[0.,-0.45,2.8,-0.8],
                           'up':[0.,0.,0.,0.],
+                          'look_for_bird':[0.0, 0.0, 1.2, 0.0],
                           'manual':None}
 
-        self.get_logger().info(f"Initialized the Arm Mover node! Waiting for commands...")
+        self.get_logger().info(f"Initialized the Arm Mover node with camera support! Images will save to: {self.image_dir}")
+
+    def image_callback(self, msg):
+        """Store the latest camera image"""
+        self.latest_image = msg
+
+    def capture_image(self, command_name):
+        """Capture and save current camera image with timestamp"""
+        if self.latest_image is None:
+            self.get_logger().warn("No image received from camera yet!")
+            return
+
+        try:
+            # Convert ROS image to OpenCV format
+            cv_image = self.bridge.imgmsg_to_cv2(self.latest_image, "bgr8")
+            
+            # Generate filename with timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+            filename = f"{command_name}_{timestamp}.png"
+            filepath = os.path.join(self.image_dir, filename)
+            
+            # Save image in highest quality
+            cv2.imwrite(filepath, cv_image, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+            self.get_logger().info(f"Saved high-quality image to {filepath}")
+            
+            # Also save a JPEG version with quality setting
+            jpg_path = os.path.join(self.image_dir, f"{command_name}_{timestamp}.jpg")
+            cv2.imwrite(jpg_path, cv_image, [cv2.IMWRITE_JPEG_QUALITY, 95])
+            
+        except Exception as e:
+            self.get_logger().error(f"Failed to capture image: {str(e)}")
 
     def set_arm_position(self, command_string):
-
         self.executing_command = True
 
         while not self.arm_position_client.wait_for_server(timeout_sec=1.0):
@@ -57,10 +109,9 @@ class ArmMoverAction(Node):
 
         point = JointTrajectoryPoint()
 
-        command = self.arm_poses[command_string.split(':')[0]] # Only beacause we want to detect manual setting of position
-        # self.get_logger().info(f"Recieved command {command}")
+        command = self.arm_poses[command_string.split(':')[0]]
         if command is None:
-            self.get_logger().info(f"Recieved command MANUAL command {command_string.split(':')[1]}")
+            self.get_logger().info(f"Received command MANUAL command {command_string.split(':')[1]}")
             point.positions = eval(command_string.split(':')[1])
         else:
             point.positions = command
@@ -80,16 +131,12 @@ class ArmMoverAction(Node):
     def goal_accepted_callback(self, future):
         goal_handle = future.result()
 
-        # If the goal was accepted
         if goal_handle.accepted: 
             self.get_logger().info('Arm controller ACCEPTED the goal.')
-
             self.result_future = goal_handle.get_result_async()
             self.result_future.add_done_callback(self.get_result_callback)
-
-        elif not goal_handle.accepted:
+        else:
             self.get_logger().error('Arm controller REJECTED the goal.')
-            
             self.executing_command = False
 
     def get_result_callback(self, future):
@@ -99,54 +146,33 @@ class ArmMoverAction(Node):
             self.get_logger().info(f'Arm controller says GOAL FAILED: {status}')
         else:
             self.get_logger().info(f'Arm controller says GOAL REACHED.')
+            # Capture image after reaching certain positions
+            base_command = self.current_command.split(':')[0]
+            if base_command in self.photo_commands:
+                self.capture_image(base_command)
         
         self.executing_command = False
 
-
     def timer_callback(self):
         if self.new_command_arrived and not self.executing_command:
-
             self.set_arm_position(self.current_command)
-
             self.get_logger().info(f"Will set a new position for the arm joints: {self.current_command}")
-
             self.previous_command = self.current_command
             self.new_command_arrived = False
-        
 
     def arm_command_callback(self, msg):
         command_string = msg.data.strip().lower()
-        command_test = msg.data.strip().lower().split(":")[0] # Split is only needed to be able to set a position manually
+        command_test = msg.data.strip().lower().split(":")[0]
 
         assert command_test in list(self.arm_poses.keys())
 
         self.current_command = command_string
         self.new_command_arrived = True
-
         self.get_logger().info(f"Got a new command for the arm configuration: {command_string}")
 
-
-    # def arm_command_string_to_msg(self, command_string):
-    #     positions = self.arm_poses[command_string]
-
-    #     point = JointTrajectoryPoint()
-    #     point.positions = positions
-    #     point.time_from_start = rclpy.duration.Duration(seconds=3.).to_msg()
-
-    #     pos_msg = JointTrajectory()
-    #     pos_msg.header.stamp = self.get_clock().now().to_msg()
-
-    #     pos_msg.joint_names = self.joint_names
-    #     pos_msg.points.append(point)
-
-    #     return pos_msg
-
-
 def main():
-
     rclpy.init(args=None)
     rd_node = ArmMoverAction()
-
     rclpy.spin(rd_node)
 
 if __name__ == '__main__':
