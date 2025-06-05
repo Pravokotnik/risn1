@@ -65,6 +65,8 @@ install(PROGRAMS
   scripts/main_irl.py
   scripts/get_rings.py
   scripts/rings_filter.py
+  scripts/detect_people_gender.py
+  scripts/face_filter_gender.py
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

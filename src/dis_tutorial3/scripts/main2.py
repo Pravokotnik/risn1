@@ -9,6 +9,7 @@ from std_msgs.msg import ColorRGBA
 from dis_tutorial3.msg import Task  # Custom message type
 from yapper import Yapper
 from robot_commander import RobotCommander
+import re
 
 class HybridController(RobotCommander):
     def __init__(self):
@@ -42,6 +43,30 @@ class HybridController(RobotCommander):
 
     def task_callback(self, msg):
         self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
+
+
+    def extract_gender_from_description(self, description):
+        """Extract gender from task description"""
+        if not description:
+            return "unknown"
+        
+        # Look for "Gender: male/female/unknown" pattern in description
+        gender_match = re.search(r'Gender:\s*(\w+)', description, re.IGNORECASE)
+        if gender_match:
+            gender = gender_match.group(1).lower()
+            if gender in ['male', 'female', 'unknown']:
+                return gender
+        
+        return "unknown"
+    
+    def get_greeting_for_gender(self, gender):
+        """Get appropriate greeting based on gender"""
+        if gender == "male":
+            return "Hey boy!"
+        elif gender == "female":
+            return "Hey girl!"
+        else:
+            return "Hey!"
 
 
     def add_task(self, priority, task_type, pose, description="", task_id=None):
@@ -168,9 +193,15 @@ class HybridController(RobotCommander):
             return pose
         
         return [
-            create_pose(0.87, 5.64, -0.00),
-            create_pose(-3.41, 6.00, -0.00),
-            create_pose(-2.98, 1.77, -0.00),
+            create_pose(2.07, 1.35, -0.00),
+            create_pose(-0.60, 1.96, 0.00),
+            create_pose(-0.58, 4.17, -0.00),
+            create_pose(1.07, 4.34, 0.00),
+            create_pose(0.65, 5.87, -0.00),
+            create_pose(-2.85, 6.17, -0.00),
+            create_pose(-3.07, 2.77, -0.00),
+            create_pose(-2.37, 1.39, 0.00),
+            create_pose(0.0, 0.0, 0.00),
         ]
 
     def initialize_robot(self):
@@ -219,7 +250,7 @@ class HybridController(RobotCommander):
                 self.wait_for_completion(task['description'])
                 # Spin 360 degrees if it's a waypoint task
                 if not self.canceledTask:
-                    execute_specialized_behavior(task)
+                    self.execute_specialized_behavior(task)
                 self.canceledTask = False
             else:
                 self.get_logger().error(f"Failed to reach {task['description']}")
@@ -234,8 +265,10 @@ class HybridController(RobotCommander):
             self.wait_for_completion("Spinning 360 degrees")
         # Say "Hello!" if it's a face task
         elif task['type'] == "face":
-            self.get_logger().error("YAPPING!")
-            self.yapper.yap("Hello there!")
+            gender = self.extract_gender_from_description(task['description'])
+            greeting = self.get_greeting_for_gender(gender)
+            self.get_logger().info(f"Detected gender: {gender}, saying: {greeting}")
+            self.yapper.yap(greeting)
         # Wait 1s if emergency task
         elif task['type'] == "emergency":
             time.sleep(2.0)
