@@ -219,16 +219,7 @@ class HybridController(RobotCommander):
                 self.wait_for_completion(task['description'])
                 # Spin 360 degrees if it's a waypoint task
                 if not self.canceledTask:
-                    if task['type'] == "waypoint":
-                        self.spin(360.0)
-                        self.wait_for_completion("Spinning 360 degrees")
-                    # Say "Hello!" if it's a face task
-                    elif task['type'] == "face":
-                        self.get_logger().error("YAPPING!")
-                        self.yapper.yap("Hello there!")
-                    # Wait 1s if emergency task
-                    elif task['type'] == "emergency":
-                        time.sleep(2.0)
+                    execute_specialized_behavior(task)
                 self.canceledTask = False
             else:
                 self.get_logger().error(f"Failed to reach {task['description']}")
@@ -236,6 +227,18 @@ class HybridController(RobotCommander):
             self.get_logger().error(f"Task failed: {e}")
         finally:
             self.current_task = None
+    
+    def execute_specialized_behavior(self, task):
+        if task['type'] == "waypoint":
+            self.spin(360.0)
+            self.wait_for_completion("Spinning 360 degrees")
+        # Say "Hello!" if it's a face task
+        elif task['type'] == "face":
+            self.get_logger().error("YAPPING!")
+            self.yapper.yap("Hello there!")
+        # Wait 1s if emergency task
+        elif task['type'] == "emergency":
+            time.sleep(2.0)
 
     def handle_task_behavior(self, task):
         """Optional post-arrival actions (e.g. speech)"""

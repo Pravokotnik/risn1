@@ -60,7 +60,7 @@ class RingFilter(Node):
 
         # Cluster configuration parameters
         self.cluster_radius = 1.0  # Max distance between detection positions to consider same cluster
-        self.min_cluster_size = 10  # Minimum observations before publishing a task
+        self.min_cluster_size = 4  # Minimum observations before publishing a task
         self.new_detection_threshold = 0.5  # Distance to consider a detection new/unique
         self.movement_threshold = 0.1  # Minimum movement to publish update (in meters)
         
