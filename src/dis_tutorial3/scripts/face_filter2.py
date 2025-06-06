@@ -29,8 +29,8 @@ class FaceFilter(Node):
         super().__init__('face_filter')
         
         # Priority levels for task management
-        self.PRIORITY_EMERGENCY = 4  # Highest priority for urgent situations
-        self.PRIORITY_FACE = 1       # Normal priority for face interactions
+        self.PRIORITY_EMERGENCY = 10  # Highest priority for urgent situations
+        self.PRIORITY_FACE = 2        # Normal priority for face interactions
         
         # TF2 setup for coordinate transformations
         self.tf_buffer = Buffer()  # Stores transform data
@@ -98,7 +98,7 @@ class FaceFilter(Node):
             target_point.x,
             target_point.y
         ]))
-        if distance > 1.25:
+        if distance > 2.0:
             self.get_logger().info(f"Face too far away ({distance:.2f}m), ignoring")
             return
         if distance < 0.15:

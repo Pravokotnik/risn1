@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
+import math
+
+import cv2
 import rclpy
 import heapq
 import time
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from visualization_msgs.msg import Marker, MarkerArray
-from std_msgs.msg import ColorRGBA
+from std_msgs.msg import ColorRGBA, String
+from sensor_msgs.msg import Image
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 from dis_tutorial3.msg import Task  # Custom message type
 from yapper import Yapper
 from robot_commander import RobotCommander
 import re
+from dis_tutorial3.msg import FaceMsg  # Custom message type for face detection. ONly used for gender detection
+
+import speech_recognition as sr
+
+from bird_classifier import predict_bird_name
 
 class HybridController(RobotCommander):
     def __init__(self):
@@ -26,15 +36,70 @@ class HybridController(RobotCommander):
             self.task_callback,
             10
         )
+        self.gender_sub = self.create_subscription(
+            FaceMsg,
+            '/face_coordinates',
+            self.gender_callback,
+            10
+        )
+        self.arm_camera_sub = self.create_subscription(
+            Image,
+            '/top_camera/rgb/preview/image_raw',
+            self.arm_image_callback,
+            qos_profile=QoSProfile(
+                reliability=QoSReliabilityPolicy.BEST_EFFORT,
+                depth=1
+            )
+        )
+        self.latest_arm_image = None
         
         # Publisher for RViz markers
         self.marker_pub = self.create_publisher(MarkerArray, 'waypoints', 10)
+        self.arm_pub = self.create_publisher(String, '/arm_command', 10)
+        
+        arm_msg = String()
+        COMMAND = "manual:[0.0,0.0,0.0,1.57]"
+        arm_msg.data = COMMAND
+        self.arm_pub.publish(arm_msg)
+        self.get_logger().info(f'Published "{COMMAND}" to /arm_command')
+        
+        #Speech to text
+        self.stt_recognizer = sr.Recognizer()
+        
+        self.bird_names = [
+            "laysan albatross",
+            "yellow headed blackbird",
+            "indigo bunting",
+            "pelagic cormorant",
+            "american crow",
+            "yellow billed cuckoo",
+            "purple finch",
+            "vermilion flycatcher",
+            "european goldfinch",
+            "eared grebe",
+            "california gull",
+            "ruby throated hummingbird",
+            "blue jay",
+            "pied kingfisher",
+            "baltimore oriole",
+            "white pelican",
+            "horned puffin",
+            "white necked raven",
+            "great grey shrike",
+            "house sparrow",
+            "cape glossy starling",
+            "tree swallow",
+            "common tern",
+            "red headed woodpecker"
+        ]
+        
         
         
         
         self._next_marker_id = 500
         
         self.canceledTask = False
+        self.last_detected_gender = None
         
         self.yapper = Yapper()
         self.get_logger().info("Priority-based controller ready")
@@ -43,6 +108,19 @@ class HybridController(RobotCommander):
 
     def task_callback(self, msg):
         self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
+    
+    def gender_callback(self, msg):
+        gender = msg.gender.lower()
+        self.last_detected_gender = gender
+    
+    def arm_image_callback(self, msg):
+        # Convert ROS Image message to OpenCV format
+        try:
+            # Convert ROS Image to OpenCV image (BGR8)
+            self.latest_arm_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        except Exception as e:
+            self.get_logger().error(f'Could not convert image: {e}')
+            return
 
 
     def extract_gender_from_description(self, description):
@@ -62,9 +140,9 @@ class HybridController(RobotCommander):
     def get_greeting_for_gender(self, gender):
         """Get appropriate greeting based on gender"""
         if gender == "male":
-            return "Hey boy!"
+            return "Hey man!"
         elif gender == "female":
-            return "Hey girl!"
+            return "Hey woman!"
         else:
             return "Hey!"
 
@@ -215,7 +293,7 @@ class HybridController(RobotCommander):
                 rclpy.spin_once(self, timeout_sec=0.5)
         
         for waypoint in self.get_default_waypoints():
-            self.add_task(0, "waypoint", waypoint, "Default waypoint")
+            self.add_task(1, "waypoint", waypoint, "Default waypoint")
 
     def run(self):
         """Main execution loop"""
@@ -242,7 +320,7 @@ class HybridController(RobotCommander):
         try:
             completed = False
             if task['type'] == "ring":
-                completed = self.goToPoseProximity(task['pose'], 0.3)
+                completed = self.goToPoseProximity(task['pose'], 0.6)
             else:
                 completed = self.goToPose(task['pose'])
             if completed:
@@ -265,13 +343,151 @@ class HybridController(RobotCommander):
             self.wait_for_completion("Spinning 360 degrees")
         # Say "Hello!" if it's a face task
         elif task['type'] == "face":
-            gender = self.extract_gender_from_description(task['description'])
-            greeting = self.get_greeting_for_gender(gender)
-            self.get_logger().info(f"Detected gender: {gender}, saying: {greeting}")
-            self.yapper.yap(greeting)
+            self.execute_face_behavior(task)
         # Wait 1s if emergency task
         elif task['type'] == "emergency":
             time.sleep(2.0)
+        elif task['type'] == "ring":
+            self.execute_ring_behavior(task)
+    
+    def execute_face_behavior(self, task):
+        time.sleep(1.0)  # Wait for guaranteed gender detection
+        gender = self.last_detected_gender
+        greeting = self.get_greeting_for_gender(gender)
+        self.get_logger().info(f"Detected gender: {gender}, saying: {greeting}")
+        self.yapper.yap(greeting + ", which is your favorite bird?")
+
+        selected_birds = []
+        while True:
+            # Get speech input from the user
+            text = self.get_sst_text()
+            if text is None or text.strip() == "":
+                self.yapper.yap("I didn't understand that. Please try again.")
+                continue
+            
+            # Check if the response contains a bird name
+            if self.check_for_bird_in_text(text):
+                mentioned_bird = None
+                for bird in self.bird_names:
+                    if bird in text.lower():
+                        mentioned_bird = bird
+                        break
+                
+                # If they are male and already mentioned the bird before, the answer is now locked in
+                if mentioned_bird in selected_birds:
+                    selected_birds.append(mentioned_bird)
+                    break
+                
+                selected_birds.append(mentioned_bird)
+                # Females only answer once
+                if gender == "female":
+                    break
+                
+                # Male only interaction
+                self.yapper.yap(f"You like {selected_birds[-1]}. Are you sure?")
+                            
+            elif "yes" in text.lower() or "sure" in text.lower():
+                if len(selected_birds) == 0:
+                    self.yapper.yap("You didn't mention any bird. Please try again.")
+                else:
+                    break
+            else:
+                self.yapper.yap("I didn't understand that. Please mention a bird name or say 'yes' to confirm.")
+        
+        self.yapper.yap(f"Great! You like {selected_birds[-1]}. I will remember that.")
+        self.yapper.yap("Kill yourself.")
+        time.sleep(5.0)
+
+    
+    def get_sst_text(self):
+        # 2. Grab audio from the default microphone
+        with sr.Microphone() as source:
+            self.get_logger().info("Please speak something...")
+            audio_data = self.stt_recognizer.listen(source)
+            self.get_logger().info("Audio captured, processing...")
+
+        # 3. Recognize speech using Sphinx
+        try:
+            text = self.stt_recognizer.recognize_google(audio_data)
+            self.get_logger().info(f"Recognized text: {text}")
+            return text
+        except sr.UnknownValueError:
+            self.get_logger().error("Speech Recognition could not understand audio")
+        except Exception as e:
+            self.get_logger().error(f"Could not request results from Speech Recognition service; {e}")
+        return None
+    
+    def check_for_bird_in_text(self, text):
+        pass
+    
+    def execute_ring_behavior(self, task):
+        # First get the ring position from the description
+        description = task['description']
+        description_split = description.split('|')
+        if len(description_split) < 2:
+            self.get_logger().error("Invalid ring description format")
+            return
+        # Get x and y coordinates from last part of the description
+        coords = description_split[-1].strip()
+        coords_split = coords.split(',')
+        if len(coords_split) != 2:
+            self.get_logger().error("Invalid ring coordinates format")
+            return
+        try:
+            x = float(coords_split[0].strip())
+            y = float(coords_split[1].strip())
+        except ValueError:
+            self.get_logger().error("Invalid ring coordinates values")
+            return
+        
+        # Rotate to face the ring
+        self.get_logger().info(f"Rotating to face ring at ({x}, {y})")
+        
+        self.rotate_towards_point(x, y)
+        time.sleep(1.0)
+        
+        image = self.latest_arm_image
+        if image is None:
+            self.get_logger().error("No image received from arm camera")
+            return
+        
+        # Put image through AI model to detect bird species
+        bird_name = predict_bird_name(image)
+        self.get_logger().info(f"Detected bird species: {bird_name}")
+        
+        cv2.imshow(f"Bird: {bird_name}", image)
+        cv2.waitKey(0)
+        
+        
+    def rotate_towards_point(self, target_x, target_y):
+        """Rotate to face a specific position"""
+        current_x = self.current_pose.pose.position.x
+        current_y = self.current_pose.pose.position.y
+        angle_to_target = self.get_angle_to_target(current_x, current_y, target_x, target_y)
+        
+        # Convert angle to quaternion
+        z = math.sin(angle_to_target/2)
+        w = math.cos(angle_to_target/2)
+        
+        # Create a new pose with the target orientation
+        target_pose = PoseStamped()
+        target_pose.header.frame_id = 'map'
+        target_pose.pose.position.x = current_x
+        target_pose.pose.position.y = current_y
+        target_pose.pose.orientation.z = z
+        target_pose.pose.orientation.w = w
+        self.get_logger().info(f"Rotating to face position ({target_x}, {target_y}) with angle {angle_to_target:.2f} radians")
+        self.goToPose(target_pose)
+        self.wait_for_completion("Rotating to face position")
+        time.sleep(10.0)  # Give some time to stabilize after rotation
+        
+    
+    def get_angle_to_target(self, current_x, current_y, target_x, target_y):
+        """Calculate the angle to face a target position"""
+        delta_x = target_x - current_x
+        delta_y = target_y - current_y
+        angle = math.atan2(delta_y, delta_x)
+        return angle
 
     def handle_task_behavior(self, task):
         """Optional post-arrival actions (e.g. speech)"""

@@ -29,8 +29,8 @@ class RingFilter(Node):
         super().__init__('ring_filter')
         
         # Priority levels for task management
-        self.PRIORITY_EMERGENCY = 4  # Highest priority for urgent situations
-        self.PRIORITY_FACE = 1       # Normal priority for face interactions
+        self.PRIORITY_EMERGENCY = 10  # Highest priority for urgent situations
+        self.PRIORITY_FACE = 0       # Normal priority for face interactions
         self.PRIORITY_RING = 3       # Normal priority for ring interactions
         
         # TF2 setup for coordinate transformations
@@ -171,47 +171,63 @@ class RingFilter(Node):
     def axis_align(self, normal, threshold_degrees=5.0):
         """
         Check if normal vector is approximately aligned with a major axis (X, Y, or Z)
-        within the specified angular threshold.
-        
+        within the specified angular threshold, and in the same direction (not opposite).
+
         Args:
             normal: geometry_msgs/Vector3 - The normal vector to check
             threshold_degrees: float - Maximum angle deviation from axis (in degrees)
-        
+
         Returns:
-            bool: True if normal is axis-aligned within threshold
+            numpy.ndarray or None: 
+                - If the normal is within threshold of one of ±X, ±Y or ±Z (in the same direction), 
+                returns that axis as a numpy array ([±1,0,0], [0,±1,0] or [0,0,±1]).
+                - Otherwise returns None.
         """
         # Convert threshold to radians
         threshold_rad = math.radians(threshold_degrees)
-        
+
         # Get the normal vector as numpy array
         n = np.array([normal.x, normal.y, normal.z])
-        
-        # Define the major axes
+        n_norm = np.linalg.norm(n)
+        if n_norm == 0:
+            # Zero-length normal: cannot be axis-aligned
+            self.get_logger().warn("axis_align: received zero-length normal vector")
+            return None
+
+        # Define the six major axes (both positive and negative directions)
         axes = [
-            np.array([1, 0, 0]),  # X-axis
-            np.array([0, 1, 0]),  # Y-axis
-            np.array([0, 0, 1]),  # Z-axis
-            np.array([-1, 0, 0]),  # Negative X-axis
-            np.array([0, -1, 0]),  # Negative Y-axis
-            np.array([0, 0, -1])   # Negative Z-axis
+            np.array([1, 0, 0]),   # +X
+            np.array([-1, 0, 0]),  # -X
+            np.array([0, 1, 0]),   # +Y
+            np.array([0, -1, 0]),  # -Y
+            np.array([0, 0, 1]),   # +Z
+            np.array([0, 0, -1])   # -Z
         ]
-        
-        min_angle = float('inf')  # Initialize minimum angle
-        # Check angle between normal and each axis
+
+        min_angle = float('inf')  # Track the smallest angle found (for logging)
         for axis in axes:
-            # Calculate angle between vectors
+            # Compute cosine of the angle between n and this axis
             dot_product = np.dot(n, axis)
-            angle = math.acos(np.clip(dot_product / (np.linalg.norm(n) * np.linalg.norm(axis)), -1.0, 1.0))
-            
+            # ‖axis‖ is 1.0, so we just divide by ‖n‖:
+            cos_val = dot_product / n_norm
+            # Clamp into [-1, 1] to avoid floating-point errors outside domain
+            cos_val = np.clip(cos_val, -1.0, 1.0)
+            angle = math.acos(cos_val)
+
+            # Keep track of the minimum angle seen (for debug/logging)
             if angle < min_angle:
                 min_angle = angle
-            
-            # If angle is within threshold of 0 or 180 degrees
-            if angle < threshold_rad or (math.pi - angle) < threshold_rad:
+
+            # Only accept if the angle is less than threshold (same‐direction)
+            if angle < threshold_rad:
                 return axis
-        
-        self.get_logger().info(f"Minimum angle to axes: {math.degrees(min_angle):.2f} degrees")
+
+        # If we get here, nothing was within “threshold” of any axis in the same direction
+        self.get_logger().info(
+            f"axis_align: Min angle to any axis = {math.degrees(min_angle):.2f}° (threshold = {threshold_degrees}°)"
+        )
         return None
+
         
     def publish_to_map(self, map_point, r=1.0, g=0.2, b=0.2, a=0.9):
         m = Marker()
@@ -473,6 +489,23 @@ class RingFilter(Node):
         cluster = self.position_history[cluster_id]
         if len(cluster['points']) < self.min_cluster_size:
             return
+        
+        normal = cluster['normal_dir']
+        if normal > 0:
+            normal = Vector3(x=1.0, y=0.0, z=0.0)
+        elif normal < 0:
+            normal = Vector3(x=0.0, y=1.0, z=0.0)
+        else:
+            self.get_logger().error("Normal direction is zero, not publishing task")
+            return
+        destination = self.calculate_destination(
+            cluster['position'], normal
+        )
+        if destination is None:
+            self.get_logger().error("Failed to calculate destination for ring cluster")
+            return
+        
+        self.publish_to_map(destination, r=0.2, g=0.2, b=1.0, a=0.5)
 
         task = Task()
         task.priority = self.PRIORITY_RING
@@ -483,16 +516,38 @@ class RingFilter(Node):
         task.target_pose = PoseStamped()
         task.target_pose.header.frame_id = "map"
         task.target_pose.header.stamp = self.get_clock().now().to_msg()
-        task.target_pose.pose.position = cluster['position']
+        task.target_pose.pose.position = destination
         
         # Calculate orientation to face the person
         task.target_pose.pose.orientation.z = 0.0
         task.target_pose.pose.orientation.w = 0.0
         
-        task.description = f"Ring cluster {cluster_id}"
+        position = cluster['position']
+        x = position.x
+        y = position.y
+        
+        task.description = f"Ring cluster {cluster_id}|{x:.2f},{y:.2f}"
         self.task_pub.publish(task)
         self.get_logger().info(f"Published task for cluster {cluster_id} at {task.target_pose.pose.position.x}, {task.target_pose.pose.position.y}, {task.target_pose.pose.position.z}")
 
+    def calculate_destination(self, position, normal):
+        """
+        Calculate a destination point 1m away from the wall in the direction of the normal vector.
+        """
+        # Normalize the normal vector
+        norm = np.linalg.norm([normal.x, normal.y, normal.z])
+        if norm == 0:
+            return None
+        normal_x = normal.x / norm
+        normal_y = normal.y / norm
+        normal_z = normal.z / norm
+        # Calculate the destination point 1m away from the wall
+        destination = Point()
+        scale = 1
+        destination.x = position.x + normal_x*scale
+        destination.y = position.y + normal_y*scale
+        destination.z = position.z + normal_z*scale
+        return destination
 
 def main():
     rclpy.init()

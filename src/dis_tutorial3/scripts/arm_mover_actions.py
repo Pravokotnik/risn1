@@ -74,6 +74,19 @@ class ArmMoverAction(Node):
     def image_callback(self, msg):
         """Store the latest camera image"""
         self.latest_image = msg
+        
+        try:
+            # Convert ROS Image to OpenCV image (BGR8)
+            cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        except Exception as e:
+            self.get_logger().error(f'Could not convert image: {e}')
+            return
+
+        # Display the image in a window named "Camera"
+        cv2.imshow('Camera', cv_image)
+
+        # Necessary to allow OpenCV to process its window events
+        cv2.waitKey(1)
 
     def capture_image(self, command_name):
         """Capture and save current camera image with timestamp"""

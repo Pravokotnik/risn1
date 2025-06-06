@@ -37,6 +37,7 @@ install(DIRECTORY
   config
   worlds
   maps
+  bird_checkpoints_updated
   DESTINATION share/${PROJECT_NAME}/
 )
 
@@ -62,6 +63,7 @@ install(PROGRAMS
   scripts/main.py
   scripts/main1.py
   scripts/main2.py
+  scripts/main3.py
   scripts/main_irl.py
   scripts/get_rings.py
   scripts/rings_filter.py

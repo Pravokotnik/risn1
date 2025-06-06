@@ -61,7 +61,8 @@ class detect_faces(Node):
         self.faces = []
         self.face_genders = []  # Store gender predictions
   
-        self.offset = 60 # offset for point cloud access
+        self.vertical_offset = 90 # offset for point cloud access
+        self.horizontal_offset = 60
 
         # Initialize gender classification
         self.gender_classifier_ready = False
@@ -133,7 +134,8 @@ class detect_faces(Node):
             # Draw detection threshold (offset)
             width = data.width
             height = data.height
-            cv_image = cv2.rectangle(cv_image, (self.offset, self.offset), (width-self.offset, height-self.offset), (0, 255, 0), 2)
+            # cv_image = cv2.rectangle(cv_image, (self.offset, self.offset), (width-self.offset, height-self.offset), (0, 255, 0), 2)
+            cv_image = cv2.rectangle(cv_image, (self.horizontal_offset, self.vertical_offset), (width-self.horizontal_offset, height-self.vertical_offset), (0, 255, 0), 2)
 
             # iterate over results
             for x in res:
@@ -215,7 +217,10 @@ class detect_faces(Node):
             a = a.reshape((height,width,3))
 
             # read center coordinates
-            if x-self.offset < 0 or x+self.offset >= width or y-self.offset < 0 or y+self.offset >= height:
+            # if x-self.offset < 0 or x+self.offset >= width or y-self.offset < 0 or y+self.offset >= height:
+            #     self.get_logger().warn(f"Skipping face at ({x},{y}) due to out of bounds access.")
+            #     continue
+            if x-self.horizontal_offset < 0 or x+self.horizontal_offset >= width or y-self.vertical_offset < 0 or y+self.vertical_offset >= height:
                 self.get_logger().warn(f"Skipping face at ({x},{y}) due to out of bounds access.")
                 continue
    
@@ -231,6 +236,9 @@ class detect_faces(Node):
 
             # Get gender for this face
             gender = self.face_genders[idx] if idx < len(self.face_genders) else "unknown"
+            if gender == "unknown":
+                self.get_logger().warn("Unknown gender for face, skipping marker creation.")
+                continue
 
             # create marker
             marker = Marker()
