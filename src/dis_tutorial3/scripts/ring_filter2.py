@@ -29,9 +29,9 @@ class RingFilter(Node):
         super().__init__('ring_filter')
         
         # Priority levels for task management
-        self.PRIORITY_EMERGENCY = 10  # Highest priority for urgent situations
-        self.PRIORITY_FACE = 0       # Normal priority for face interactions
-        self.PRIORITY_RING = 3       # Normal priority for ring interactions
+        self.PRIORITY_EMERGENCY = 100  # Highest priority for urgent situations
+        self.PRIORITY_FACE = 10       # Normal priority for face interactions
+        self.PRIORITY_RING = 30       # Normal priority for ring interactions
         
         # TF2 setup for coordinate transformations
         self.tf_buffer = Buffer()  # Stores transform data
@@ -60,7 +60,7 @@ class RingFilter(Node):
 
         # Cluster configuration parameters
         self.cluster_radius = 1.0  # Max distance between detection positions to consider same cluster
-        self.min_cluster_size = 4  # Minimum observations before publishing a task
+        self.min_cluster_size = 15  # Minimum observations before publishing a task
         self.new_detection_threshold = 0.5  # Distance to consider a detection new/unique
         self.movement_threshold = 0.1  # Minimum movement to publish update (in meters)
         

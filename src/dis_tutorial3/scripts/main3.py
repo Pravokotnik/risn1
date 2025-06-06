@@ -18,7 +18,8 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import PoseStamped, Twist
+
 from visualization_msgs.msg import Marker, MarkerArray
 from std_msgs.msg import ColorRGBA, String
 from sensor_msgs.msg import Image as ImageMsg
@@ -30,6 +31,12 @@ from robot_commander import RobotCommander
 import speech_recognition as sr
 from ament_index_python import get_package_share_directory
 from cv_bridge import CvBridge
+
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+
+from skimage.morphology import skeletonize
+
 
 
 # ────────────────────────────────────────────────────────────────────────────────
@@ -255,7 +262,22 @@ class HybridController(RobotCommander):
                 depth=1
             )
         )
+        # Subscribe to depth image
+        self.depth_sub = self.create_subscription(
+            ImageMsg,
+            '/top_camera/rgb/preview/depth',
+            self.depth_image_callback,
+            qos_profile=QoSProfile(
+                reliability=QoSReliabilityPolicy.BEST_EFFORT,
+                depth=1
+            )
+        )
         self.latest_arm_image = None
+        self.latest_depth_image = None
+        
+        if not hasattr(self, 'vel_publisher'):
+            self.vel_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        
         
         # Publisher for RViz markers
         self.marker_pub = self.create_publisher(MarkerArray, 'waypoints', 10)
@@ -300,6 +322,7 @@ class HybridController(RobotCommander):
         ]
         
         self.photographed_birds = {}
+        self.bird_catalogue = {}
         
         
         self._next_marker_id = 500
@@ -327,6 +350,14 @@ class HybridController(RobotCommander):
         except Exception as e:
             self.get_logger().error(f'Could not convert image: {e}')
             return
+    
+    def depth_image_callback(self, msg):
+        """Callback for depth image"""
+        try:
+            # Convert ROS Image to OpenCV image (32FC1 depth)
+            self.latest_depth_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='32FC1')
+        except Exception as e:
+            self.get_logger().error(f'Could not convert depth image: {e}')
 
 
     def extract_gender_from_description(self, description):
@@ -501,7 +532,17 @@ class HybridController(RobotCommander):
                 rclpy.spin_once(self, timeout_sec=0.5)
         
         for waypoint in self.get_default_waypoints():
-            self.add_task(1, "waypoint", waypoint, "Default waypoint")
+            self.add_task(20, "waypoint", waypoint, "Default waypoint")
+            # pass
+            
+        # Add lowest priority bridge task to go to coordinates -0.01, -0.83, 0.36
+        final_waypoint = PoseStamped()
+        final_waypoint.header.frame_id = 'map'
+        final_waypoint.pose.position.x = -0.01
+        final_waypoint.pose.position.y = -0.83
+        final_waypoint.pose.position.z = 0.36
+        final_waypoint.pose.orientation = self.YawToQuaternion(math.pi*2*3/4)  # Face east
+        self.add_task(1, "bridge", final_waypoint, "Final waypoint to face east", task_id=9999)
 
     def run(self):
         """Main execution loop"""
@@ -532,7 +573,6 @@ class HybridController(RobotCommander):
             else:
                 completed = self.goToPose(task['pose'])
             if completed:
-                self.handle_task_behavior(task)
                 self.wait_for_completion(task['description'])
                 # Spin 360 degrees if it's a waypoint task
                 if not self.canceledTask:
@@ -557,6 +597,342 @@ class HybridController(RobotCommander):
             time.sleep(2.0)
         elif task['type'] == "ring":
             self.execute_ring_behavior(task)
+        elif task['type'] == "bridge":
+            self.execute_bridge_behavior(task)
+    
+    def execute_bridge_behavior(self, task):
+        self.get_logger().info("Creating bird catalogue.")
+        self.export_catalogue_to_pdf(self.bird_catalogue, 'bird_catalogue.pdf')
+
+        # 1) Position arm camera slightly forward + down for RGB view
+        arm_msg = String()
+        # (tune these four numbers until the camera sees enough of the bridge path above the robot)
+        arm_msg.data = "manual:[0.0,0.37,1.2,1.28]"
+        self.arm_pub.publish(arm_msg)
+        self.get_logger().info("Positioned arm camera to view bridge")
+        time.sleep(6.0)
+
+        # ---- Reset PID state before crossing ----
+        self.prev_offset = 0.0
+        self.integral    = 0.0
+
+        bridge_complete = False
+        while not bridge_complete and not self.canceledTask:
+            rclpy.spin_once(self, timeout_sec=0.01)
+            # ─── 2) WAIT FOR A VALID RGB IMAGE ─────────────────────────────────
+            if self.latest_arm_image is None:
+                self.get_logger().warn("No RGB image yet → stopping robot")
+                self.send_velocity_cmd(0.0, 0.0)
+                time.sleep(0.2)
+                continue
+
+            # ─── 3) BUILD A BINARY “SAFE” MASK FROM RGB ────────────────────────
+            # (blue or green = danger; everything else in top 70% = safe)
+            binary_img = self.process_rgb_image(self.latest_arm_image)
+            
+            # Display the binary image for debugging
+            cv2.imshow("Binary Safe Mask", binary_img)
+            cv2.waitKey(1)  # Wait for a short time to allow the image to be displayed
+
+            # ─── 4) IF THE “SAFE” MASK IS TOO SMALL → STOP & RETRY ─────────────
+            if cv2.countNonZero(binary_img) < 200:
+                self.get_logger().warn("Safe‐mask too sparse → stopping robot")
+                self.send_velocity_cmd(0.0, 0.0)
+                time.sleep(0.2)
+                continue
+
+            # ─── 5) FIND CENTERLINE VIA CONTOURS (REPLACES SKELETONIZATION) ──
+            center_x, img_w = self.find_centerline_via_contours(binary_img)
+            if center_x is None:
+                self.get_logger().warn("No bridge contour found → stopping robot")
+                self.send_velocity_cmd(0.0, 0.0)
+                time.sleep(0.2)
+                continue
+
+            img_center = img_w / 2.0
+            offset = center_x - img_center
+            # ─── END OF CONTOUR SNIPPET ───────────────────────────────────────
+
+            # ─── 6) APPLY PID USING THAT OFFSET ───────────────────────────────
+            linear_vel, angular_vel = self.bridge_pid_control(offset)
+            self.send_velocity_cmd(linear_vel, angular_vel)
+
+            # ─── 7) CHECK FOR COMPLETION (e.g. open area ahead or distance) ──
+            bridge_complete = self.check_bridge_completion()
+            time.sleep(0.05)
+
+        # ─── 8) STOP VEHICLE ONCE DONE (OR CANCELED) ─────────────────────────
+        self.send_velocity_cmd(0.0, 0.0)
+        self.get_logger().info("Bridge crossing complete")
+        
+            
+    def export_catalogue_to_pdf(self, catalogue: dict[str, any], output_pdf_path: str) -> None:
+        """
+        Given a dict mapping bird_name (str) → cv2_image (np.ndarray, BGR),
+        export one page per entry into a PDF, with the image and the name below.
+        """
+        # PdfPages will collect multiple pages into a single PDF.
+        with PdfPages(output_pdf_path) as pdf:
+            for bird_name, img_bgr in catalogue.items():
+                # 1. Convert BGR → RGB for Matplotlib
+                img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+
+                # 2. Create a new figure and show the image
+                plt.figure(figsize=(6, 6))
+                plt.imshow(img_rgb)
+                plt.axis("off")
+
+                # 3. Put the bird's name below (as title or text)
+                # Option A: use title (centered above/below the image)
+                plt.title(bird_name.replace("_", " ").title(), fontsize=14, pad=10)
+
+                # ↓ Option B: if you want the text _below_ the image instead:
+                # plt.text(
+                #     0.5, -0.05, 
+                #     bird_name.replace("_", " ").title(), 
+                #     ha="center", va="top",
+                #     transform=plt.gca().transAxes,
+                #     fontsize=12
+                # )
+
+                # 4. Save this figure as one page in the PDF
+                pdf.savefig(bbox_inches="tight")
+                plt.close()
+
+        print(f"Saved catalogue PDF to: {output_pdf_path}")
+
+    def process_depth_image(self, depth_img):
+        depth_copy = np.nan_to_num(depth_img, nan=10.0)
+        h, w = depth_copy.shape
+
+        # Ignore bottom 25% of rows (where robot appears)
+        crop_top = int(0.70 * h)
+        roi = depth_copy[0:crop_top, :]
+
+        # Take a front‐facing sub‐ROI (middle third horizontally, lower half of the kept rows)
+        front_start = int(0.5 * crop_top)
+        front_roi = roi[front_start:crop_top, int(w/3):int(2*w/3)]
+
+        # Discard too‐near (<0.2 m) or too‐far (>2.0 m)
+        valid = front_roi[(front_roi > 0.2) & (front_roi < 2.0)]
+        if len(valid) == 0:
+            return np.zeros_like(depth_copy, dtype=np.uint8)
+
+        bridge_depth = np.median(valid)
+        self.get_logger().info(f"Bridge depth ≈ {bridge_depth:.2f} m")
+
+        tol = 0.10  # ±30 cm tolerance
+        mask_top75 = np.abs(roi - bridge_depth) < tol
+
+        binary = np.zeros_like(depth_copy, dtype=np.uint8)
+        binary[0:crop_top, :][mask_top75] = 255
+
+        kernel = np.ones((7,7), np.uint8)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  kernel)
+
+        return binary
+
+    def process_rgb_image(self, img_bgr: np.ndarray) -> np.ndarray:
+        """
+        Convert a BGR image into a binary mask of “safe” pixels (path) 
+        by ignoring bottom 30% and marking blue (water) or green (grass) as danger.
+        Returns a single‐channel uint8 image where 255=“safe” and 0=“danger/ignored”.
+        """
+        # 1) Copy & compute dimensions
+        img_copy = img_bgr.copy()
+        height, width = img_copy.shape[:2]
+
+        # 2) Ignore bottom 30% (where the robot’s body might appear)
+        crop_top = int(0.70 * height)          # keep rows 0..(0.70*h - 1)
+        roi = img_copy[0:crop_top, :]          # drop bottom 30%
+
+        # 3) Convert that ROI to HSV
+        hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+
+        # 4) Build blue mask (water) in ROI
+        #    – you can tweak HSV thresholds if needed
+        lower_blue = np.array([110, 30, 100])
+        upper_blue = np.array([130, 255, 255])
+
+        mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
+
+        # 5) Build green mask (grass) in ROI
+        lower_green = np.array([20, 80,  76])
+        upper_green = np.array([40, 255, 255])
+        mask_green = cv2.inRange(hsv, lower_green, upper_green)
+
+        # 6) Combine “danger” = blue OR green
+        danger_mask_roi = cv2.bitwise_or(mask_blue, mask_green)
+
+        # 7) “Safe” mask is the inverse of danger, within the same ROI
+        safe_mask_roi = cv2.bitwise_not(danger_mask_roi)
+
+        # 8) Create a full‐image binary, but only fill the top 70% from safe_mask_roi
+        binary = np.zeros((height, width), dtype=np.uint8)
+        #  safe_mask_roi is single‐channel, size = (crop_top, width)
+        binary[0:crop_top, :][ safe_mask_roi > 0 ] = 255
+
+        # 9) Clean small holes/noise
+        kernel = np.ones((7, 7), np.uint8)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN,  kernel)
+
+        return binary
+    
+    
+    def find_centerline_via_contours(self, binary_img):
+        contours, _ = cv2.findContours(binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if not contours:
+            return None
+        main = max(contours, key=cv2.contourArea)
+        x, y, w, h = cv2.boundingRect(main)
+        center_x = x + w/2.0
+        return center_x, binary_img.shape[1]
+
+    def check_bridge_completion(self) -> bool:
+        """
+        Return True as soon as we see the exact color 0xFF655B (BGR = [91,101,255])
+        anywhere in the latest RGB frame.
+        """
+        if self.latest_arm_image is not None:
+            # Define the exact BGR color to match
+            target_bgr = np.array([91, 101, 255], dtype=np.uint8)
+
+            # Create a mask where pixels exactly equal [91,101,255]
+            mask_target = cv2.inRange(self.latest_arm_image, target_bgr, target_bgr)
+
+            if cv2.countNonZero(mask_target) > 0:
+                self.get_logger().info("Detected ff655b → stopping bridge crossing")
+                return True
+
+        return False
+
+
+
+    def process_bridge_image(self, image):
+        """Convert RGB/depth image to binary bridge mask"""
+        # Convert to grayscale
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        
+        # Apply threshold to separate bridge from surroundings
+        # You may need to adjust these thresholds based on your environment
+        _, binary = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
+        
+        # Optional: Apply morphological operations to clean the binary image
+        kernel = np.ones((5,5), np.uint8)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+        
+        return binary
+    
+    def find_centerline_via_contours(self, binary_img):
+        contours, _ = cv2.findContours(binary_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if not contours:
+            return None
+
+        main = max(contours, key=cv2.contourArea)
+        x, y, w, h = cv2.boundingRect(main)
+        center_x = x + w / 2.0
+        return center_x, binary_img.shape[1]  # return (center_x, image_width)
+
+    def find_bridge_centerline(self, binary_img):
+        """Find the centerline of the bridge using skeletonization"""
+        
+        # Normalize binary image for skeletonization (0 and 1 values)
+        normalized = binary_img.copy() / 255
+        
+        # Apply skeletonization
+        skeleton = skeletonize(normalized)
+        
+        # Convert back to uint8 for OpenCV processing
+        skeleton_img = (skeleton * 255).astype(np.uint8)
+        
+        # If no skeleton found, return None
+        if np.sum(skeleton_img) == 0:
+            return None
+            
+        return skeleton_img
+
+    def calculate_centerline_offset(self, centerline_img):
+        """Calculate robot's offset from the centerline"""
+        # Find centerline points
+        height, width = centerline_img.shape
+        
+        # We're interested in the bottom half of the image (closest to robot)
+        lower_half = centerline_img[height//2:, :]
+        
+        # Find all non-zero points (centerline points)
+        points = np.where(lower_half > 0)
+        
+        if len(points[0]) == 0:
+            return 0  # No centerline points found
+        
+        # Calculate average x position of centerline
+        avg_x = np.mean(points[1])
+        
+        # Calculate offset from center of image
+        center_x = width / 2
+        offset = avg_x - center_x
+        
+        return offset
+
+    def bridge_pid_control(self, offset, kp=0.005, kd=0.0005, ki=0.0001):
+        """Apply PID control with dead zone for stability"""
+        # Static variables for PID
+        if not hasattr(self, 'prev_offset'):
+            self.prev_offset = 0
+        if not hasattr(self, 'integral'):
+            self.integral = 0
+        
+        # Create a dead zone - ignore very small offsets
+        dead_zone = 10  # pixels
+        if abs(offset) < dead_zone:
+            offset = 0
+            self.integral = 0  # Reset integral when in dead zone
+        
+        # PID calculations with much lower gains
+        proportional = offset
+        derivative = offset - self.prev_offset
+        self.integral += offset
+        
+        # Prevent integral windup
+        max_integral = 50  # Reduced from 100
+        self.integral = max(min(self.integral, max_integral), -max_integral)
+        
+        # Try positive sign if negative doesn't work
+        angular_velocity = (kp * proportional + kd * derivative + ki * self.integral)
+        angular_velocity = -angular_velocity  # Reverse direction for right turn
+        
+        # Very limited maximum angular velocity
+        max_angular = 0.2  # Low maximum angular velocity
+        angular_velocity = max(min(angular_velocity, max_angular), -max_angular)
+        
+        self.get_logger().info(f"Offset: {offset:.2f}, Angular vel: {angular_velocity:.4f}")
+        
+        self.prev_offset = offset
+        
+        # Very slow forward speed
+        linear_velocity = 0.05
+        
+        return linear_velocity, angular_velocity
+
+    def send_velocity_cmd(self, linear_vel, angular_vel):
+        """Send velocity commands to the robot"""
+        # Use your existing command methods or implement a new one
+        self.setSpeed(linear_vel, angular_vel)
+    
+    def setSpeed(self, linear_vel, angular_vel):
+        """Publish velocity commands to the robot's cmd_vel topic"""
+        
+        # Create Twist message
+        twist_msg = Twist()
+        twist_msg.linear.x = linear_vel
+        twist_msg.angular.z = angular_vel
+        
+        # Publish the message
+        self.vel_publisher.publish(twist_msg)
+        self.get_logger().debug(f'Published velocity command: linear={linear_vel}, angular={angular_vel}')
     
     def execute_face_behavior(self, task):
         time.sleep(1.0)  # Wait for guaranteed gender detection
@@ -672,7 +1048,7 @@ class HybridController(RobotCommander):
         self.rotate_towards_point(x, y)
         time.sleep(1.0)
         
-        image = self.latest_arm_image
+        image = self.latest_arm_image.copy()
         if image is None:
             self.get_logger().error("No image received from arm camera")
             return
@@ -688,6 +1064,11 @@ class HybridController(RobotCommander):
             return
         
         self.get_logger().info(f"Detected bird species: {bird_name}")
+        
+        # Add the bird name and image AND NOTHING ELSE to the bird catalogue
+        if bird_name not in self.bird_catalogue:
+            self.bird_catalogue[bird_name] = image
+            self.get_logger().info(f"Added {bird_name} to bird catalogue.")
         
         # Add the bird name to the photographed_birds dictionary by making an object with pose and color
         if bird_name not in self.photographed_birds:
