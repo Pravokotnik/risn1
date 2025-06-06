@@ -144,12 +144,13 @@ class RobotCommander(Node):
         # Create a timer to check proximity periodically
         self.proximity_tolerance = tolerance
         self.target_position = (pose.pose.position.x, pose.pose.position.y)
-        self.proximity_timer = self.create_timer(0.1, self._checkProximity)
+        self.proximity_timer = self.create_timer(0.5, self._checkProximity)
         
         return True
 
     def _checkProximity(self):
         """Check if robot is within tolerance distance of target and cancel if so."""
+        self.get_logger().info("Check proximity timer triggered.")
         if not hasattr(self, 'current_pose') or not self.current_pose:
             return
             
@@ -164,7 +165,6 @@ class RobotCommander(Node):
         if distance <= self.proximity_tolerance:
             self.info(f'Reached proximity target (distance: {distance:.2f}m <= {self.proximity_tolerance}m)')
             self.cancelTask()
-            self.destroy_timer(self.proximity_timer)
 
     def spin(self, spin_dist=1.57, time_allowance=10):
         self.debug("Waiting for 'Spin' action server")
@@ -234,6 +234,14 @@ class RobotCommander(Node):
     def cancelTask(self):
         """Cancel pending task request of any type."""
         self.info('Canceling current task.')
+        try:
+            self.destroy_timer(self.proximity_timer)
+            self.proximity_timer = None
+        except AttributeError:
+            self.debug('No proximity timer to destroy.')
+        except Exception as e:
+            self.error(f'Error destroying proximity timer: {e}')
+        
         if self.result_future:
             future = self.goal_handle.cancel_goal_async()
             rclpy.spin_until_future_complete(self, future, timeout_sec=0.5)

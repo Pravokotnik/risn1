@@ -96,13 +96,14 @@ class RingFilter(Node):
             self.get_logger().info("No robot pose available - cannot process ring detection")
             return
         
-        # distance = np.linalg.norm(np.array([
-        #     target_point.x,
-        #     target_point.y
-        # ]))
-        # if distance > 1.25:
-        #     self.get_logger().info(f"Face too far away ({distance:.2f}m), ignoring")
-        #     return
+        target_point = msg.target_pose.pose.position
+        distance = np.linalg.norm(np.array([
+            target_point.x,
+            target_point.y
+        ]))
+        if distance > 3.0:
+            self.get_logger().info(f"Face too far away ({distance:.2f}m), ignoring")
+            return
         # if distance < 0.15:
         #     self.get_logger().info(f"Face too close ({distance:.2f}m), ignoring")
         #     return
