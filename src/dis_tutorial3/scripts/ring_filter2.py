@@ -73,6 +73,7 @@ class RingFilter(Node):
             'points': deque(maxlen=self.min_cluster_size+5),  # Stores tuples of (position, destination, robot_pose_at_detection)
             'position': None,            # Current average position
             'normal_dir': 0,         # positive=left/right, negative=up/down
+            'color' : "unknown",  # Color of the ring
             'last_published_position': None,    # Last published position
             'last_published_normal': 0  # 1 - left/right, -1 - up/down, 0 - not yet published
         })
@@ -166,7 +167,7 @@ class RingFilter(Node):
             return
         
         self.publish_vector_to_map(normal, map_point)
-        self.process_clusters(map_point, normal)
+        self.process_clusters(map_point, normal, color)
     
     def axis_align(self, normal, threshold_degrees=5.0):
         """
@@ -313,7 +314,7 @@ class RingFilter(Node):
             return None
         
 
-    def process_clusters(self, position, normal):
+    def process_clusters(self, position, normal, color):
         """
         Cluster faces based on position and destination similarity
         with improved distance checking and publication tracking
@@ -344,6 +345,9 @@ class RingFilter(Node):
             # Match if within thresholds for both position and destination
             if pos_distance < self.cluster_radius:
                 matched_cluster = cluster_id
+                
+                # Store the color for this cluster
+                cluster_data['color'] = color
                 
                 # Increment normal counters (Always axis aligned)
                 if abs(normal[0]) > 0.5:
@@ -397,7 +401,7 @@ class RingFilter(Node):
                     self.current_robot_pose
                 ))
                 self.position_history[matched_cluster]['position'] = position
-                
+                self.position_history[matched_cluster]['color'] = color  # Store color for new cluster
                 
                 # Publish emergency task to stop robot and look at detection, so that we can make sure it is not a false positive
                 self.publish_emergency(position)
@@ -526,7 +530,11 @@ class RingFilter(Node):
         x = position.x
         y = position.y
         
-        task.description = f"Ring cluster {cluster_id}|{x:.2f},{y:.2f}"
+        color = cluster['color'] if cluster['color'] != "unknown" else "unknown"
+        if color == "unknown":
+            self.get_logger().error(f"Cluster {cluster_id} has unknown color, using default")
+            
+        task.description = f"{color}|Ring cluster {cluster_id}|{x:.2f},{y:.2f}"
         self.task_pub.publish(task)
         self.get_logger().info(f"Published task for cluster {cluster_id} at {task.target_pose.pose.position.x}, {task.target_pose.pose.position.y}, {task.target_pose.pose.position.z}")
 

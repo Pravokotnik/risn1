@@ -30,7 +30,7 @@ class FaceFilter(Node):
         
         # Priority levels for task management
         self.PRIORITY_EMERGENCY = 10  # Highest priority for urgent situations
-        self.PRIORITY_FACE = 2        # Normal priority for face interactions
+        self.PRIORITY_FACE = 0        # Normal priority for face interactions
         
         # TF2 setup for coordinate transformations
         self.tf_buffer = Buffer()  # Stores transform data

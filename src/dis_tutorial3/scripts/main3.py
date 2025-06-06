@@ -299,7 +299,7 @@ class HybridController(RobotCommander):
             "red headed woodpecker"
         ]
         
-        
+        self.photographed_birds = {}
         
         
         self._next_marker_id = 500
@@ -311,7 +311,7 @@ class HybridController(RobotCommander):
         self.get_logger().info("Priority-based controller ready")
         
         self.seen_ids = {}
-
+        
     def task_callback(self, msg):
         self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
     
@@ -572,12 +572,8 @@ class HybridController(RobotCommander):
                 continue
             
             # Check if the response contains a bird name
-            if self.check_for_bird_in_text(text):
-                mentioned_bird = None
-                for bird in self.bird_names:
-                    if bird in text.lower():
-                        mentioned_bird = bird
-                        break
+            mentioned_bird = self.check_for_bird_in_text(text)
+            if mentioned_bird is not None:
                 
                 # If they are male and already mentioned the bird before, the answer is now locked in
                 if mentioned_bird in selected_birds:
@@ -600,9 +596,14 @@ class HybridController(RobotCommander):
             else:
                 self.yapper.yap("I didn't understand that. Please mention a bird name or say 'yes' to confirm.")
         
-        self.yapper.yap(f"Great! You like {selected_birds[-1]}. I will remember that.")
-        self.yapper.yap("Kill yourself.")
-        time.sleep(5.0)
+        selected_bird = selected_birds[-1]
+        self.get_logger().info(f"Selected bird: {selected_bird}")
+        if selected_bird not in self.photographed_birds:
+            self.yapper.yap(f"I'm sorry, I don't have a photo of {selected_bird}.")
+        else:
+            message = f"There is a {selected_bird} sitting on a {self.photographed_birds[selected_bird]['color']} ring at around {self.photographed_birds[selected_bird]['pose'].pose.position.x:.2f}, {self.photographed_birds[selected_bird]['pose'].pose.position.y:.2f}."
+            self.get_logger().info(f"Yapping: {message}")
+            self.yapper.yap(message)
 
     
     def get_sst_text(self):
@@ -624,13 +625,28 @@ class HybridController(RobotCommander):
         return None
     
     def check_for_bird_in_text(self, text):
-        pass
+        # convert bird_names to a list where each field is one lowercase word from each bird name
+        bird_words = [word.lower() for bird in self.bird_names for word in bird.split()]
+        # Remove words that appear in more than one bird name completely. Don't want them in the list even once
+        bird_words = [word for word in bird_words if sum(word in b.lower() for b in self.bird_names) == 1]
+        
+        # Check if any of the bird words are in the text
+        for word in bird_words:
+            if word in text.lower():
+                # Find the full bird name that contains this word
+                for bird in self.bird_names:
+                    if word in bird.lower():
+                        self.get_logger().info(f"Found bird name '{bird}' in text: {text}")
+                        return bird
+        
+        self.get_logger().info(f"No bird name found in text: {text}")
+        return None
     
     def execute_ring_behavior(self, task):
         # First get the ring position from the description
         description = task['description']
         description_split = description.split('|')
-        if len(description_split) < 2:
+        if len(description_split) < 3:
             self.get_logger().error("Invalid ring description format")
             return
         # Get x and y coordinates from last part of the description
@@ -646,6 +662,8 @@ class HybridController(RobotCommander):
             self.get_logger().error("Invalid ring coordinates values")
             return
         
+        color = description_split[0].strip().lower()
+        
         # Rotate to face the ring
         self.get_logger().info(f"Rotating to face ring at ({x}, {y})")
         
@@ -659,10 +677,24 @@ class HybridController(RobotCommander):
         
         # Put image through AI model to detect bird species
         bird_name = predict_bird_name(image)
+        
+        # Replace underscores with spaces and set to lowercase
+        bird_name = bird_name.replace('_', ' ').lower()
+        # Check if the bird name is in the list of known birds
+        if bird_name not in self.bird_names:
+            self.get_logger().error(f"Detected bird species '{bird_name}' is not in the known list.")
+            return
+        
         self.get_logger().info(f"Detected bird species: {bird_name}")
         
-        cv2.imshow(f"Bird: {bird_name}", image)
-        cv2.waitKey(0)
+        # Add the bird name to the photographed_birds dictionary by making an object with pose and color
+        if bird_name not in self.photographed_birds:
+            self.photographed_birds[bird_name] = {
+                'pose': task['pose'],
+                'color': color,
+            }
+        else:
+            self.get_logger().warn(f"Already photographed {bird_name}.")
         
         
     def rotate_towards_point(self, target_x, target_y):
