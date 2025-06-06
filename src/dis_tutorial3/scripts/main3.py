@@ -483,6 +483,8 @@ class HybridController(RobotCommander):
             create_pose(1.07, 4.34, 0.00),
             create_pose(0.65, 5.87, -0.00),
             create_pose(-2.85, 6.17, -0.00),
+            create_pose(-3.06, 7.19, -0.00),
+            create_pose(-3.65, 1.62, -0.00),
             create_pose(-3.07, 2.77, -0.00),
             create_pose(-2.37, 1.39, 0.00),
             create_pose(0.0, 0.0, 0.00),
