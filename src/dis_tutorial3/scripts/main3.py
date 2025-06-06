@@ -324,6 +324,7 @@ class HybridController(RobotCommander):
         self.photographed_birds = {}
         self.bird_catalogue = {}
         
+        self.saw_red_pixel = False
         
         self._next_marker_id = 500
         
@@ -570,6 +571,7 @@ class HybridController(RobotCommander):
             completed = False
             if task['type'] == "ring":
                 completed = self.goToPoseProximity(task['pose'], 0.6)
+                # completed = True
             else:
                 completed = self.goToPose(task['pose'])
             if completed:
@@ -802,8 +804,11 @@ class HybridController(RobotCommander):
             # Create a mask where pixels exactly equal [91,101,255]
             mask_target = cv2.inRange(self.latest_arm_image, target_bgr, target_bgr)
 
-            if cv2.countNonZero(mask_target) > 0:
-                self.get_logger().info("Detected ff655b → stopping bridge crossing")
+            if cv2.countNonZero(mask_target) > 0 and not self.saw_red_pixel:
+                self.saw_red_pixel = True
+                self.get_logger().info("Detected ff655b")
+            elif cv2.countNonZero(mask_target) == 0 and self.saw_red_pixel:
+                self.get_logger().info("Lost sight of ff655b")
                 return True
 
         return False
