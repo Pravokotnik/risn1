@@ -325,6 +325,7 @@ class HybridController(RobotCommander):
         self.bird_catalogue = {}
         
         self.saw_red_pixel = False
+        self.in_final_phase = False
         
         self._next_marker_id = 500
         
@@ -337,6 +338,9 @@ class HybridController(RobotCommander):
         self.seen_ids = {}
         
     def task_callback(self, msg):
+        if self.in_final_phase:
+            self.get_logger().warn("Ignoring task in final phase")
+            return
         self.add_task(msg.priority, msg.task_type, msg.target_pose, msg.description, task_id=msg.id)
     
     def gender_callback(self, msg):
@@ -568,6 +572,8 @@ class HybridController(RobotCommander):
     def execute_task(self, task):
         """Navigate to the pose and handle post-arrival behavior"""
         try:
+            if task['type'] == "bridge":
+                self.in_final_phase = True
             completed = False
             if task['type'] == "ring":
                 completed = self.goToPoseProximity(task['pose'], 0.6)
